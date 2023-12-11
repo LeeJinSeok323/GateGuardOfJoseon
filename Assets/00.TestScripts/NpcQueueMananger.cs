@@ -8,6 +8,7 @@ using static NpcCreateParameter;
 public class NpcQueueMananger : MonoBehaviour
 {
     public List<Transform> Positions;
+    public Transform GatePostion;
 
     private Queue<Npc> npcQueue = new Queue<Npc>();
 
@@ -20,7 +21,6 @@ public class NpcQueueMananger : MonoBehaviour
             Npc npc = NPCList[currentQueueIndex].GetComponent<Npc>();
             if (npc.npcType == NpcType.Gate)
             {
-                
                 npcQueue.Enqueue(npc);
 
                 // 현재 줄에 있는 NPC의 위치로 이동
@@ -45,6 +45,7 @@ public class NpcQueueMananger : MonoBehaviour
         {
             // 큐에서 NPC 제거
             Npc leavingNPC = npcQueue.Dequeue();
+            NpcManager.Instance.ChangeToWalk(leavingNPC.ID, GatePostion.position);
 
             // 앞으로 당겨진 위치로 이동
             for (int i = 0; i < npcQueue.Count; i++)

@@ -56,7 +56,9 @@ public class NpcBehavior_Stay : MonoBehaviour
                     break;
 
                 case State.LOOK:
-                    this.transform.LookAt(player.transform);
+                    Vector3 targetPosition = player.transform.position;
+                    targetPosition.y = transform.position.y;
+                    this.transform.LookAt(targetPosition);
                     state = State.IDLE;
                     break;
             }

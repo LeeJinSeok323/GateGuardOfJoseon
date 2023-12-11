@@ -6,23 +6,44 @@ using static NpcCreateParameter;
 public class NpcManager : MonoBehaviour
 {
     public List<Dictionary<string, object>> data_Dialog;
-
     private static NpcManager instance;
-    public GameObject GateNpc;
-    public GameObject StayNpc;
-    public GameObject PatrolNpc;
+
+    public GameObject StayNpc1;
+    public GameObject StayNpc2;
+    public GameObject StayNpc3;
+
+    public GameObject PatrolNpc1;
+    public GameObject PatrolNpc2;
+
+    public GameObject GateNpc1;
+    public GameObject GateNpc2;
+    public GameObject GateNpc3;
+    public GameObject GateNpc4;
+    public GameObject GateNpc5;
+
     public GameObject RunNpc;
 
-    public Vector3 PassPoint = new Vector3(11, 0, 22);
-    public Vector3 DeninedPoint = new Vector3(13, 0, 5);
+    public Vector3 PassPoint;
+    public Vector3 DeninedPoint;
 
     public static NpcManager Instance
     {
         get 
         { 
             if (instance == null)
-                return null;
+            {
+                instance = FindObjectOfType<NpcManager>();
 
+                if (instance == null)
+                {
+                    // Ã£À» ¼ö ¾øÀ¸¸é »õ·Î¿î GameObject¿¡ Ãß°¡ÇÏ¿© »ý¼º
+                    GameObject obj = new GameObject("NpcManager");
+                    instance = obj.AddComponent<NpcManager>();
+                }
+
+                DontDestroyOnLoad(instance.gameObject);
+            }
+                
             return instance; 
         }
     }
@@ -36,6 +57,7 @@ public class NpcManager : MonoBehaviour
             DontDestroyOnLoad(this.gameObject);
         }
         InitTable();
+        Debug.Log("Å×ÀÌºí ¿Ï");
     }
 
     public void InitTable()
@@ -74,25 +96,65 @@ public class NpcManager : MonoBehaviour
         switch (parm.npcType)
         {
             case NpcType.Stay:
-                npc = GameObject.Instantiate(StayNpc);
-                npc.transform.parent = this.transform;
-                AddParameters(npc, parm);
+                switch (parm.Status)
+                {
+                    case "Ãµ¹Î":
+                        npc = GameObject.Instantiate(StayNpc1);
+                    break;
+
+                    case "¾ç¹Î":
+                        npc = GameObject.Instantiate(StayNpc2);
+                    break;
+
+                    case "»ó¹Î":
+                        npc = GameObject.Instantiate(StayNpc3);
+                    break;
+                }
                 break;
             case NpcType.Patrol:
-                npc = GameObject.Instantiate(PatrolNpc);
-                npc.transform.parent = this.transform;
-                npc = GameObject.Instantiate(GateNpc);
+                switch (parm.Status)
+                {
+                    case "Ãµ¹Î":
+                        npc = GameObject.Instantiate(PatrolNpc1);
+                    break;
+
+                    case "¾ç¹Î":
+                        npc = GameObject.Instantiate(PatrolNpc2);
+                    break;
+                }
                 break;
             case NpcType.Gate:
-                npc = GameObject.Instantiate(GateNpc);
-                npc.transform.parent = this.transform;
-                AddParameters(npc, parm);
+                switch (parm.Status)
+                {
+                    case "Ãµ¹Î":
+                        npc = GameObject.Instantiate(GateNpc1);
+                    break;
+
+                    case "¾ç¹Î":
+                        npc = GameObject.Instantiate(GateNpc2);
+                    break;
+
+                    case "»ó¹Î":
+                        npc = GameObject.Instantiate(GateNpc3);
+                    break;
+
+                    case "ÁßÀÎ":
+                        npc = GameObject.Instantiate(GateNpc4);
+                    break;
+
+                    case "¾ç¹Ý":
+                        npc = GameObject.Instantiate(GateNpc5);
+                    break;
+                }
                 break;
             case NpcType.Run:
-                npc = GameObject.Instantiate(RunNpc);
-                npc.transform.parent = this.transform;
-                AddParameters(npc, parm);
-                break;
+            break;
+        }
+
+        if(npc != null)
+        {
+            npc.transform.parent = this.transform;
+            AddParameters(npc, parm);
         }
 
         return npc;

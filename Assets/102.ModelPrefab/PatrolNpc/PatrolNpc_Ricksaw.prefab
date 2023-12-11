@@ -1275,10 +1275,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4407302680779725045}
   - component: {fileID: 6245799110473291970}
-  - component: {fileID: 8394350102869492155}
   - component: {fileID: 4256504867655568136}
   - component: {fileID: 5623238292603770789}
   - component: {fileID: 1489498320647575301}
+  - component: {fileID: -4451696160198579807}
   m_Layer: 10
   m_Name: PatrolNpc_Ricksaw
   m_TagString: NPC
@@ -1295,7 +1295,7 @@ Transform:
   m_GameObject: {fileID: 3414042372672647284}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -14.750913, y: 0.00000023841858, z: -9.550521}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1325,18 +1325,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &8394350102869492155
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3414042372672647284}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 292eff35c001c514b842a51ccfe14b2c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!195 &4256504867655568136
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1344,10 +1332,10 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3414042372672647284}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 2
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -1406,6 +1394,18 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-4451696160198579807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3414042372672647284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a70c55c64e5fe3c41bebab5448ab591a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3437707443084370256
 GameObject:
   m_ObjectHideFlags: 0

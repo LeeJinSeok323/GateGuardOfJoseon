@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.AI;
 using static UnityEngine.GraphicsBuffer;
 
-public class NpcBehavior_Partrol : MonoBehaviour
+public class NpcBehavior_Partrol1 : MonoBehaviour
 {
-    private Vector3[] targets =
+    private Vector3[] targets3 =
     {
         new Vector3(4, 0, -44),
         new Vector3(-15, 0, -44),
@@ -22,7 +22,7 @@ public class NpcBehavior_Partrol : MonoBehaviour
         new Vector3(-34, 0, -172),
     };
 
-    private Vector3[] targets3 =
+    private Vector3[] targets =
     {
         new Vector3(54, 0, -143),
         new Vector3(47, 0, -154),
@@ -42,8 +42,8 @@ public class NpcBehavior_Partrol : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
 
         Invoke("ActivateNavMeshAgent", 0.5f);
-        StartCoroutine(PartolPoint());
 
+        StartCoroutine(PartolPoint());
     }
 
     private void ActivateNavMeshAgent()
@@ -55,7 +55,6 @@ public class NpcBehavior_Partrol : MonoBehaviour
         // NavMeshAgent를 사용하여 이동 설정
         agent.SetDestination(currentTarget);
     }
-
     IEnumerator PartolPoint()
     {
         yield return new WaitForSeconds(0.5f);
