@@ -82,17 +82,17 @@ public class NpcBehavior_Gate : MonoBehaviour
             switch (state)
             {
                 case State.IDLE:
-                    anim.SetBool("isIdle", true);
+                    //anim.SetBool("isIdle", true);
                     anim.SetBool("isWalk", false);
                     anim.SetBool("isTalk", false);
                     break;
                 case State.WALK:
                     anim.SetBool("isWalk", true);
-                    anim.SetBool("isIdle", false);
+                    //anim.SetBool("isIdle", false);
                     break;
                 case State.TALK:
                     anim.SetBool("isTalk", true);
-                    anim.SetBool("isIdle", false);
+                    //anim.SetBool("isIdle", false);
                     break;
             }
 

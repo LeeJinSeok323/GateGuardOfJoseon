@@ -452,7 +452,7 @@ Transform:
   m_GameObject: {fileID: 464346461}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.0880084, y: 2.083315, z: -2.9939728}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1145,11 +1145,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb333b9f1b4e3b64a93f2605b3cf6ae2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GateNpc: {fileID: 4085673203168092258, guid: abbeae87d1dc0784ea74208ec6438a23, type: 3}
-  StayNpc: {fileID: 7075623690495444495, guid: d8ba903b3befd5b40a96ca4c981db945, type: 3}
-  PatrolNpc: {fileID: 6553470084250628228, guid: 948ee12bfd5e9a94fb314e75034a90b7,
+  GateNpc: {fileID: 61205480365114336, guid: 184763385c2a0b9408d5dfb65e3cdffb, type: 3}
+  StayNpc: {fileID: 1985755147129903473, guid: 6476f236db52d8544af686b1a79b68ae, type: 3}
+  PatrolNpc: {fileID: 3414042372672647284, guid: ff147af820897884199bdc29cf737804,
     type: 3}
-  RunNpc: {fileID: 7075623690495444495, guid: d8ba903b3befd5b40a96ca4c981db945, type: 3}
+  RunNpc: {fileID: 9132641041596016924, guid: 7f3dd52944389d84d9497546076107d8, type: 3}
   PassPoint: {x: 11, y: 0, z: 22}
   DeninedPoint: {x: 13, y: 0, z: 5}
 --- !u!4 &865162852
@@ -1161,7 +1161,7 @@ Transform:
   m_GameObject: {fileID: 865162850}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 21.10897, y: -4.3888865, z: 5.598956}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1236,7 +1236,7 @@ Transform:
   m_GameObject: {fileID: 1054846581}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.2093303, y: -2.473524, z: 11.807298}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

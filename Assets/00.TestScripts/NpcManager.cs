@@ -75,64 +75,55 @@ public class NpcManager : MonoBehaviour
         {
             case NpcType.Stay:
                 npc = GameObject.Instantiate(StayNpc);
-                npc.GetComponent<Npc>().npcType = parm.npcType;
-                npc.GetComponent<Npc>().ID = parm.Number;
-                npc.GetComponent<Npc>().Name = parm.Name;
-                npc.GetComponent<Npc>().Age = parm.Age;
-                npc.GetComponent<Npc>().Gender = parm.Gender;
-                npc.GetComponent<Npc>().Style = parm.Style;
-                npc.GetComponent<Npc>().Status = parm.Status;
-                npc.GetComponent<Npc>().Hometown = parm.Hometown;
-                npc.GetComponent<Npc>().Job = parm.Job;
-
-                npc.GetComponent<Npc>().WalkSpeed = parm.WalkSpeed;
-                npc.GetComponent<Npc>().RunSpeed = parm.RunSpeed;
-                npc.GetComponent<Npc>().IsRunning = parm.IsRunning;
+                npc.transform.parent = this.transform;
+                AddParameters(npc, parm);
                 break;
             case NpcType.Patrol:
                 npc = GameObject.Instantiate(PatrolNpc);
-                npc.GetComponent<Npc>().npcType = parm.npcType;
-                npc.GetComponent<Npc>().ID = parm.Number;
-                npc.GetComponent<Npc>().Name = parm.Name;
-                npc.GetComponent<Npc>().Age = parm.Age;
-                npc.GetComponent<Npc>().Gender = parm.Gender;
-                npc.GetComponent<Npc>().Style = parm.Style;
-                npc.GetComponent<Npc>().Status = parm.Status;
-                npc.GetComponent<Npc>().Hometown = parm.Hometown;
-                npc.GetComponent<Npc>().Job = parm.Job;
-
-                npc.GetComponent<Npc>().WalkSpeed = parm.WalkSpeed;
-                npc.GetComponent<Npc>().RunSpeed = parm.RunSpeed;
-                npc.GetComponent<Npc>().IsRunning = parm.IsRunning;
+                npc.transform.parent = this.transform;
+                npc = GameObject.Instantiate(GateNpc);
                 break;
             case NpcType.Gate:
                 npc = GameObject.Instantiate(GateNpc);
-                npc.GetComponent<Npc>().npcType = parm.npcType;
-                npc.GetComponent<Npc>().ID = parm.Number;
-                npc.GetComponent<Npc>().Name = parm.Name;
-                npc.GetComponent<Npc>().Age = parm.Age;
-                npc.GetComponent<Npc>().Gender = parm.Gender;
-                npc.GetComponent<Npc>().Style = parm.Style;
-                npc.GetComponent<Npc>().Status = parm.Status;
-                npc.GetComponent<Npc>().Hometown = parm.Hometown;
-                npc.GetComponent<Npc>().Job = parm.Job;
-
-                npc.GetComponent<Npc>().WalkSpeed = parm.WalkSpeed;
-                npc.GetComponent<Npc>().RunSpeed = parm.RunSpeed;
-                npc.GetComponent<Npc>().IsRunning = parm.IsRunning;
+                npc.transform.parent = this.transform;
+                AddParameters(npc, parm);
                 break;
             case NpcType.Run:
                 npc = GameObject.Instantiate(RunNpc);
-                npc.GetComponent<Npc>().npcType = parm.npcType;
-                npc.GetComponent<Npc>().ID = parm.Number;
-                npc.GetComponent<Npc>().WalkSpeed = parm.WalkSpeed;
-                npc.GetComponent<Npc>().RunSpeed = parm.RunSpeed;
-                npc.GetComponent<Npc>().IsRunning = parm.IsRunning;
+                npc.transform.parent = this.transform;
+                AddParameters(npc, parm);
                 break;
         }
 
         return npc;
 
+    }
+
+    private void AddParameters(GameObject npc, NpcCreateParameter parm)
+    {
+        Npc npcComponent = npc.GetComponent<Npc>();
+
+        if (npcComponent != null)
+        {
+ 
+            npcComponent.npcType = parm.npcType;
+            npcComponent.ID = parm.Number;
+            npcComponent.Name = parm.Name;
+            npcComponent.Age = parm.Age;
+            npcComponent.Gender = parm.Gender;
+            npcComponent.Style = parm.Style;
+            npcComponent.Status = parm.Status;
+            npcComponent.Hometown = parm.Hometown;
+            npcComponent.Job = parm.Job;
+
+            npcComponent.WalkSpeed = parm.WalkSpeed;
+            npcComponent.RunSpeed = parm.RunSpeed;
+            npcComponent.IsRunning = parm.IsRunning;
+        }
+        else
+        {
+            Debug.LogWarning("GameObject에서 Npc 컴포넌트를 찾을 수 없습니다: " + npc.name);
+        }
     }
 
     public int GetIdByObject(GameObject Object)
