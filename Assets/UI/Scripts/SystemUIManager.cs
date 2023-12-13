@@ -53,7 +53,7 @@ public class SystemUIManager : MonoBehaviour
         }
     }
 
-    private void TogglePause()
+    public void TogglePause()
     {
         isPaused = !isPaused;
         Time.timeScale = isPaused ? 0f : 1f;
@@ -73,8 +73,15 @@ public class SystemUIManager : MonoBehaviour
     public void ToggleKeyNoti()
     {  
         isNoti = !isNoti;
-        Keynoti.SetActive(false);
-        Defaultbutton.SetActive(false);
+        Keynoti.SetActive(isNoti);
+        if (isNoti == true)
+        {
+            Defaultbutton.SetActive(false);
+        }
+        else
+        {
+            Defaultbutton.SetActive(true);
+        }
     }
     // 추가 UI 제어 메소드
 }
