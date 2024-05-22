@@ -1,4 +1,3 @@
-using NpcInfoManagerSpace;
 using OpenAi.Examples;
 using System.Collections;
 using System.Collections.Generic;

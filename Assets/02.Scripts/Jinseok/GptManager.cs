@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using OpenAi.Unity.V1;
-using NpcInfoManagerSpace;
+
 
 namespace OpenAi.Examples
 {

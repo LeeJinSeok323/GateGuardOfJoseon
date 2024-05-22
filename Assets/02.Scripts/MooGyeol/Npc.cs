@@ -12,12 +12,12 @@ public class Npc : MonoBehaviour
     public int Age;
     public string Gender;
     public string Style;
-    public string Status;
     public string Hometown;
+    public string Status;
     public string Job;
-    public float WalkSpeed;
-    public float RunSpeed;
-    public bool IsRunning;
+    public string PassPurpose;
+    public string NpcDaily;
+
     #endregion
 
 }

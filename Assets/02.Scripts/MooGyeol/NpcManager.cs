@@ -59,7 +59,7 @@ public class NpcManager : MonoBehaviour
         InitTable();
         //Debug.Log("테이블 완");
     }
-
+#region NPC 테이브 로드
     public void InitTable()
     {
         // NPC 테이블 로드
@@ -86,7 +86,9 @@ public class NpcManager : MonoBehaviour
 
         return null; 
     }
+#endregion
 
+    
 
     public GameObject CreateNPC(NpcCreateParameter parm)
     {
@@ -167,20 +169,18 @@ public class NpcManager : MonoBehaviour
 
         if (npcComponent != null)
         {
- 
             npcComponent.npcType = parm.npcType;
             npcComponent.ID = parm.Number;
             npcComponent.Name = parm.Name;
             npcComponent.Age = parm.Age;
             npcComponent.Gender = parm.Gender;
             npcComponent.Style = parm.Style;
-            npcComponent.Status = parm.Status;
             npcComponent.Hometown = parm.Hometown;
+            npcComponent.Status = parm.Status;
             npcComponent.Job = parm.Job;
+            npcComponent.PassPurpose = pram.PassPurpose;
+            npcComponent.NpcDaily = pram.NpcDaily;
 
-            npcComponent.WalkSpeed = parm.WalkSpeed;
-            npcComponent.RunSpeed = parm.RunSpeed;
-            npcComponent.IsRunning = parm.IsRunning;
         }
         else
         {
@@ -314,12 +314,11 @@ public class NpcManager : MonoBehaviour
             npc.Age,
             npc.Gender,
             npc.Style,
-            npc.Status,
             npc.Hometown,
+            npc.Status,
             npc.Job,
-            npc.WalkSpeed,
-            npc.RunSpeed,
-            npc.IsRunning
+            npc.PassPurpose,
+            npc.NpcDaily
             );
 
         return pram;
