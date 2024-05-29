@@ -43,8 +43,7 @@ public class Stage_1 : MonoBehaviour
         new Vector3(19, 0, -147),
         new Vector3(29, 0, -149),
         new Vector3(35, 0, -145),
-        new Vector3(-26, 0, -143),
-        
+        new Vector3(-26, 0, -143)
     };
 
     //PatrolNPC 리스트
@@ -95,7 +94,7 @@ public class Stage_1 : MonoBehaviour
     public void Start()
     {
         // NpcInfoGenerator.cs에서 List<string> Table들에 접근하기 위함.
-        n = GetComponent<NpcInfoGenerater>();
+        n = NpcInfoGenerater.Instance;
         //NPC 파라미터 생성
         SetParameters(ref _stayNpcParams, NpcType.Stay, 20);
         SetParameters(ref _patrolNpcParams, NpcType.Patrol, 8);
@@ -121,6 +120,7 @@ public class Stage_1 : MonoBehaviour
             GameObject Gatenpc = NpcManager.Instance.CreateNPC(_actionNpcParams[i]);
         }
 
+        
         //GateNpc 리스트에 추가
         // AddGateNpcList(1);
         // AddGateNpcList(20);
@@ -139,6 +139,7 @@ public class Stage_1 : MonoBehaviour
     // npcNumber만큼 npc 생성
     void SetParameters(ref NpcCreateParameter[] npcArray, NpcType type, int npcNumber)
     {    
+        
         npcArray = new NpcCreateParameter[npcNumber];
 
         for (int i = temp; i < temp + npcNumber; i++){

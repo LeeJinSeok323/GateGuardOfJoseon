@@ -56,9 +56,10 @@ public class NpcManager : MonoBehaviour
 
             DontDestroyOnLoad(this.gameObject);
         }
-        InitTable();
+        //InitTable();
         //Debug.Log("테이블 완");
     }
+    /*
 #region NPC 테이브 로드
     public void InitTable()
     {
@@ -87,19 +88,20 @@ public class NpcManager : MonoBehaviour
         return null; 
     }
 #endregion
-
+*/
     
 
     public GameObject CreateNPC(NpcCreateParameter parm)
     {
         //로드된 테이블에서 Type와 NpcNumber 지정
         GameObject npc = null;
-
+        
+        //Debug.Log($"NpcManager pram.Status = {parm.Status}");
         switch (parm.npcType)
         {
             case NpcType.Stay:
                 switch (parm.Status)
-                {
+                {   
                     case "천민":
                         npc = GameObject.Instantiate(StayNpc1);
                     break;
@@ -109,6 +111,9 @@ public class NpcManager : MonoBehaviour
                     break;
 
                     case "상민":
+                        npc = GameObject.Instantiate(StayNpc3);
+                    break;
+                    default:
                         npc = GameObject.Instantiate(StayNpc3);
                     break;
                 }
@@ -122,6 +127,9 @@ public class NpcManager : MonoBehaviour
 
                     case "양민":
                         npc = GameObject.Instantiate(PatrolNpc2);
+                    break;
+                    default:
+                        npc = GameObject.Instantiate(StayNpc3);
                     break;
                 }
                 break;
@@ -146,6 +154,9 @@ public class NpcManager : MonoBehaviour
 
                     case "양반":
                         npc = GameObject.Instantiate(GateNpc5);
+                    break;
+                    default:
+                        npc = GameObject.Instantiate(StayNpc3);
                     break;
                 }
                 break;
@@ -178,8 +189,9 @@ public class NpcManager : MonoBehaviour
             npcComponent.Hometown = parm.Hometown;
             npcComponent.Status = parm.Status;
             npcComponent.Job = parm.Job;
-            npcComponent.PassPurpose = pram.PassPurpose;
-            npcComponent.NpcDaily = pram.NpcDaily;
+            npcComponent.PassPurpose = parm.PassPurpose;
+            npcComponent.Item = parm.Item;
+            npcComponent.NpcDaily = parm.NpcDaily;
 
         }
         else
@@ -318,6 +330,7 @@ public class NpcManager : MonoBehaviour
             npc.Status,
             npc.Job,
             npc.PassPurpose,
+            npc.Item,
             npc.NpcDaily
             );
 

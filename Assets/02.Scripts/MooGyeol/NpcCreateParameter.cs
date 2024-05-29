@@ -9,13 +9,14 @@ public class NpcCreateParameter
         NpcType type, 
         int number, 
         string name, 
-        int age, 
+        string age, 
         string gender, 
         string style, 
         string status, 
         string town,
         string job,
         string passPurpose,
+        string item,
         string npcDaily)
     {
         npcType = type;
@@ -28,6 +29,7 @@ public class NpcCreateParameter
         Hometown = town;
         Job = job;
         PassPurpose = passPurpose;
+        Item = item;
         NpcDaily = npcDaily;
     }
 
@@ -44,12 +46,13 @@ public class NpcCreateParameter
     public NpcType npcType { get; set; }
     public int Number { get; set; }
     public string Name { get; set; }
-    public int Age { get; set; }
+    public string Age { get; set; }
     public string Gender { get; set; }
     public string Style { get; set; }
     public string Hometown { get; set; }
     public string Status { get; set; }
     public string Job { get; set; }
     public string PassPurpose { get; set; }
+    public string Item { get; set; }
     public string NpcDaily { get; set; }
 }

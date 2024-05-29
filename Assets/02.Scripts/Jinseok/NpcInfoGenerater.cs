@@ -4,6 +4,8 @@ using UnityEngine;
 using System;
 public class NpcInfoGenerater : MonoBehaviour
 {   
+    // 싱글톤 구현
+    private static NpcInfoGenerater instance = null;
     // 생성하고자 하는 npc 수
     public int npcNumber = 100;
     // CSV로 불러온 데이터들 저장.   
@@ -29,21 +31,32 @@ public class NpcInfoGenerater : MonoBehaviour
     public List<string> passPurposeTable;
     public List<string> npcDailyTable;
 
-    void Start(){
-        
+    void Awake(){
+        if(instance == null){
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else{
+            // 씬 이동시 삭제. 하기싫으면 지울것
+            Destroy(this.gameObject);
+        }
 
-
-        Debug.Log(nameList[1]);
         initTable();
         RandomTableGen();
-        //
-        for(int i = 0; i < 10 ; i++){
-            Debug.Log($"{nameTable[i]}, {ageTable[i]}, {homeTable[i]}");
+
+    }
+    // 게임 매니저 인스턴스에 접근할 수 있는 프로퍼티. 
+    // static이므로 다른 클래스에서 맘껏 호출할 수 있다.
+    public static NpcInfoGenerater Instance{
+        get{
+            if (instance == null){
+                return null;
+            }
+            return instance;
         }
     }
-    void RandomTableGen(){
-        
 
+    void RandomTableGen(){
         //Debug.Log($"{nameList[0]}");
         for (int i = 0; i < npcNumber; i++){
             nameTable.Add($"{ReturnRandElement(nameList)}");
@@ -64,7 +77,13 @@ public class NpcInfoGenerater : MonoBehaviour
         System.Random rnd = new System.Random();
         int idx = rnd.Next(0, list.Count);
         //Debug.Log(list[idx]);
-        return list[idx];
+        if (list[idx] == ""){
+            return ReturnRandElement(list);
+        }
+        else{
+            return list[idx];
+        }
+        
     }
 
     // CSV파일 로드 및 테이블 초기화
