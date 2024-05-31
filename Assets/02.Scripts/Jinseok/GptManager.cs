@@ -26,7 +26,7 @@ namespace OpenAi.Examples
                 return;
             }
 
-            Debug.Log("Performing Completion in Play Mode");
+            //Debug.Log("Performing Completion in Play Mode");
 
             Output.text = "Perform Completion...";
             OpenAiChatCompleterV1.Instance.Complete(
@@ -34,6 +34,7 @@ namespace OpenAi.Examples
                 s => Output.text = s,
                 e => Output.text = $"ERROR: StatusCode: {e.responseCode} - {e.error}"
             );
+            Debug.Log(Output.text);
         }
 
         public void DoAddToDialogue()
@@ -54,15 +55,14 @@ namespace OpenAi.Examples
 
         public void NpcSetting(){ // NPC별 정보 프롬프트 초기화
             if (OpenAiChatCompleterV1.Instance.dialogue != null){
-                Debug.Log("클리어");
+                Debug.Log("이전 NPC 대화정보 초기화");
                 OpenAiChatCompleterV1.Instance.dialogue.Clear(); // NPC와 나누었던 대화 및 사전입력데이터 초기화
             }
             Api.V1.MessageV1 message = new Api.V1.MessageV1(); // NPC 데이터 재생성
             message.role = (Api.V1.MessageV1.MessageRole)System.Enum.Parse(
                 typeof(Api.V1.MessageV1.MessageRole), "system");
             message.content = PromptSettings();
-            Debug.Log(message.role);
-            Debug.Log(message.content);
+            Debug.Log($"프롬프트{message.content}");
             OpenAiChatCompleterV1.Instance.dialogue.Add(message);
         }
 

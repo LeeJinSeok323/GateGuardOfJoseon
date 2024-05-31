@@ -89,7 +89,7 @@ namespace OpenAi.Unity.V1
             }
             else
                 Debug.Log("비었다");
-            Debug.Log(request);
+            //Debug.Log(request);
             return _model.CreateChatCompletionCoroutine(this, request, (r) => HandleResponse(r, onResponse, onError));
         }
 
