@@ -1,9 +1,15 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/RoslynCSharp/Plugin.meta
 guid: 28d859a7060b6714cb07352b6a10c567
 folderAsset: yes
 timeCreated: 1552835338
 licenseType: Store
+========
+guid: 57492da201ccfd24496f686489af2ada
+folderAsset: yes
+>>>>>>>> 80258fd3b099dc1e49604b88a6e6c0472faa3036:Assets/04.Texture/Materials.meta
 DefaultImporter:
+  externalObjects: {}
   userData: 
   assetBundleName: 
   assetBundleVariant: 

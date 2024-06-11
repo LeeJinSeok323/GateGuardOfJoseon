@@ -1,5 +1,4 @@
-using NpcInfoManagerSpace;
-using OpenAi.Examples;
+    using OpenAi.Examples;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,7 +13,7 @@ public class UIInfoManager : MonoBehaviour
 
     // 정적 변수
     [SerializeField] public static string Name;
-    [SerializeField] public static int Age;
+    [SerializeField] public static string Age;
     [SerializeField] public static string NpcDaily;
     [SerializeField] public static string Item;
     [SerializeField] public static string Hometown;

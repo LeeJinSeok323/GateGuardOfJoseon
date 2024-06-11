@@ -5,11 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class NextDay : MonoBehaviour
 {
-    void Update()
+    public float Timer;
+    public string SceneSelecter;
+
+    void FixedUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.L))
+        Timer -= Time.deltaTime;
+        //Debug.Log(Timer+"초 남았습니다.");
+        if (Timer <= 0)
         {
-            SceneManager.LoadScene("Main_Stage2");
+            //SceneManager.LoadScene(SceneSelecter);
         }
     }
 }

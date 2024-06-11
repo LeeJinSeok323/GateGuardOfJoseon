@@ -56,10 +56,11 @@ public class NpcManager : MonoBehaviour
 
             DontDestroyOnLoad(this.gameObject);
         }
-        InitTable();
+        //InitTable();
         //Debug.Log("테이블 완");
     }
-
+    /*
+#region NPC 테이브 로드
     public void InitTable()
     {
         // NPC 테이블 로드
@@ -86,18 +87,21 @@ public class NpcManager : MonoBehaviour
 
         return null; 
     }
-
+#endregion
+*/
+    
 
     public GameObject CreateNPC(NpcCreateParameter parm)
     {
         //로드된 테이블에서 Type와 NpcNumber 지정
         GameObject npc = null;
-
+        
+        //Debug.Log($"NpcManager pram.Status = {parm.Status}");
         switch (parm.npcType)
         {
             case NpcType.Stay:
                 switch (parm.Status)
-                {
+                {   
                     case "천민":
                         npc = GameObject.Instantiate(StayNpc1);
                     break;
@@ -107,6 +111,9 @@ public class NpcManager : MonoBehaviour
                     break;
 
                     case "상민":
+                        npc = GameObject.Instantiate(StayNpc3);
+                    break;
+                    default:
                         npc = GameObject.Instantiate(StayNpc3);
                     break;
                 }
@@ -120,6 +127,9 @@ public class NpcManager : MonoBehaviour
 
                     case "양민":
                         npc = GameObject.Instantiate(PatrolNpc2);
+                    break;
+                    default:
+                        npc = GameObject.Instantiate(StayNpc3);
                     break;
                 }
                 break;
@@ -145,6 +155,9 @@ public class NpcManager : MonoBehaviour
                     case "양반":
                         npc = GameObject.Instantiate(GateNpc5);
                     break;
+                    default:
+                        npc = GameObject.Instantiate(StayNpc3);
+                    break;
                 }
                 break;
             case NpcType.Run:
@@ -167,20 +180,19 @@ public class NpcManager : MonoBehaviour
 
         if (npcComponent != null)
         {
- 
             npcComponent.npcType = parm.npcType;
             npcComponent.ID = parm.Number;
             npcComponent.Name = parm.Name;
             npcComponent.Age = parm.Age;
             npcComponent.Gender = parm.Gender;
             npcComponent.Style = parm.Style;
-            npcComponent.Status = parm.Status;
             npcComponent.Hometown = parm.Hometown;
+            npcComponent.Status = parm.Status;
             npcComponent.Job = parm.Job;
+            npcComponent.PassPurpose = parm.PassPurpose;
+            npcComponent.Item = parm.Item;
+            npcComponent.NpcDaily = parm.NpcDaily;
 
-            npcComponent.WalkSpeed = parm.WalkSpeed;
-            npcComponent.RunSpeed = parm.RunSpeed;
-            npcComponent.IsRunning = parm.IsRunning;
         }
         else
         {
@@ -314,12 +326,12 @@ public class NpcManager : MonoBehaviour
             npc.Age,
             npc.Gender,
             npc.Style,
-            npc.Status,
             npc.Hometown,
+            npc.Status,
             npc.Job,
-            npc.WalkSpeed,
-            npc.RunSpeed,
-            npc.IsRunning
+            npc.PassPurpose,
+            npc.Item,
+            npc.NpcDaily
             );
 
         return pram;

@@ -1,9 +1,15 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/RoslynCSharp.meta
 guid: 49e908071d7d38645bc19aab5d504954
 folderAsset: yes
 timeCreated: 1552835295
 licenseType: Store
+========
+guid: 21d69fd42565dde43911cf20c070c1f6
+folderAsset: yes
+>>>>>>>> 80258fd3b099dc1e49604b88a6e6c0472faa3036:Assets/02.Scripts/MooGyeol/Quest.meta
 DefaultImporter:
+  externalObjects: {}
   userData: 
   assetBundleName: 
   assetBundleVariant: 

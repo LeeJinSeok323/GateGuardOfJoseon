@@ -9,15 +9,16 @@ public class Npc : MonoBehaviour
     public NpcCreateParameter.NpcType npcType;
     public int ID;
     public string Name;
-    public int Age;
+    public string Age;
     public string Gender;
     public string Style;
-    public string Status;
     public string Hometown;
+    public string Status;
     public string Job;
-    public float WalkSpeed;
-    public float RunSpeed;
-    public bool IsRunning;
+    public string PassPurpose;
+    public string Item;
+    public string NpcDaily;
+
     #endregion
 
 }
