@@ -12,6 +12,8 @@ public class UIInfoManager : MonoBehaviour
 
 
     // 정적 변수
+    
+    [SerializeField] public static int id;
     [SerializeField] public static string Name;
     [SerializeField] public static string Age;
     [SerializeField] public static string NpcDaily;
@@ -25,17 +27,17 @@ public class UIInfoManager : MonoBehaviour
     public void OnResetNpcBtnDown()
     {
         int id = CheckRadiusNPC(PlayerPoint.position);
-        NpcCreateParameter parm = NpcManager.Instance.GetParmNPC(id);
+        NpcCreateParameter pram = NpcManager.Instance.GetParmNPC(id);
 
         // 인스턴스 변수의 값을 정적 변수에 할당
-        Name = parm.Name;
-        Age = parm.Age;
-        NpcDaily = null;
-        Item = null;
-        Hometown = parm.Hometown;
-        PassPurpose = null;
-        Status = parm.Status;
-        Job = parm.Job;
+        Name = pram.Name;
+        Age = pram.Age;
+        NpcDaily = pram.NpcDaily;
+        Item = pram.Item;
+        Hometown = pram.Hometown;
+        PassPurpose = pram.PassPurpose;
+        Status = pram.Status;
+        Job = pram.Job;
 
         gpt.GetComponent<GptManager>().NpcSetting();
 
@@ -53,7 +55,7 @@ public class UIInfoManager : MonoBehaviour
     private void Update()
     {
         PlayerPoint = GameObject.FindGameObjectWithTag("Player").transform;
-        //int id = CheckRadiusNPC(PlayerPoint.position);
+        int id = CheckRadiusNPC(PlayerPoint.position);
 
         //Debug.Log(id);
     }

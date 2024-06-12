@@ -11,7 +11,7 @@ public class NpcCreateParameter
         string name, 
         string age, 
         string gender, 
-        string style, 
+        // string style, 
         string status, 
         string town,
         string job,
@@ -24,7 +24,7 @@ public class NpcCreateParameter
         Name = name;
         Age = age;   
         Gender = gender;
-        Style = style;
+        // Style = style;
         Status = status;
         Hometown = town;
         Job = job;

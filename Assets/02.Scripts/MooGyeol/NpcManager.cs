@@ -185,7 +185,7 @@ public class NpcManager : MonoBehaviour
             npcComponent.Name = parm.Name;
             npcComponent.Age = parm.Age;
             npcComponent.Gender = parm.Gender;
-            npcComponent.Style = parm.Style;
+            // npcComponent.Style = parm.Style;
             npcComponent.Hometown = parm.Hometown;
             npcComponent.Status = parm.Status;
             npcComponent.Job = parm.Job;
@@ -325,7 +325,7 @@ public class NpcManager : MonoBehaviour
             npc.Name,
             npc.Age,
             npc.Gender,
-            npc.Style,
+            // npc.Style,
             npc.Hometown,
             npc.Status,
             npc.Job,

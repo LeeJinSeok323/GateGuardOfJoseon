@@ -11,7 +11,7 @@ public class Npc : MonoBehaviour
     public string Name;
     public string Age;
     public string Gender;
-    public string Style;
+    // public string Style;
     public string Hometown;
     public string Status;
     public string Job;

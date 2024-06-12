@@ -20,5 +20,6 @@
         // GPT-4 in beta
         public const string BETA_gpt_4 = "gpt-4";
         public const string BETA_gpt_4_32k = "gpt-4-32k";
+        public const string gpt_4o = "gpt-4o";
     }
 }

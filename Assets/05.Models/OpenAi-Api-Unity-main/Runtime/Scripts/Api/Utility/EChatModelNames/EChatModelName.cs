@@ -14,6 +14,8 @@ namespace OpenAi.Api
                     return UTModelNames.BETA_gpt_4;
                 case EEngineName.BETA_gpt_4_32k:
                     return UTModelNames.BETA_gpt_4_32k;
+                case EEngineName.gpt_4o:
+                    return UTModelNames.gpt_4o;
             }
 
             throw new ArgumentException($"Invalid enum value provided when getting chat model name. Value provided: {name}");

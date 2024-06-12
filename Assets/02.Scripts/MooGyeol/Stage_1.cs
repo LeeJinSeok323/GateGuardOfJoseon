@@ -14,6 +14,7 @@ public class Stage_1 : MonoBehaviour
 
     private int temp = 0; // npc id 중복방지 저장 변수
 
+    private int npcCnt = 0;
     // Dictionary<string, object> entry;
 
     
@@ -93,6 +94,7 @@ public class Stage_1 : MonoBehaviour
 
     public void Start()
     {
+        npcCnt = 0;
         // NpcInfoGenerator.cs에서 List<string> Table들에 접근하기 위함.
         n = NpcInfoGenerater.Instance;
         //NPC 파라미터 생성
@@ -142,26 +144,24 @@ public class Stage_1 : MonoBehaviour
         
         npcArray = new NpcCreateParameter[npcNumber];
 
-        for (int i = temp; i < temp + npcNumber; i++){
+        for (int i = 0; i < npcNumber; i++){
             //ToDo isVillain 등 빌런 관련 변수 NpcCreateParameter에 추가하기
             npcArray[i] = new NpcCreateParameter(
                 type,
-                i,
+                npcCnt,
                 n.nameTable[i],
                 n.ageTable[i],
                 n.genderTable[i],
-                n.styleTable[i],
-                n.homeTable[i],
+                // n.styleTable[i],
                 n.statusTable[i],
+                n.homeTable[i],
                 n.jobTable[i],
                 n.passPurposeTable[i],
-                "아이템",
+                n.itemTable[i],
                 n.npcDailyTable[i]
             );
 
-            if (i == temp + npcNumber){
-                temp = i;
-            }
+            npcCnt++;
         }
     }
 }

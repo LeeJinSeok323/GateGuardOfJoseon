@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class NpcBehavior_Gate : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class NpcBehavior_Gate : MonoBehaviour
         LOOK,
     }
 
+    
     public State state = State.IDLE;
 
     private NavMeshAgent agent;
@@ -24,6 +26,8 @@ public class NpcBehavior_Gate : MonoBehaviour
 
     private float talkdist = 3.0f;
 
+    public Text NpcChat;
+    
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();

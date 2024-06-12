@@ -1,76 +1,93 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using OpenAi.Unity.V1;
 
-
 namespace OpenAi.Examples
 {
     public class GptManager : MonoBehaviour
-    {
-        //public Dropdown role; // 플레이어는 user GPT가 학습해야할 prompt는 system으로 설정.
+    {   
+        private static GptManager instance = null;
+
+        //public Dropdown role; // ?��?��?��?��?�� user GPT��?? ?��?��?��?��?�� prompt?�� system?����?? ?��?��.
         public Dropdown status_dropdown;
         public Dropdown job_dropdown;
         
-        public Text Input; // 플레이어가 입력할 내용
-        public Text Output; // NPC별 말풍선 Canvas
+        public Text Input; // ?��?��?��?����?? ?��?��?�� ?��?��
+        public Text Output; // NPC��?? 말풍?�� Canvas
         string NpcPrompt;
-
+        
+        void Awake(){
+            if(instance == null){
+                instance = this;
+                DontDestroyOnLoad(this.gameObject);
+            }
+            else{
+                // 씬 이동시 삭제. 하기싫으면 지울것
+                Destroy(this.gameObject);
+            }
+        }
+        public static GptManager Instance{
+            get{
+                if (instance == null){
+                    return null;
+                }
+                return instance;
+            }
+        }
         public void DoApiCompletion()
-        {
+        {   
             string text = Input.text;
 
             if (string.IsNullOrEmpty(text))
             {
-                Debug.LogError("대화 내용을 입력해주세요.");
+                Debug.LogError("�޼����� �Է����ּ���");
                 return;
             }
 
             //Debug.Log("Performing Completion in Play Mode");
 
-            Output.text = "Perform Completion...";
             OpenAiChatCompleterV1.Instance.Complete(
                 text,
                 s => Output.text = s,
                 e => Output.text = $"ERROR: StatusCode: {e.responseCode} - {e.error}"
             );
-            Debug.Log(Output.text);
         }
 
         public void DoAddToDialogue()
         {
             Api.V1.MessageV1 message = new Api.V1.MessageV1();
-            //Dropdown의 Value값을 받아 role을 지정하여  String 값 "system" or "user" or "assistant"로 저장 
+            //Dropdown?�� Value값을 받아 role?�� ��???��?��?��  String ��?? "system" or "user" or "assistant"��?? ????�� 
             /*message.role = (Api.V1.MessageV1.MessageRole)System.Enum.Parse(
                 typeof(Api.V1.MessageV1.MessageRole), role.options[role.value].text); 
             */
             message.role = (Api.V1.MessageV1.MessageRole)System.Enum.Parse(
-                typeof(Api.V1.MessageV1.MessageRole),"user");  // system 입력은 코드에서 반영하고, 질문만.
-            // 질문 내용 입력
+                typeof(Api.V1.MessageV1.MessageRole),"user");  // system ?��?��??? 코드?��?�� 반영?����??, 질문��??.
+            // 질문 ?��?�� ?��?��
             message.content = Input.text;
 
-            // GPT Manager역할 오브젝트에 대화를 추가(대화 정보를 저장하여 저장된 정보를 기반으로 응답)
+            // GPT Manager?��?�� ?��브젝?��?�� ????����?? 추�??(????�� ?��보�?? ????��?��?�� ????��?�� ?��보�?? 기반?����?? ?��?��)
             OpenAiChatCompleterV1.Instance.dialogue.Add(message);
         }
 
-        public void NpcSetting(){ // NPC별 정보 프롬프트 초기화
+        public void NpcSetting(){ // NPC��?? ?����?? ?��롬프?�� 초기?��
             if (OpenAiChatCompleterV1.Instance.dialogue != null){
-                Debug.Log("이전 NPC 대화정보 초기화");
-                OpenAiChatCompleterV1.Instance.dialogue.Clear(); // NPC와 나누었던 대화 및 사전입력데이터 초기화
+                Debug.Log("");
+                OpenAiChatCompleterV1.Instance.dialogue.Clear(); // NPC??? ?��?��?��?�� ????�� ��?? ?��?��?��?��?��?��?�� 초기?��
             }
-            Api.V1.MessageV1 message = new Api.V1.MessageV1(); // NPC 데이터 재생성
+            Api.V1.MessageV1 message = new Api.V1.MessageV1(); // NPC ?��?��?�� ?��?��?��
             message.role = (Api.V1.MessageV1.MessageRole)System.Enum.Parse(
                 typeof(Api.V1.MessageV1.MessageRole), "system");
             message.content = PromptSettings();
-            Debug.Log($"프롬프트{message.content}");
+            Debug.Log($"프롬프트 내용:  {message.content}");
             OpenAiChatCompleterV1.Instance.dialogue.Add(message);
         }
 
         string PromptSettings(){
-            //string Status = status_dropdown.options[status_dropdown.value].text; // 드랍다운 테스팅용
+            //string Status = status_dropdown.options[status_dropdown.value].text; // ?��?��?��?�� ?��?��?��?��
             //string Job = job_dropdown.options[job_dropdown.value].text;
 
-            NpcPrompt = $"당신은 조선시대 {UIInfoManager.Status}신분으로 {UIInfoManager.Job}직업 역할에 적합한 말투로 문지기의 질문에 대답해야 합니다. 이름은{UIInfoManager.Name}이며 나이는 {UIInfoManager.Age}이고 {UIInfoManager.Hometown}출신입니다. 일상 설명:{UIInfoManager.NpcDaily} 소지 물건:{UIInfoManager.Item} 통행 목적:{UIInfoManager.PassPurpose} 문지기와의 관계: 매우나쁨"; 
+            NpcPrompt = $"당신은 반드시 조선시대 말투로 답변해야합니다. 문을 지나기 위한 심사를 하는 중이므로 당신의 정보에 맞게 답변하세요. 질문한 내용만 간결하게 답변하세요. 신분은 {UIInfoManager.Status}입니다. 직업은{UIInfoManager.Job}입니다. 이름은 {UIInfoManager.Name}이고 나이는 {UIInfoManager.Age}살 입니다. 출신 지역은{UIInfoManager.Hometown}입니다. 평소 {UIInfoManager.NpcDaily}를 하고지내며, 현재 갖고 있는 소지품은 {UIInfoManager.Item}입니다. {UIInfoManager.PassPurpose}을 목적으로 통행하고자 합니다. 문지기와의 관계는 보통입니다."; 
             return NpcPrompt;
         }
     }
