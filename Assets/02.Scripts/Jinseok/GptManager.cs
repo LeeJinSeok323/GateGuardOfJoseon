@@ -10,8 +10,7 @@ namespace OpenAi.Examples
         private static GptManager instance = null;
 
         //public Dropdown role; // ?��?��?��?��?�� user GPT��?? ?��?��?��?��?�� prompt?�� system?����?? ?��?��.
-        public Dropdown status_dropdown;
-        public Dropdown job_dropdown;
+
         
         public Text Input; // ?��?��?��?����?? ?��?��?�� ?��?��
         public Text Output; // NPC��?? 말풍?�� Canvas

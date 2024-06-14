@@ -53,7 +53,6 @@ public class NpcManager : MonoBehaviour
        if( instance == null)
         {
             instance = this;
-
             DontDestroyOnLoad(this.gameObject);
         }
         //InitTable();
@@ -106,7 +105,7 @@ public class NpcManager : MonoBehaviour
                         npc = GameObject.Instantiate(StayNpc1);
                     break;
 
-                    case "¾ç¹Î":
+                    case "¾çÀÎ":
                         npc = GameObject.Instantiate(StayNpc2);
                     break;
 
@@ -125,11 +124,11 @@ public class NpcManager : MonoBehaviour
                         npc = GameObject.Instantiate(PatrolNpc1);
                     break;
 
-                    case "¾ç¹Î":
+                    case "¾çÀÎ":
                         npc = GameObject.Instantiate(PatrolNpc2);
                     break;
                     default:
-                        npc = GameObject.Instantiate(StayNpc3);
+                        npc = GameObject.Instantiate(PatrolNpc1);
                     break;
                 }
                 break;
@@ -140,7 +139,7 @@ public class NpcManager : MonoBehaviour
                         npc = GameObject.Instantiate(GateNpc1);
                     break;
 
-                    case "¾ç¹Î":
+                    case "¾çÀÎ":
                         npc = GameObject.Instantiate(GateNpc2);
                     break;
 
@@ -156,7 +155,7 @@ public class NpcManager : MonoBehaviour
                         npc = GameObject.Instantiate(GateNpc5);
                     break;
                     default:
-                        npc = GameObject.Instantiate(StayNpc3);
+                        npc = GameObject.Instantiate(GateNpc2);
                     break;
                 }
                 break;
@@ -185,7 +184,7 @@ public class NpcManager : MonoBehaviour
             npcComponent.Name = parm.Name;
             npcComponent.Age = parm.Age;
             npcComponent.Gender = parm.Gender;
-            // npcComponent.Style = parm.Style;
+            //npcComponent.Style = parm.Style;
             npcComponent.Hometown = parm.Hometown;
             npcComponent.Status = parm.Status;
             npcComponent.Job = parm.Job;
@@ -325,13 +324,14 @@ public class NpcManager : MonoBehaviour
             npc.Name,
             npc.Age,
             npc.Gender,
-            // npc.Style,
+            //npc.Style,
             npc.Hometown,
             npc.Status,
             npc.Job,
             npc.PassPurpose,
             npc.Item,
-            npc.NpcDaily
+            npc.NpcDaily,
+            npc.IsVillain
             );
 
         return pram;

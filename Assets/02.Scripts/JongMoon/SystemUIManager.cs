@@ -1,19 +1,23 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SystemUIManager : MonoBehaviour
 {
     public GameObject Canvas;
-    public GameObject PauseUI; // 일시정지 UI
+    public GameObject systemUI; // 일시정지 UI
     public GameObject Keynotification;
     public GameObject Defaultbutton;
     public GameObject GummunUI; // 수색 UI
     public GameObject Player;
+    public GameObject ShowItem;
     public static SystemUIManager Instance;
 
-    private bool isPaused = false;  
+    private bool isPaused = false;
     private bool isKeynoti = false;
     private bool isGummun = false; // 수색 UI 상태
     private bool isJosa = false;
+    private bool isItem = false;
 
     void Start()
     {
@@ -22,9 +26,6 @@ public class SystemUIManager : MonoBehaviour
         {
             child.gameObject.SetActive(false);
         }
-
-        //Player = GameObject.FindWithTag("Player");
-
     }
 
     void Update()
@@ -37,14 +38,12 @@ public class SystemUIManager : MonoBehaviour
         {
             ToggleKeynotification();
         }
-        if(!isPaused && isJosa)
+        if (!isPaused && isJosa && Input.GetKeyDown(KeyCode.Escape))
         {
-            if(Input.GetKeyDown(KeyCode.Escape))
-            {
-                ToggleJosa();
-            }
+            ToggleJosa();
         }
     }
+
     void Awake()
     {
         if (Instance == null)
@@ -58,20 +57,11 @@ public class SystemUIManager : MonoBehaviour
         }
     }
 
-
-
-
-    public void ToggleGummun()
-    {
-        isGummun = !isGummun;
-        Defaultbutton.SetActive(isGummun);
-    }
-
     public void TogglePause()
     {
         isPaused = !isPaused;
         Time.timeScale = isPaused ? 0f : 1f;
-        PauseUI.SetActive(isPaused);
+        systemUI.SetActive(isPaused);
     }
 
     public void ToggleJosa()
@@ -85,5 +75,18 @@ public class SystemUIManager : MonoBehaviour
     {
         isKeynoti = !isKeynoti;
         Keynotification.SetActive(isKeynoti);
+        Defaultbutton.SetActive(!isKeynoti);
+    }
+
+    // 수색 UI 토글 메서드 추가
+    public void ToggleGummun()
+    {
+        isGummun = !isGummun;
+        Defaultbutton.SetActive(isGummun);
+    }
+    public void ToggleItem()
+    {
+        isItem = !isItem;
+        ShowItem.SetActive(isItem);
     }
 }

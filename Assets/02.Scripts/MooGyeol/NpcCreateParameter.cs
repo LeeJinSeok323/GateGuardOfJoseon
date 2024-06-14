@@ -11,26 +11,29 @@ public class NpcCreateParameter
         string name, 
         string age, 
         string gender, 
-        // string style, 
+        //string style, 
         string status, 
         string town,
         string job,
         string passPurpose,
         string item,
-        string npcDaily)
+        string npcDaily,
+        bool isVillain
+        )
     {
         npcType = type;
         Number = number;
         Name = name;
         Age = age;   
         Gender = gender;
-        // Style = style;
+        //Style = style;
         Status = status;
         Hometown = town;
         Job = job;
         PassPurpose = passPurpose;
         Item = item;
         NpcDaily = npcDaily;
+        IsVillain= isVillain;
     }
 
     public enum NpcType
@@ -48,11 +51,13 @@ public class NpcCreateParameter
     public string Name { get; set; }
     public string Age { get; set; }
     public string Gender { get; set; }
-    public string Style { get; set; }
+    //public string Style { get; set; }
     public string Hometown { get; set; }
     public string Status { get; set; }
     public string Job { get; set; }
     public string PassPurpose { get; set; }
     public string Item { get; set; }
     public string NpcDaily { get; set; }
+
+    public bool IsVillain { get; set; }
 }

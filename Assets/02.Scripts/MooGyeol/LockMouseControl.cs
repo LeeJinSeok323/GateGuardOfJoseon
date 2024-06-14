@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class LockMouseControl : MonoBehaviour
 {
-   public static bool isMouseVisible = false;
+    public static bool isMouseVisible = false;
 
     void Start()
     {
         // 시작할 때 마우스 커서를 화면 중앙에 고정하고 숨깁니다.
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        LockMouse();
     }
 
     void Update()

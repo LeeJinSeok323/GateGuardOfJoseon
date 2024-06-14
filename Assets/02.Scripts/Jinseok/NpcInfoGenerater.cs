@@ -13,7 +13,7 @@ public class NpcInfoGenerater : MonoBehaviour
     private List<string> ageList;
     private List<string> genderList;
     private List<string> homeList;
-    // private List<string> styleList;
+   // private List<string> styleList;
     private List<string> statusList;
     private List<string> jobList;
     private List<string> passPurposeList;
@@ -26,7 +26,7 @@ public class NpcInfoGenerater : MonoBehaviour
     public List<string> ageTable;
     public List<string> genderTable;
     public List<string> homeTable;
-    // public List<string> styleTable;
+    //public List<string> styleTable;
     public List<string> statusTable;
     public List<string> jobTable;
     public List<string> passPurposeTable;
@@ -84,7 +84,7 @@ public class NpcInfoGenerater : MonoBehaviour
 
         System.Random rnd = new System.Random();
         int idx = rnd.Next(0, list.Count);
-        // Debug.Log($"{list[idx]}, {idx}");
+        //Debug.Log($"{list[idx]}, {idx}");
         if (list[idx] == ""){
             return ReturnRandElement(list);
         }
@@ -120,5 +120,5 @@ public class NpcInfoGenerater : MonoBehaviour
 
         itemTable = new List<string>();
     }     
-    
+
 }

@@ -9,8 +9,7 @@ public class ShowKeyPopUp : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-  
-            SystemUIManager.Instance.ToggleGummun();
+            SystemUIManager.Instance.ToggleGummun(); // Gummun UI¸¦ ÄÒ´Ù
         }
     }
 
@@ -18,8 +17,7 @@ public class ShowKeyPopUp : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-       
-            SystemUIManager.Instance.ToggleGummun();
+            SystemUIManager.Instance.ToggleGummun(); // Gummun UI¸¦ ²ö´Ù
         }
     }
 }

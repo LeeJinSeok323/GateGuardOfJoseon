@@ -8,5 +8,6 @@ public class TextClickHandler : MonoBehaviour, IPointerClickHandler
     {
         // 클릭된 텍스트를 전역 텍스트 관리자에 저장
         Equalchecker.inputtext = GetComponent<Text>().text;
+        Equalchecker.HighlightText(GetComponent<Text>());
     }
 }

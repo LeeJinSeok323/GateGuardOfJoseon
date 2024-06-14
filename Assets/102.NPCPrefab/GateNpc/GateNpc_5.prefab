@@ -2369,6 +2369,7 @@ MonoBehaviour:
   PassPurpose: 
   Item: 
   NpcDaily: 
+  IsVillain: 0
 --- !u!114 &1499611980677426544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2383,7 +2384,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   currentTarget: {x: 0, y: 0, z: 0}
-  NpcChat: {fileID: 8978077142374441698}
 --- !u!114 &6702458578967871682
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2577,7 +2577,7 @@ MonoBehaviour:
   StartAfterTPose: 1
   AnimatePhysics: 0
   OptimizeWithMesh: {fileID: 2019823319281010898}
-  ObjectToFollow: {fileID: 4413700346898535365, guid: 63748fa73952bb44485a38b44e8618ab,
+  ObjectToFollow: {fileID: 902883419618405824, guid: ae28690813c32d8458508a6ec1abf3b6,
     type: 3}
   FollowOffset: {x: 0, y: 0, z: 0}
   FollowMode: 0

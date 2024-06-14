@@ -837,12 +837,12 @@ MonoBehaviour:
   Age: 0
   Gender: 
   Style: 
-  Status: 
   Hometown: 
+  Status: 
   Job: 
-  WalkSpeed: 0
-  RunSpeed: 0
-  IsRunning: 0
+  PassPurpose: 
+  Item: 
+  NpcDaily: 
 --- !u!114 &8927856896536987983
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1049,7 +1049,7 @@ MonoBehaviour:
   StartAfterTPose: 1
   AnimatePhysics: 0
   OptimizeWithMesh: {fileID: 8353202027752839374}
-  ObjectToFollow: {fileID: 4413700346898535365, guid: 63748fa73952bb44485a38b44e8618ab,
+  ObjectToFollow: {fileID: 5441338793930697548, guid: 9ec4db2c69d68b5428eb6b8d83d961e4,
     type: 3}
   FollowOffset: {x: 0, y: 0, z: 0}
   FollowMode: 0

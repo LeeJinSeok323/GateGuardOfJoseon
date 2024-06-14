@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using OpenAi.Examples;
 
 public class PlayerCtrl2 : MonoBehaviour
 {
@@ -22,7 +21,6 @@ public class PlayerCtrl2 : MonoBehaviour
     Vector3 position;
 
     LockMouseControl mouse;
-    bool isNpcThere;
 
     void Start()
     {
@@ -50,22 +48,6 @@ public class PlayerCtrl2 : MonoBehaviour
 
 
     }
-
-    void OnTriggerEnter(Collider col){
-            Debug.Log($"ø∑ø° npc ¿Ã∏ß{col.gameObject.name}");
-            isNpcThere = true;
-            GptManager.Instance.Output = col.gameObject.GetComponent<NpcBehavior_Gate>().NpcChat;
-        }
-        
-    void OnTriggerExit(Collider col){
-        isNpcThere = false;
-        Invoke("resetText", 5.0f);
-    }
-    void resetText(){
-        if(!isNpcThere && GptManager.Instance.Output != null)
-            GptManager.Instance.Output.text = null;
-    }
-
 
     private void Move()
     {

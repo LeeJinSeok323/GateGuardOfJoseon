@@ -10,11 +10,9 @@ public class Stage_1 : MonoBehaviour
     NpcInfoGenerater n;
     private NpcCreateParameter[] _patrolNpcParams; // NpcCreateParameter 배열 선언
     private NpcCreateParameter[] _stayNpcParams; // 또 다른 NpcCreateParameter 배열 선언
-    private static NpcCreateParameter[] _actionNpcParams; 
+    private NpcCreateParameter[] _actionNpcParams; 
+    private int NpcCnt = 0;
 
-    private int temp = 0; // npc id 중복방지 저장 변수
-
-    private int npcCnt = 0;
     // Dictionary<string, object> entry;
 
     
@@ -94,7 +92,6 @@ public class Stage_1 : MonoBehaviour
 
     public void Start()
     {
-        npcCnt = 0;
         // NpcInfoGenerator.cs에서 List<string> Table들에 접근하기 위함.
         n = NpcInfoGenerater.Instance;
         //NPC 파라미터 생성
@@ -121,21 +118,6 @@ public class Stage_1 : MonoBehaviour
         {
             GameObject Gatenpc = NpcManager.Instance.CreateNPC(_actionNpcParams[i]);
         }
-
-        
-        //GateNpc 리스트에 추가
-        // AddGateNpcList(1);
-        // AddGateNpcList(20);
-        // AddGateNpcList(40);
-        // AddGateNpcList(53);
-        // AddGateNpcList(74);
-
-        // //GateNPC 스폰
-        // foreach (var i in _actionNpcParams)
-        // {
-        //     GameObject Gatenpc = NpcManager.Instance.CreateNPC(i);
-        // }
-
     }   
 
     // npcNumber만큼 npc 생성
@@ -144,24 +126,54 @@ public class Stage_1 : MonoBehaviour
         
         npcArray = new NpcCreateParameter[npcNumber];
 
-        for (int i = 0; i < npcNumber; i++){
-            //ToDo isVillain 등 빌런 관련 변수 NpcCreateParameter에 추가하기
-            npcArray[i] = new NpcCreateParameter(
-                type,
-                npcCnt,
-                n.nameTable[i],
-                n.ageTable[i],
-                n.genderTable[i],
-                // n.styleTable[i],
-                n.statusTable[i],
-                n.homeTable[i],
-                n.jobTable[i],
-                n.passPurposeTable[i],
-                n.itemTable[i],
-                n.npcDailyTable[i]
-            );
+        for (int i = 0; i <  npcNumber; i++){
 
-            npcCnt++;
+            bool vilran = GetRandomBool();
+            
+            if (!vilran) 
+            {
+                npcArray[i] = new NpcCreateParameter(
+               type,
+               NpcCnt++,
+               n.nameTable[i + NpcCnt],
+               n.ageTable[i + NpcCnt],
+               n.genderTable[i + NpcCnt],
+               //n.styleTable[i],
+               n.statusTable[i + NpcCnt],
+               n.homeTable[i + NpcCnt],
+               n.jobTable[i + NpcCnt],
+               n.passPurposeTable[i + NpcCnt],
+               n.itemTable[i + NpcCnt],
+               n.npcDailyTable[i + NpcCnt],
+               vilran
+                 );
+            }
+            else 
+            {
+               npcArray[i] = new NpcCreateParameter(
+               type,
+               NpcCnt++,
+               n.nameTable[i + NpcCnt + 20],
+               n.ageTable[i + NpcCnt + 20],
+               n.genderTable[i + NpcCnt],
+               //n.styleTable[i],
+               n.statusTable[i + NpcCnt],
+               n.homeTable[i + NpcCnt + 20],
+               n.jobTable[i + NpcCnt + 20],
+               n.passPurposeTable[i + NpcCnt],
+               n.itemTable[i + NpcCnt],
+               n.npcDailyTable[i + NpcCnt],
+               vilran
+                 );
+                Debug.Log(vilran);
+            }
+
         }
+
+        bool GetRandomBool()
+        {
+            return Random.Range(0, 2) == 1;
+        }
+
     }
 }

@@ -1,36 +1,42 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems; // 이벤트 처리를 위해 필요
 
 public class Equalchecker : MonoBehaviour
 {
     private static string text1;
     private static string text2;
     public static string inputtext;
-
     public Text[] clickableTexts; // 클릭 가능한 텍스트 배열
 
-    void Start()
+    private static List<Text> highlightedTexts = new List<Text>();
+    private static Color originalColor = Color.black; // 기본 색상 저장
+
+    public static void HighlightText(Text text)
     {
-        // 각 텍스트에 클릭 이벤트 리스너 추가
-        foreach (Text text in clickableTexts)
-        {
-            EventTrigger trigger = text.gameObject.AddComponent<EventTrigger>();
-            EventTrigger.Entry entry = new EventTrigger.Entry();
-            entry.eventID = EventTriggerType.PointerClick;
-            entry.callback.AddListener((data) => { OnTextClick((PointerEventData)data, text); });
-            trigger.triggers.Add(entry);
-        }
+        // 기본 색상을 저장
+        originalColor = text.color;
+
+        // 색상을 변경하여 하이라이트
+        text.color = Color.yellow;
+
+        // 하이라이트된 텍스트를 목록에 추가
+        highlightedTexts.Add(text);
     }
 
-    public void OnTextClick(PointerEventData data, Text clickedText)
+    public static void ResetHighlight(Text text)
     {
-        if (inputtext == null)
+        // 색상을 원래 색으로 변경하여 하이라이트 초기화
+        text.color = originalColor;
+    }
+
+    void ResetAllHighlights()
+    {
+        foreach (Text text in highlightedTexts)
         {
-            inputtext = clickedText.text;
+            ResetHighlight(text);
         }
+        highlightedTexts.Clear();
     }
 
     void Update()
@@ -56,7 +62,8 @@ public class Equalchecker : MonoBehaviour
                 Debug.Log("일치하지 않습니다");
             }
 
-            // 값 초기화
+            // 값 초기화 및 하이라이트 초기화
+            ResetAllHighlights();
             text1 = null;
             text2 = null;
             inputtext = null;
