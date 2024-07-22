@@ -12,6 +12,8 @@ public class ImageAIParamsDallE
 
     // The text prompt to create the image, e.g. "person climbing a mountain, lowpoly"
     public string prompt = null;
+    
+    public string model = null;
 
     public readonly static int[] allowedSizes = { 256, 512, 1024 };
 

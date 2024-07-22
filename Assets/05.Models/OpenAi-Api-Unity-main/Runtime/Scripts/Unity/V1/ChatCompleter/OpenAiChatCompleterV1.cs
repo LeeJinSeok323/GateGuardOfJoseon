@@ -61,7 +61,7 @@ namespace OpenAi.Unity.V1
 
             _model = _gateway.Api.Chat.Completions;
             Debug.Log(_model);
-            // Debug.Log("로그찍음");
+            Debug.Log("로그찍음");
         }
 
         public Coroutine Complete(string prompt, Action<string> onResponse, Action<UnityWebRequest> onError)
@@ -83,10 +83,12 @@ namespace OpenAi.Unity.V1
 
             request.model = UTEChatModelName.GetModelName(Model);
             request.messages = dialogue;
-            if (_model == null){
-                Debug.Log("모델 정보 비었다.");
+            if (_model != null){
+                Debug.Log(_model);
+                Debug.Log("안비었다");
             }
-        
+            else
+                Debug.Log("비었다");
             Debug.Log(request);
             return _model.CreateChatCompletionCoroutine(this, request, (r) => HandleResponse(r, onResponse, onError));
         }

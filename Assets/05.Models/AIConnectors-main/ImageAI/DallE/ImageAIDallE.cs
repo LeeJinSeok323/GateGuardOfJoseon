@@ -29,6 +29,7 @@ public class ImageAIDallE : MonoBehaviour
         ImageAIParamsDallE aiParams = new ImageAIParamsDallE()
         {
             prompt = prompt,
+            model = "dall-e-3",
             width = width,
             height = height,
 
@@ -42,6 +43,8 @@ public class ImageAIDallE : MonoBehaviour
     {
         Cache cache = new Cache("ImageAI", "png");
 
+        Debug.Log("aiParams.model:"+ aiParams.model);
+        Debug.Log("aiParams.size:"+ aiParams.width);
         byte[] cacheContent = null;
         if (useCache)
         {

@@ -20,7 +20,7 @@ namespace OpenAi.Api
         // GPT-4 in beta
         BETA_gpt_4,
         BETA_gpt_4_32k,
-        gpt_4o
+        gpt_4o,
     }
 
     public static class UTEEngineName

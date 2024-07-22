@@ -6,11 +6,12 @@ public class SystemUIManager : MonoBehaviour
 {
     public GameObject Canvas;
     public GameObject systemUI; // 일시정지 UI
-    public GameObject Keynotification;
-    public GameObject Defaultbutton;
+    public GameObject keyGuideUI; // 키 가이드
+
     public GameObject GummunUI; // 수색 UI
     public GameObject Player;
     public GameObject ShowItem;
+    public GameObject Buttons;
     public static SystemUIManager Instance;
 
     private bool isPaused = false;
@@ -26,6 +27,11 @@ public class SystemUIManager : MonoBehaviour
         {
             child.gameObject.SetActive(false);
         }
+        List<GameObject> keyGuides = new List<GameObject>();
+        foreach (Transform child in keyGuideUI.transform)
+        {
+            keyGuides.Add(child.gameObject);
+        }
     }
 
     void Update()
@@ -34,11 +40,12 @@ public class SystemUIManager : MonoBehaviour
         {
             TogglePause();
         }
-        if (!isPaused && Input.GetKeyDown(KeyCode.F1))
-        {
-            ToggleKeynotification();
-        }
+       
         if (!isPaused && isJosa && Input.GetKeyDown(KeyCode.Escape))
+        {
+            ToggleJosa();
+        }
+        if (Input.GetKeyDown(KeyCode.E))
         {
             ToggleJosa();
         }
@@ -64,25 +71,28 @@ public class SystemUIManager : MonoBehaviour
         systemUI.SetActive(isPaused);
     }
 
+    
     public void ToggleJosa()
     {
         isJosa = !isJosa;
         GummunUI.SetActive(isJosa);
     }
-
+    
+    /*
     // 키 알림 UI 토글 메서드 수정
     public void ToggleKeynotification()
     {
         isKeynoti = !isKeynoti;
         Keynotification.SetActive(isKeynoti);
-        Defaultbutton.SetActive(!isKeynoti);
+        keyGuideUI.SetActive(!isKeynoti);
     }
-
+    */
     // 수색 UI 토글 메서드 추가
-    public void ToggleGummun()
+    public void ToggleKeyGuideUI()
     {
         isGummun = !isGummun;
-        Defaultbutton.SetActive(isGummun);
+        keyGuideUI.SetActive(isGummun);
+        Buttons.SetActive(isGummun);
     }
     public void ToggleItem()
     {

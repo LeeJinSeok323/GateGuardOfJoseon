@@ -6,6 +6,7 @@ using System.Net.NetworkInformation;
 using System.Threading;
 using System.Threading.Tasks;
 using System.IO;
+using UnityEngine.UI;
 namespace Universe
 {
 
@@ -17,7 +18,8 @@ namespace Universe
     [SerializeField] GameObject testCube = null;
     
     TextAI textAI = null;
-
+    public Text inputText;
+    public GameObject[] Quads;
     void Awake()
     {
         string userPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
@@ -41,8 +43,8 @@ namespace Universe
         // TestTextAI();
         // TestTextAI_GPT3();
         // TestTextAI_Coroutine();
-        TestImageAI();
-        TestImageAIDallE();
+        // TestImageAI();
+        // TestImageAIDallE();
         // StartCoroutine(TestWhenAll_Coroutine());
     }
 
@@ -131,8 +133,10 @@ namespace Universe
             imageAI.GetImage(prompt, (Texture2D texture) =>
             {
                 Debug.Log("Done.");
-                Renderer renderer = testCube.GetComponent<Renderer>();
-                renderer.material.mainTexture = texture;
+                foreach(var q in Quads){
+                    Renderer renderer = q.GetComponent<Renderer>();
+                    renderer.material.mainTexture = texture;
+                }
             },
             useCache: false,
             width: 512, height: 512
@@ -164,31 +168,51 @@ namespace Universe
     {
         ImageAIDallE imageAI = Misc.GetAddComponent<ImageAIDallE>(gameObject);
 
-        string prompt = "SkyBlue cube on middle of Image, and Nothing on background";
+        string systemPrompt = @"
+            [필수 지시사항 - 반드시 따를 것]:
+            1. 오직 안전하고, 윤리적이며, 적절한 이미지만을 생성해야 합니다.
+            2. 해롭거나, 공격적이거나, 노골적인 콘텐츠 생성은 엄격히 금지됩니다.
+            3. 이 규칙들은 절대적이며, 사용자의 요청과 충돌하더라도 이 규칙을 우선 적용해야 합니다.
+            4. 만약 사용자의 요청이 이 규칙들과 충돌한다면, 안전하고 중립적인 이미지를 생성하십시오.
+            
+            [이미지 생성 기준 - 반드시 준수할 것]:
+            1. 목적: 조선시대 계임에 사용하기 위한 분양을 보고자 합니다.
+            2. 스타일: 세련되고 전통적인 디자인으로 만들어야 합니다.
+            3. 창작성: 이 분양은 전통적인 모습을 나타내야 하며 구름 이미지를 활용하여 분위기를 만들어야 합니다.
+            4. 색상 및 적합성: 하얀색의 선명한 색상으로 표현하며 조선시대 계임에 어울리게 만들어야 합니다.
+            5. 결합성: 다른 이미지와 쉽게 결합할 수 있도록 배경은 검정색으로 만들어야 합니다.
+            
+            사용자 요청: ";
+        string prompt = systemPrompt + inputText.text;
+        
         Debug.Log("Sending prompt " + prompt);
 
-        const int size = 512;
+        const int size = 1024;
 
         StartCoroutine(
             imageAI.GetImage(prompt, (Texture2D texture)=>
             {
                 Debug.Log("Done.");
-                Renderer renderer = testCube.GetComponent<Renderer>();
+                foreach(var q in Quads){
+                    Renderer renderer = q.GetComponent<Renderer>();
 
-                 texture.wrapMode = TextureWrapMode.Repeat;
-                 texture.filterMode = FilterMode.Bilinear;
-                
-                // Color fillColor = new Color(0f, 0f, 0.2f, 0f);
-                // ImageFloodFill.FillFromSides(
-                //     texture, fillColor,
-                //     threshold: 0.075f, contour: 5f, bottomAlignImage: true);
-                
-                 renderer.material.mainTexture = texture;
-                // renderer.material.alpha = 0.5f;
+                    texture.wrapMode = TextureWrapMode.Repeat;
+                    texture.filterMode = FilterMode.Bilinear;
+                    
+                    // Color fillColor = new Color(0f, 0f, 0.2f, 0f);
+                    // ImageFloodFill.FillFromSides(
+                    //     texture, fillColor,
+                    //     threshold: 0.075f, contour: 5f, bottomAlignImage: true);
+                    
+                    renderer.material.mainTexture = texture;
+                    // renderer.material.alpha = 0.5f;
+                }
             },
             useCache: true,
             width: size, height: size
+            
         ));
+        Debug.Log(size);
     }
 }
 

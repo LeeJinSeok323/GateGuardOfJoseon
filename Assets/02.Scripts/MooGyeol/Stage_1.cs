@@ -91,13 +91,15 @@ public class Stage_1 : MonoBehaviour
 
 
     public void Start()
-    {
+    {   
+        NpcCnt = 0;
         // NpcInfoGenerator.cs에서 List<string> Table들에 접근하기 위함.
         n = NpcInfoGenerater.Instance;
         //NPC 파라미터 생성
+        SetParameters(ref _actionNpcParams, NpcType.Gate, 5);
+
         SetParameters(ref _stayNpcParams, NpcType.Stay, 20);
         SetParameters(ref _patrolNpcParams, NpcType.Patrol, 8);
-        SetParameters(ref _actionNpcParams, NpcType.Gate, 5);
 
         //StayNPC 스폰
         for (int i=0; i < _stayNpcParams.Length; i++)
@@ -129,45 +131,47 @@ public class Stage_1 : MonoBehaviour
         for (int i = 0; i <  npcNumber; i++){
 
             bool vilran = GetRandomBool();
-            
+            // Debug.Log($"id{NpcCnt}는 빌런입니까? {vilran}");
             if (!vilran) 
             {
                 npcArray[i] = new NpcCreateParameter(
                type,
-               NpcCnt++,
-               n.nameTable[i + NpcCnt],
-               n.ageTable[i + NpcCnt],
-               n.genderTable[i + NpcCnt],
+               NpcCnt,
+               n.nameTable[NpcCnt],
+               n.ageTable[NpcCnt],
+               n.genderTable[NpcCnt],
                //n.styleTable[i],
-               n.statusTable[i + NpcCnt],
-               n.homeTable[i + NpcCnt],
-               n.jobTable[i + NpcCnt],
-               n.passPurposeTable[i + NpcCnt],
-               n.itemTable[i + NpcCnt],
-               n.npcDailyTable[i + NpcCnt],
+               n.statusTable[NpcCnt],
+               n.homeTable[NpcCnt],
+               n.jobTable[NpcCnt],
+               n.passPurposeTable[NpcCnt],
+               n.itemTable[NpcCnt],
+               n.npcDailyTable[NpcCnt],
                vilran
                  );
+            //    Debug.Log($"빌런x {NpcCnt}의 이름은{n.nameTable[NpcCnt]}, {NpcInfoGenerater.Instance.nameTable[NpcCnt]}");
+
             }
             else 
             {
                npcArray[i] = new NpcCreateParameter(
                type,
-               NpcCnt++,
-               n.nameTable[i + NpcCnt + 20],
-               n.ageTable[i + NpcCnt + 20],
-               n.genderTable[i + NpcCnt],
+               NpcCnt,
+               n.nameTable[NpcCnt + 20],
+               n.ageTable[NpcCnt + 20],
+               n.genderTable[NpcCnt],
                //n.styleTable[i],
-               n.statusTable[i + NpcCnt],
-               n.homeTable[i + NpcCnt + 20],
-               n.jobTable[i + NpcCnt + 20],
-               n.passPurposeTable[i + NpcCnt],
-               n.itemTable[i + NpcCnt],
-               n.npcDailyTable[i + NpcCnt],
+               n.statusTable[NpcCnt],
+               n.homeTable[NpcCnt + 20],
+               n.jobTable[NpcCnt + 20],
+               n.passPurposeTable[NpcCnt],
+               n.itemTable[NpcCnt],
+               n.npcDailyTable[NpcCnt],
                vilran
                  );
-                Debug.Log(vilran);
+            //    Debug.Log($"빌런o {NpcCnt}의 이름은{n.nameTable[NpcCnt+20]},{NpcInfoGenerater.Instance.nameTable[NpcCnt]}");
             }
-
+            NpcCnt++;
         }
 
         bool GetRandomBool()

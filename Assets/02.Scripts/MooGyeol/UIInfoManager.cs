@@ -7,6 +7,7 @@ public class UIInfoManager : MonoBehaviour
 {
     private Transform GatePoint;
     private float radius;
+    private static float radius2;
     private Transform PlayerPoint;
     public GptManager gpt;
 
@@ -22,7 +23,7 @@ public class UIInfoManager : MonoBehaviour
     public static int Id;
 
     //리셋 버튼을 누르면 근처 NPC 정보를 받아옴
-    public void  OnResetNpcBtnDown()
+    public void  OnResetNpcBtnDown()    
     {
         int id = CheckRadiusNPC(PlayerPoint.position);
         if (id > 100) return;
@@ -40,7 +41,6 @@ public class UIInfoManager : MonoBehaviour
         Id = parm.Number;
 
         gpt.GetComponent<GptManager>().NpcSetting();
-
     }
 
     private void Start()
@@ -49,6 +49,7 @@ public class UIInfoManager : MonoBehaviour
        
         GatePoint = GameObject.FindGameObjectWithTag("Point").transform;
         radius = 2.0f;
+        radius2 = 2.0f;
     }
 
     private void Update()
@@ -72,13 +73,35 @@ public class UIInfoManager : MonoBehaviour
                 {
                     closestDistance = distance;
                     id = NpcManager.Instance.GetIdByObject(collider.gameObject);
-                    
                 }
             }
         }
         return id;
     }
+    public static GameObject CheckRadiusNPCObject(Vector3 position)
+    {
+        Collider[] colliders = Physics.OverlapSphere(position, radius2);
+        float closestDistance = Mathf.Infinity;
+        GameObject closestNPC = null;
 
+        foreach (Collider collider in colliders)
+        {
+            if (collider.CompareTag("NPC"))
+            {
+                float distance = Vector3.Distance(position, collider.transform.position);
+
+                if (distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    closestNPC = collider.gameObject;
+                }
+            }
+        }
+
+        return closestNPC;
+        
+    }
+    
    
 
     public void OnClickPassButton()
@@ -99,6 +122,7 @@ public class UIInfoManager : MonoBehaviour
         {
             NpcManager.Instance.DeninedGate(id);
             NpcManager.Instance.Remove(id);
+            Debug.Log("호출됌.");
         }
 
     }

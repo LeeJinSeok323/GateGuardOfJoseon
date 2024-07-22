@@ -1,7 +1,7 @@
 using UnityEngine;
 using System;
 
-public static class WavUtility
+public static class WavUtility2
 {
     public static AudioClip ToAudioClip(byte[] data)
     {

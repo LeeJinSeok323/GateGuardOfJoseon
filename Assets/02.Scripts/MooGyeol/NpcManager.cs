@@ -276,7 +276,8 @@ public class NpcManager : MonoBehaviour
     }
 
     public void PassGate(int id)
-    {
+    {   
+        
         GameObject npc = FindNpcGameObjectById(id);
         NpcBehavior_Gate gate = npc.GetComponent<NpcBehavior_Gate>();
         if (gate != null)

@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using OpenAi.Unity.V1;
-
+using UnityEngine.UI;
 namespace OpenAi.Examples
 {
     public class GptManager : MonoBehaviour
@@ -13,8 +13,10 @@ namespace OpenAi.Examples
 
         
         public Text Input; // ?��?��?��?����?? ?��?��?�� ?��?��
-        public Text Output; // NPC��?? 말풍?�� Canvas
+        public static Text Output; // NPC��?? 말풍?�� Canvas
         string NpcPrompt;
+        GameObject closestNpc;
+        GameObject Player; 
         
         void Awake(){
             if(instance == null){
@@ -26,6 +28,17 @@ namespace OpenAi.Examples
                 Destroy(this.gameObject);
             }
         }
+        void Start(){
+            Player = GameObject.FindWithTag("Player");
+        }
+        void Update(){
+            closestNpc = UIInfoManager.CheckRadiusNPCObject(Player.transform.position);
+            Transform canvasTransform = closestNpc.transform.Find("Canvas");
+            if(canvasTransform != null){
+                Output = canvasTransform.GetComponentInChildren<Text>();
+            }
+        }
+
         public static GptManager Instance{
             get{
                 if (instance == null){

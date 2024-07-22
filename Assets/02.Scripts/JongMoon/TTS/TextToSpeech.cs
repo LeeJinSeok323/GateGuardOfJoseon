@@ -10,13 +10,16 @@ public class TextToSpeech : MonoBehaviour
     public Text uiText; // UI Text 컴포넌트를 연결합니다.
     public Button playButton; // Button 컴포넌트를 연결합니다.
     private string apiKey = "AIzaSyCrV3rmAJ9poj76ORk1ul4N8OR_Nlqt1Hs"; // Google Cloud API 키
-
+    public GameObject GptManager;
     void Start()
     {
         // 버튼 클릭 이벤트에 메서드 등록
         playButton.onClick.AddListener(OnPlayButtonClicked);
     }
 
+    void Update(){
+        //uiText = GptManager.Output;
+    }
     void OnPlayButtonClicked()
     {
         // 텍스트를 읽어서 TTS 호출

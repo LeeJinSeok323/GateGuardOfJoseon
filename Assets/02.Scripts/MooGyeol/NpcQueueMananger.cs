@@ -10,34 +10,50 @@ public class NpcQueueMananger : MonoBehaviour
     public List<Transform> Positions;
     public Transform GatePostion;
 
-    private Queue<Npc> npcQueue = new Queue<Npc>();
+    public Queue<Npc> npcQueue = new Queue<Npc>();
 
     private void Start()
     {
+        StartCoroutine(DelayedStart());
+    }
+
+    IEnumerator DelayedStart()
+    {
+        // 1초 대기
+        yield return new WaitForSeconds(1.0f);
+
         GameObject[] NPCList = GameObject.FindGameObjectsWithTag("NPC");
 
         for (int currentQueueIndex = 0; currentQueueIndex < NPCList.Count(); currentQueueIndex++)
         {
             Npc npc = NPCList[currentQueueIndex].GetComponent<Npc>();
+
             if (npc.npcType == NpcType.Gate)
             {
                 npcQueue.Enqueue(npc);
 
                 // 현재 줄에 있는 NPC의 위치로 이동
-                NpcManager.Instance.ChangeToWalk(npc.ID, Positions[npcQueue.Count()-1].position);
+                NpcManager.Instance.ChangeToWalk(npc.ID, Positions[npcQueue.Count() - 1].position);
             }
-            
+
         }
+
+        // 지연 후 실행할 코드
+        Debug.Log("Start 함수 이후 1초 뒤에 실행");
     }
+
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+       
+        if (Input.GetKeyDown(KeyCode.B))
         {
             // 스페이스 키를 누를 때마다 NPC 큐에 NPC 삭제
             DequeueNPC();
         }
+        
     }
+
 
     public void DequeueNPC()
     {
