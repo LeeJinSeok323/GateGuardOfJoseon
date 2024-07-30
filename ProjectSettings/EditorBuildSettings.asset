@@ -6,9 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/05.Models/Low Poly Modular Terrain Pack/Main_Stage1.unity
+    path: Assets/01.Scenes/Main_Stage1.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
-    path: Assets/01.Scenes/Main_Stage2.unity
-    guid: e73f6144c30f1804badbc9f0fc19efdc
+    path: Assets/01.Scenes/Calculate_Scene.unity
+    guid: e164508185733284c9d8ff2ac9408a14
   m_configObjects: {}

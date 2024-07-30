@@ -2,16 +2,12 @@
 using UnityEngine;
 using UnityEngine.UI;
 using OpenAi.Unity.V1;
-using UnityEngine.UI;
 namespace OpenAi.Examples
 {
     public class GptManager : MonoBehaviour
     {   
         private static GptManager instance = null;
 
-        //public Dropdown role; // ?��?��?��?��?�� user GPT��?? ?��?��?��?��?�� prompt?�� system?����?? ?��?��.
-
-        
         public Text Input; // ?��?��?��?����?? ?��?��?�� ?��?��
         public static Text Output; // NPC��?? 말풍?�� Canvas
         string NpcPrompt;
@@ -25,18 +21,19 @@ namespace OpenAi.Examples
             }
             else{
                 // 씬 이동시 삭제. 하기싫으면 지울것
-                Destroy(this.gameObject);
+                //Destroy(this.gameObject);
             }
         }
+
         void Start(){
             Player = GameObject.FindWithTag("Player");
         }
         void Update(){
-            closestNpc = UIInfoManager.CheckRadiusNPCObject(Player.transform.position);
-            Transform canvasTransform = closestNpc.transform.Find("Canvas");
-            if(canvasTransform != null){
-                Output = canvasTransform.GetComponentInChildren<Text>();
-            }
+            //closestNpc = UIInfoManager.CheckRadiusNPCObject(Player.transform.position);
+            //Transform canvasTransform = closestNpc.transform.Find("Canvas");
+            //if(canvasTransform != null){
+            //    Output = canvasTransform.GetComponentInChildren<Text>();
+            //}
         }
 
         public static GptManager Instance{

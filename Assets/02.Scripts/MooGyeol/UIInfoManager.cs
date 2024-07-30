@@ -45,7 +45,7 @@ public class UIInfoManager : MonoBehaviour
 
     private void Start()
     {
-        DontDestroyOnLoad(this);
+        //DontDestroyOnLoad(this);
        
         GatePoint = GameObject.FindGameObjectWithTag("Point").transform;
         radius = 2.0f;

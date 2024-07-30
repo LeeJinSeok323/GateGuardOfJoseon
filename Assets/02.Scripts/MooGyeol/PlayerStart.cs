@@ -8,8 +8,18 @@ public class PlayerStart : MonoBehaviour
 
     void Start()
     {
-        GameObject player = Instantiate(Player, this.transform.position, this.transform.rotation);
-        DontDestroyOnLoad(player);
+        GameObject existingPlayer = GameObject.FindWithTag("Player");
+
+        if(existingPlayer == null)
+        {
+            GameObject player = Instantiate(Player, this.transform.position, this.transform.rotation);
+            DontDestroyOnLoad(player);
+        }
+        else
+        {
+            existingPlayer.transform.position = this.transform.position;
+        }
+        
     }
 
     

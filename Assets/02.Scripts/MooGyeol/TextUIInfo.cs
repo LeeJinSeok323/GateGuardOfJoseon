@@ -22,6 +22,7 @@ public class TextUIInfo : MonoBehaviour
 
     public int id;
 
+ 
     public void Start()
     {
         Birth.text = " ";

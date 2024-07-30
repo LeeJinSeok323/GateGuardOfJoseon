@@ -21,10 +21,12 @@ public class NpcManager : MonoBehaviour
     public GameObject GateNpc4;
     public GameObject GateNpc5;
 
-    //public GameObject RunNpc;
+    private List<GameObject> npcs = new List<GameObject>();
 
     public Vector3 PassPoint;
     public Vector3 DeninedPoint;
+
+    public int stageNum;
 
     public static NpcManager Instance
     {
@@ -55,40 +57,15 @@ public class NpcManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(this.gameObject);
         }
-        //InitTable();
-        //Debug.Log("테이블 완");
-    }
-    /*
-#region NPC 테이브 로드
-    public void InitTable()
-    {
-        // NPC 테이블 로드
-        data_Dialog = CSVReader.Read("NPCTable");
-    }
-
-    public Dictionary<string, object> GetEntryById(int id)
-    {
-        if (data_Dialog == null)
+        else if (Instance != this)
         {
-            Debug.LogError("NPC 테이블이 초기화되지 않았습니다.");
-            return null;
+            // If an instance already exists and it's not this one, destroy this game object
+            Destroy(gameObject);
         }
 
-        string strId = id.ToString();
 
-        foreach (var entry in data_Dialog)
-        {
-            if (entry.ContainsKey("ID") && entry["ID"].ToString() == strId)
-            {
-                return entry;
-            }
-        }
-
-        return null; 
+        stageNum = 1;
     }
-#endregion
-*/
-    
 
     public GameObject CreateNPC(NpcCreateParameter parm)
     {
@@ -165,6 +142,7 @@ public class NpcManager : MonoBehaviour
 
         if(npc != null)
         {
+            npcs.Add(npc);
             npc.transform.parent = this.transform;
             AddParameters(npc, parm);
         }
@@ -336,7 +314,84 @@ public class NpcManager : MonoBehaviour
             );
 
         return pram;
+    }
 
+    public void ClearNPCs()
+    {
+        // 리스트에 있는 NPC들을 정리합니다.
+        foreach (GameObject npc in npcs)
+        {
+            if (npc != null)
+            {
+                Destroy(npc);
+            }
+        }
+        npcs.Clear();
+    }
 
+    public void SetParameters(ref NpcCreateParameter[] npcArray, NpcType type, int npcNumber)
+    {
+        NpcInfoGenerater n = NpcInfoGenerater.Instance;
+        int NpcCnt = 0;
+
+        npcArray = new NpcCreateParameter[npcNumber];
+
+        for (int i = 0; i < npcNumber; i++)
+        {
+
+            bool vilran = Random.Range(0, 2) == 1;
+
+            if (!vilran)
+            {
+                npcArray[i] = new NpcCreateParameter(
+               type,
+               NpcCnt,
+               n.nameTable[NpcCnt],
+               n.ageTable[NpcCnt],
+               n.genderTable[NpcCnt],
+               //n.styleTable[i],
+               n.statusTable[NpcCnt],
+               n.homeTable[NpcCnt],
+               n.jobTable[NpcCnt],
+               n.passPurposeTable[NpcCnt],
+               n.itemTable[NpcCnt],
+               n.npcDailyTable[NpcCnt],
+               vilran
+                 );
+                //    Debug.Log($"빌런x {NpcCnt}의 이름은{n.nameTable[NpcCnt]}, {NpcInfoGenerater.Instance.nameTable[NpcCnt]}");
+
+            }
+            else
+            {
+                npcArray[i] = new NpcCreateParameter(
+                type,
+                NpcCnt,
+                n.nameTable[NpcCnt + 20],
+                n.ageTable[NpcCnt + 20],
+                n.genderTable[NpcCnt],
+                //n.styleTable[i],
+                n.statusTable[NpcCnt],
+                n.homeTable[NpcCnt + 20],
+                n.jobTable[NpcCnt + 20],
+                n.passPurposeTable[NpcCnt],
+                n.itemTable[NpcCnt],
+                n.npcDailyTable[NpcCnt],
+                vilran
+                  );
+                //    Debug.Log($"빌런o {NpcCnt}의 이름은{n.nameTable[NpcCnt+20]},{NpcInfoGenerater.Instance.nameTable[NpcCnt]}");
+            }
+            NpcCnt++;
+        }
+
+    }
+
+    public int GetNum()
+    {
+        return stageNum;
+    }
+
+    public void AddNum()
+    {
+        stageNum++;
     }
 }

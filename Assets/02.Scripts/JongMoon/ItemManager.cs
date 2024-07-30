@@ -9,6 +9,11 @@ public class ItemManager : MonoBehaviour
     public GameObject Item3;
     public Npc npc; // NPC 스크립트 참조
 
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
+
     void Start()
     {
         if (npc != null)

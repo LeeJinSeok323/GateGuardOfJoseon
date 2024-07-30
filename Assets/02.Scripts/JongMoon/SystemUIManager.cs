@@ -15,7 +15,7 @@ public class SystemUIManager : MonoBehaviour
     public static SystemUIManager Instance;
 
     private bool isPaused = false;
-    private bool isKeynoti = false;
+    //private bool isKeynoti = false;
     private bool isGummun = false; // 수색 UI 상태
     private bool isJosa = false;
     private bool isItem = false;
@@ -56,7 +56,7 @@ public class SystemUIManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -78,15 +78,15 @@ public class SystemUIManager : MonoBehaviour
         GummunUI.SetActive(isJosa);
     }
     
-    /*
-    // 키 알림 UI 토글 메서드 수정
-    public void ToggleKeynotification()
-    {
-        isKeynoti = !isKeynoti;
-        Keynotification.SetActive(isKeynoti);
-        keyGuideUI.SetActive(!isKeynoti);
-    }
-    */
+    
+    //// 키 알림 UI 토글 메서드 수정
+    //public void ToggleKeynotification()
+    //{
+    //    isKeynoti = !isKeynoti;
+    //    Keynotification.SetActive(isKeynoti);
+    //    keyGuideUI.SetActive(!isKeynoti);
+    //}
+    
     // 수색 UI 토글 메서드 추가
     public void ToggleKeyGuideUI()
     {

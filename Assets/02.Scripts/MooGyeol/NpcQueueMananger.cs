@@ -39,7 +39,7 @@ public class NpcQueueMananger : MonoBehaviour
         }
 
         // 지연 후 실행할 코드
-        Debug.Log("Start 함수 이후 1초 뒤에 실행");
+        //Debug.Log("Start 함수 이후 1초 뒤에 실행");
     }
 
 
