@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.Playables;
 using static NpcCreateParameter;
@@ -33,6 +34,7 @@ public class StageContext
 
 public class ShareFunction
 {
+    
     public void CreateGateNpc(int num)
     {
         NpcCreateParameter[] _GateNpcParams = null;
@@ -47,24 +49,32 @@ public class ShareFunction
 
 public class Stage1Strategy : MonoBehaviour, IStageStrategy
 {
-     ShareFunction _shareFunction = new ShareFunction();
+    ShareFunction _shareFunction = new ShareFunction();
+    List<GameObject> npcs;
+    SystemUIManager UI;
 
     public void LoadStage()
     {
         Debug.Log("Stage 1 Loaded");
         NpcManager.Instance.AddNum();
         _shareFunction.CreateGateNpc(5);
+
+        UI = GameObject.FindWithTag("UIManager").GetComponent<SystemUIManager>();
+        npcs = NpcManager.Instance.GetNpc();
+        UI.OnDelegate(ref npcs);
     }
 
     public void UnloadStage()
     {
-        Debug.Log("Stage 1 Unloaded");
+        UI.DisDelegate(ref npcs);
     }
 }
 
 public class Stage2Strategy : MonoBehaviour, IStageStrategy
 {
     ShareFunction _shareFunction = new ShareFunction();
+    List<GameObject> npcs;
+    SystemUIManager UI;
 
     public void LoadStage()
     {
@@ -72,13 +82,13 @@ public class Stage2Strategy : MonoBehaviour, IStageStrategy
         NpcManager.Instance.AddNum();
         _shareFunction.CreateGateNpc(3);
 
+        UI = GameObject.FindWithTag("UIManager").GetComponent<SystemUIManager>();
+        npcs = NpcManager.Instance.GetNpc();
+        UI.OnDelegate(ref npcs);
     }
 
     public void UnloadStage()
     {
-        
-        Debug.Log("Stage 2 Unloaded");
- 
+        UI.DisDelegate(ref npcs);
     }
 }
-

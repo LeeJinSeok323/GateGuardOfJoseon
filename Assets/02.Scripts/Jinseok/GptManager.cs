@@ -6,44 +6,49 @@ namespace OpenAi.Examples
 {
     public class GptManager : MonoBehaviour
     {   
-        private static GptManager instance = null;
+        private static GptManager _instance = null;
 
         public Text Input; // ?��?��?��?����?? ?��?��?�� ?��?��
         public static Text Output; // NPC��?? 말풍?�� Canvas
         string NpcPrompt;
         GameObject closestNpc;
-        GameObject Player; 
-        
-        void Awake(){
-            if(instance == null){
-                instance = this;
-                DontDestroyOnLoad(this.gameObject);
+        GameObject Player;
+
+        public static GptManager Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    GameObject singletonObject = new GameObject();
+                    _instance = singletonObject.AddComponent<GptManager>();
+                    singletonObject.name = typeof(GptManager).ToString() + " (Singleton)";
+
+                }
+                return _instance;
             }
-            else{
-                // 씬 이동시 삭제. 하기싫으면 지울것
-                //Destroy(this.gameObject);
+        }
+
+        private void Awake()
+        {
+            // 만약 인스턴스가 이미 존재하고 현재 인스턴스와 다르다면, 중복된 인스턴스를 파괴
+            if (_instance != null && _instance != this)
+            {
+                Destroy(this.gameObject);
+            }
+            else
+            {
+                _instance = this;
+                DontDestroyOnLoad(this.gameObject);
             }
         }
 
         void Start(){
             Player = GameObject.FindWithTag("Player");
         }
-        void Update(){
-            //closestNpc = UIInfoManager.CheckRadiusNPCObject(Player.transform.position);
-            //Transform canvasTransform = closestNpc.transform.Find("Canvas");
-            //if(canvasTransform != null){
-            //    Output = canvasTransform.GetComponentInChildren<Text>();
-            //}
-        }
+       
+     
 
-        public static GptManager Instance{
-            get{
-                if (instance == null){
-                    return null;
-                }
-                return instance;
-            }
-        }
         public void DoApiCompletion()
         {   
             string text = Input.text;

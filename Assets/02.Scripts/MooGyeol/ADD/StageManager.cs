@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class StageManager : MonoBehaviour
 {
     private StageContext _stageContext;
 
@@ -16,8 +16,6 @@ public class GameManager : MonoBehaviour
 
     public void SetStage(int stageNumber)
     {
-        _stageContext.UnloadStage();
-
         switch (stageNumber) 
         { 
             case 1:
@@ -29,6 +27,13 @@ public class GameManager : MonoBehaviour
         }
 
         _stageContext.LoadStage();
+    }
+
+    public void OnChangeScene()
+    {
+        _stageContext.UnloadStage();
+        NpcManager.Instance.ClearNPCs();
+        SceneManager.LoadScene("Calculate_Scene");
     }
 
 }

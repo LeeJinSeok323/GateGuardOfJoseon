@@ -6,7 +6,7 @@ using static NpcCreateParameter;
 public class NpcManager : MonoBehaviour
 {
     public List<Dictionary<string, object>> data_Dialog;
-    private static NpcManager instance;
+    private static NpcManager _instance;
 
     public GameObject StayNpc1;
     public GameObject StayNpc2;
@@ -22,49 +22,43 @@ public class NpcManager : MonoBehaviour
     public GameObject GateNpc5;
 
     private List<GameObject> npcs = new List<GameObject>();
-
+    
     public Vector3 PassPoint;
     public Vector3 DeninedPoint;
 
-    public int stageNum;
+    public int stageNum =1;
 
     public static NpcManager Instance
     {
-        get 
-        { 
-            if (instance == null)
+        get
+        {
+            if (_instance == null)
             {
-                instance = FindObjectOfType<NpcManager>();
-
-                if (instance == null)
+                _instance = FindObjectOfType<NpcManager>();
+                if(_instance == null)
                 {
-                    // 찾을 수 없으면 새로운 GameObject에 추가하여 생성
-                    GameObject obj = new GameObject("NpcManager");
-                    instance = obj.AddComponent<NpcManager>();
+                    GameObject singletonObject = new GameObject();
+                    _instance = singletonObject.AddComponent<NpcManager>();
+                    singletonObject.name = typeof(NpcManager).ToString() + " (Singleton)";
+                    DontDestroyOnLoad(singletonObject);
                 }
-
-                DontDestroyOnLoad(instance.gameObject);
             }
-                
-            return instance; 
+            return _instance;
         }
     }
 
     private void Awake()
     {
-       if( instance == null)
+        // 만약 인스턴스가 이미 존재하고 현재 인스턴스와 다르다면, 중복된 인스턴스를 파괴
+        if (_instance != null && _instance != this)
         {
-            instance = this;
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            _instance = this;
             DontDestroyOnLoad(this.gameObject);
         }
-        else if (Instance != this)
-        {
-            // If an instance already exists and it's not this one, destroy this game object
-            Destroy(gameObject);
-        }
-
-
-        stageNum = 1;
     }
 
     public GameObject CreateNPC(NpcCreateParameter parm)
@@ -393,5 +387,10 @@ public class NpcManager : MonoBehaviour
     public void AddNum()
     {
         stageNum++;
+    }
+
+    public List<GameObject> GetNpc()
+    {
+        return npcs;
     }
 }

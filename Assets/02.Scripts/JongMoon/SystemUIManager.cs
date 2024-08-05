@@ -12,7 +12,6 @@ public class SystemUIManager : MonoBehaviour
     public GameObject Player;
     public GameObject ShowItem;
     public GameObject Buttons;
-    public static SystemUIManager Instance;
 
     private bool isPaused = false;
     //private bool isKeynoti = false;
@@ -20,7 +19,23 @@ public class SystemUIManager : MonoBehaviour
     private bool isJosa = false;
     private bool isItem = false;
 
-    void Start()
+    private static SystemUIManager _instance;
+
+    private void Awake()
+    {
+        if (_instance != null && _instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            _instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+    }
+
+
+    private void Start()
     {
         // Canvas의 모든 자식 GameObject들을 비활성화합니다.
         foreach (Transform child in Canvas.transform)
@@ -51,19 +66,6 @@ public class SystemUIManager : MonoBehaviour
         }
     }
 
-    void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            //DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-
     public void TogglePause()
     {
         isPaused = !isPaused;
@@ -71,13 +73,11 @@ public class SystemUIManager : MonoBehaviour
         systemUI.SetActive(isPaused);
     }
 
-    
     public void ToggleJosa()
     {
         isJosa = !isJosa;
         GummunUI.SetActive(isJosa);
     }
-    
     
     //// 키 알림 UI 토글 메서드 수정
     //public void ToggleKeynotification()
@@ -99,4 +99,32 @@ public class SystemUIManager : MonoBehaviour
         isItem = !isItem;
         ShowItem.SetActive(isItem);
     }
+
+    public void OnDelegate(ref List<GameObject> npcs)
+    {
+        foreach (GameObject npc in npcs)
+        {
+            ShowKeyPopUp npcScript = npc.GetComponent<ShowKeyPopUp>();
+            if (npcScript != null)
+            {
+                // 델리게이트 할당
+                npcScript.OnNPCProximity += ToggleKeyGuideUI;
+            }
+        }
+        Debug.Log("할당");
+    }
+
+    public void DisDelegate(ref List<GameObject> npcs)
+    {
+        foreach (GameObject npc in npcs)
+        {
+            ShowKeyPopUp npcScript = npc.GetComponent<ShowKeyPopUp>();
+            if (npcScript != null)
+            {
+                npcScript.OnNPCProximity -= ToggleKeyGuideUI;
+            }
+        }
+        Debug.Log("할당해제");
+    }
+
 }

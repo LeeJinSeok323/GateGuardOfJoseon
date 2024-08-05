@@ -1,55 +1,74 @@
+using RoslynCSharp.Example;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GameMgr : MonoBehaviour
 {
-    public static int townHappinessPoint = 40; // 마을 행복도
-    public static int bossSatisfaction = 30; // 탐관오리 만족도
-    public static int HCode { get; private set; } // 행복도 코드
-    public static int Scode { get; private set; } // 만족도 코드
+    private static GameMgr _instance;
 
-    void Update()
+    public static GameMgr Instance
     {
-        UpdatetownHappinessPointCode();
-        UpdatebossSatisfactionCode();
+        get
+        {
+            if(_instance == null)
+            {
+                GameObject singletonObject = new GameObject();
+                _instance = singletonObject.AddComponent<GameMgr>();
+                singletonObject.name = typeof(GameMgr).ToString() + " (Singleton)";
 
-        // 로그를 통해 값의 변화 확인
-        Debug.Log("Town Happiness: " + townHappinessPoint);
-        Debug.Log("Boss Satisfaction: " + bossSatisfaction);
+                DontDestroyOnLoad(singletonObject);
+            }
+            return _instance;
+        }
     }
 
+    private void Awake()
+    {
+        // 만약 인스턴스가 이미 존재하고 현재 인스턴스와 다르다면, 중복된 인스턴스를 파괴
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            _instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+    }
 
+    public int townHappinessPoint = 40; // 마을 행복도
+    public int bossSatisfaction = 30; // 탐관오리 만족도
 
-    static void UpdatetownHappinessPointCode()
+    static void UpdatetownHappinessPointCode(int townHappinessPoint)
     {
         if (townHappinessPoint <= 100 && townHappinessPoint >= 60)
         {
-            HCode = 1; // 좋음
+
         }
         else if (townHappinessPoint < 60 && townHappinessPoint >= 30)
         {
-            HCode = 2; // 보통
+
         }
         else
         {
-            HCode = 3; // 나쁨
+
         }
     }
 
-    static void UpdatebossSatisfactionCode()
+    static void UpdatebossSatisfactionCode(int bossSatisfaction)
     {
         if (bossSatisfaction <= 100 && bossSatisfaction >= 60)
         {
-            Scode = 3; // 높은 탐욕 수치
+
         }
         else if (bossSatisfaction < 60 && bossSatisfaction >= 30)
         {
-            Scode = 2; // 중간 탐욕 수치
+   
         }
         else
         {
-            Scode = 1; // 낮은 탐욕 수치
+ 
         }
     }
 }

@@ -9,7 +9,6 @@ public class UIInfoManager : MonoBehaviour
     private float radius;
     private static float radius2;
     private Transform PlayerPoint;
-    public GptManager gpt;
 
     // 정적 변수
     public static string Name;
@@ -21,6 +20,20 @@ public class UIInfoManager : MonoBehaviour
     public static string Status;
     public static string Job;
     public static int Id;
+
+    private void Start()
+    {
+        DontDestroyOnLoad(this);
+
+        GatePoint = GameObject.FindGameObjectWithTag("Point").transform;
+        radius = 2.0f;
+        radius2 = 2.0f;
+    }
+
+    private void Update()
+    {
+        PlayerPoint = GameObject.FindGameObjectWithTag("Player").transform;
+    }
 
     //리셋 버튼을 누르면 근처 NPC 정보를 받아옴
     public void  OnResetNpcBtnDown()    
@@ -40,21 +53,7 @@ public class UIInfoManager : MonoBehaviour
         Job = parm.Job;
         Id = parm.Number;
 
-        gpt.GetComponent<GptManager>().NpcSetting();
-    }
-
-    private void Start()
-    {
-        //DontDestroyOnLoad(this);
-       
-        GatePoint = GameObject.FindGameObjectWithTag("Point").transform;
-        radius = 2.0f;
-        radius2 = 2.0f;
-    }
-
-    private void Update()
-    {
-        PlayerPoint = GameObject.FindGameObjectWithTag("Player").transform;
+        GptManager.Instance.NpcSetting();
     }
 
     public int CheckRadiusNPC(Vector3 position)
@@ -101,8 +100,6 @@ public class UIInfoManager : MonoBehaviour
         return closestNPC;
         
     }
-    
-   
 
     public void OnClickPassButton()
     {

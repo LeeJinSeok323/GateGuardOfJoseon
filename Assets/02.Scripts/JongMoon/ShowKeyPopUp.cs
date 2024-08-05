@@ -4,21 +4,39 @@ using UnityEngine;
 
 public class ShowKeyPopUp : MonoBehaviour
 {
-    // 가까이 오면 창띄우기, NPC한테 넣어야함.
-    void OnTriggerEnter(Collider other)
+    // 델리게이트 정의
+    public delegate void NPCProximityHandler();
+    // 이벤트 선언
+    public event NPCProximityHandler OnNPCProximity;
+
+    public float proximityDistance = 0.5f; // UI가 나타날 거리
+    private bool isActive = false;
+    private Transform playerTransform;
+
+    private void Start()
     {
-        if (other.CompareTag("Player"))
-        {
-            SystemUIManager.Instance.ToggleKeyGuideUI(); // Gummun UI를 켠다
-        }
+        playerTransform = GameObject.FindWithTag("Player").transform;
     }
 
-    void OnTriggerExit(Collider other)
+    private void Update()
     {
-        if (other.CompareTag("Player"))
+        CheckProximity();
+    }
+
+    private void CheckProximity()
+    {
+        if (playerTransform == null) return;
+        float distance = Vector3.Distance(transform.position, playerTransform.position);
+        if (!isActive && distance <= proximityDistance)  //가까우면 UI 띄우기
         {
-            SystemUIManager.Instance.ToggleKeyGuideUI(); // Gummun UI를 끈다
+            // 이벤트 호출
+            OnNPCProximity?.Invoke();
+            isActive = true;
+        }
+        else if(isActive && distance > proximityDistance) // 멀면 끄기
+        {
+            OnNPCProximity?.Invoke();
+            isActive = false;
         }
     }
 }
-

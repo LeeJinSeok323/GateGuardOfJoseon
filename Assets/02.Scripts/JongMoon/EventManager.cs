@@ -55,19 +55,19 @@ public class EventManager : MonoBehaviour
         switch (eventData.eventID)
         {
             case "tevent1":
-                GameMgr.townHappinessPoint += 2;
+                GameMgr.Instance.townHappinessPoint += 2;
                 break;
             case "tevent2":
-                GameMgr.townHappinessPoint -= 5;
+                GameMgr.Instance.townHappinessPoint -= 5;
                 break;
             case "tevent3":
-                GameMgr.townHappinessPoint -= (int)((1 - GameMgr.townHappinessPoint / 100.0) * 0.2 * 10);
+                GameMgr.Instance.townHappinessPoint -= (int)((1 - GameMgr.Instance.townHappinessPoint / 100.0) * 0.2 * 10);
                 break;
             case "sevent1":
-                GameMgr.bossSatisfaction += (int)((Payment - SetPayment) * 0.2);
+                GameMgr.Instance.bossSatisfaction += (int)((Payment - SetPayment) * 0.2);
                 break;
             case "sevent2":
-                GameMgr.bossSatisfaction -= (int)((SetPayment - Payment) * 0.2);
+                GameMgr.Instance.bossSatisfaction -= (int)((SetPayment - Payment) * 0.2);
                 break;
         }
     }
