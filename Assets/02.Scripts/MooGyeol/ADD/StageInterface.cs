@@ -56,7 +56,7 @@ public class Stage1Strategy : MonoBehaviour, IStageStrategy
     public void LoadStage()
     {
         Debug.Log("Stage 1 Loaded");
-        NpcManager.Instance.AddNum();
+        GameMgr.Instance.AddStageNum();
         _shareFunction.CreateGateNpc(5);
 
         UI = GameObject.FindWithTag("UIManager").GetComponent<SystemUIManager>();
@@ -79,7 +79,7 @@ public class Stage2Strategy : MonoBehaviour, IStageStrategy
     public void LoadStage()
     {
         Debug.Log("Stage 2 Loaded");
-        NpcManager.Instance.AddNum();
+        GameMgr.Instance.AddStageNum();
         _shareFunction.CreateGateNpc(3);
 
         UI = GameObject.FindWithTag("UIManager").GetComponent<SystemUIManager>();

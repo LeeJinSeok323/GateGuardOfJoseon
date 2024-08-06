@@ -26,7 +26,7 @@ public class NpcManager : MonoBehaviour
     public Vector3 PassPoint;
     public Vector3 DeninedPoint;
 
-    public int stageNum =1;
+    public Transform GatePoint;
 
     public static NpcManager Instance
     {
@@ -59,6 +59,11 @@ public class NpcManager : MonoBehaviour
             _instance = this;
             DontDestroyOnLoad(this.gameObject);
         }
+    }
+
+    private void Start()
+    {
+        GatePoint = GameObject.FindGameObjectWithTag("Point").transform;
     }
 
     public GameObject CreateNPC(NpcCreateParameter parm)
@@ -235,21 +240,10 @@ public class NpcManager : MonoBehaviour
             }
 
         }
-
-        NpcBehavior_Stay stay = npc.GetComponent<NpcBehavior_Stay>();
-        if(stay != null)
-        {
-            if (stay.state == NpcBehavior_Stay.State.IDLE)
-            {
-                stay.state = NpcBehavior_Stay.State.TALK;
-            }
-        }
-
     }
 
     public void PassGate(int id)
     {   
-        
         GameObject npc = FindNpcGameObjectById(id);
         NpcBehavior_Gate gate = npc.GetComponent<NpcBehavior_Gate>();
         if (gate != null)
@@ -379,18 +373,54 @@ public class NpcManager : MonoBehaviour
 
     }
 
-    public int GetNum()
-    {
-        return stageNum;
-    }
-
-    public void AddNum()
-    {
-        stageNum++;
-    }
-
     public List<GameObject> GetNpc()
     {
         return npcs;
+    }
+
+    public int CheckRadiusNPC(Vector3 position)
+    {
+        Collider[] colliders = Physics.OverlapSphere(position, 2.0f);
+        float closestDistance = Mathf.Infinity;
+        int id = 9999;
+
+        foreach (Collider collider in colliders)
+        {
+            if (collider.CompareTag("NPC"))
+            {
+                float distance = Vector3.Distance(position, collider.transform.position);
+
+                if (distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    id = NpcManager.Instance.GetIdByObject(collider.gameObject);
+                }
+            }
+        }
+        return id;
+    }
+
+    public static GameObject CheckRadiusNPCObject(Vector3 position)
+    {
+        Collider[] colliders = Physics.OverlapSphere(position, 2.0f);
+        float closestDistance = Mathf.Infinity;
+        GameObject closestNPC = null;
+
+        foreach (Collider collider in colliders)
+        {
+            if (collider.CompareTag("NPC"))
+            {
+                float distance = Vector3.Distance(position, collider.transform.position);
+
+                if (distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    closestNPC = collider.gameObject;
+                }
+            }
+        }
+
+        return closestNPC;
+
     }
 }

@@ -11,7 +11,7 @@ public class StageManager : MonoBehaviour
     private void Start()
     {
         _stageContext = new StageContext();
-        SetStage(NpcManager.Instance.GetNum());
+        SetStage(GameMgr.Instance.GetStageNum());
     }
 
     public void SetStage(int stageNumber)

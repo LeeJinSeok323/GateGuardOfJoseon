@@ -169,6 +169,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   townHappinessPoint: 40
   bossSatisfaction: 30
+  money: 0
+  isTarget: 0
 --- !u!4 &29897230 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7290069235543110715, guid: 26681b13242f1f04ab2e06fb45339880,
@@ -3737,7 +3739,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &118864920241588143
 GameObject:
   m_ObjectHideFlags: 0
@@ -5274,7 +5276,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -559.2002, y: -97.59985}
+  m_AnchoredPosition: {x: -577, y: 14.276}
   m_SizeDelta: {x: 171.10632, y: 197.76437}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1726955590926140803
@@ -6937,7 +6939,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &3170094086706082134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8080,6 +8082,9 @@ MonoBehaviour:
   PassPoint: {x: -34, y: 0, z: -49}
   DeninedPoint: {x: -30, y: 0, z: -2}
   stageNum: 1
+  GatePoint: {fileID: 679610738}
+  radius: 0
+  PlayerPoint: {fileID: 0}
 --- !u!222 &4182051122176691613
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8219,8 +8224,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 44.087612, y: -53}
-  m_SizeDelta: {x: 1677.7839, y: 870.4911}
+  m_AnchoredPosition: {x: 44.087612, y: -157.96594}
+  m_SizeDelta: {x: 1677.7839, y: 660.5592}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4319514210685580341
 MonoBehaviour:
@@ -9150,7 +9155,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &5423690424017110445
 GameObject:
   m_ObjectHideFlags: 0
@@ -9541,7 +9546,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 248, y: -177.544}
+  m_AnchoredPosition: {x: 263.66, y: -80.845}
   m_SizeDelta: {x: 527.3209, y: 347.59}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5998745353887502643
@@ -11207,7 +11212,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 1458.0919, y: 323.24557}
+  m_AnchoredPosition: {x: 1515, y: 330.28}
   m_SizeDelta: {x: 416.6612, y: 155.1434}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8084681352490388418
@@ -11346,7 +11351,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -179, y: -185.57275}
+  m_AnchoredPosition: {x: -188, y: -69.067}
   m_SizeDelta: {x: 127.1808, y: 138.1346}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &8176282732377955794
@@ -12266,18 +12271,18 @@ GameObject:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 5249334}
   - {fileID: 1889972981}
   - {fileID: 152510246410521110}
-  - {fileID: 2458976000322183643}
   - {fileID: 1728995114}
+  - {fileID: 2458976000322183643}
+  - {fileID: 5249334}
   - {fileID: 1521887853}
-  - {fileID: 1902140656089985218}
   - {fileID: 3801668484627742126}
+  - {fileID: 718836274677948841}
+  - {fileID: 5283080062046403331}
   - {fileID: 2803020700129088346}
   - {fileID: 1016721536854942535}
-  - {fileID: 718836274677948841}
   - {fileID: 2859683475446683620}
-  - {fileID: 5283080062046403331}
+  - {fileID: 1902140656089985218}
   - {fileID: 4828553769494475460}
   - {fileID: 333308954521574495}

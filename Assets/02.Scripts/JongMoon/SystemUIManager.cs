@@ -18,7 +18,8 @@ public class SystemUIManager : MonoBehaviour
     private bool isGummun = false; // 수색 UI 상태
     private bool isJosa = false;
     private bool isItem = false;
-
+    Vector3 PlayerPoint;
+  
     private static SystemUIManager _instance;
 
     private void Awake()
@@ -33,7 +34,6 @@ public class SystemUIManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
     }
-
 
     private void Start()
     {
@@ -77,6 +77,8 @@ public class SystemUIManager : MonoBehaviour
     {
         isJosa = !isJosa;
         GummunUI.SetActive(isJosa);
+        PlayerPoint = GameObject.FindGameObjectWithTag("Player").transform.position;
+        NpcManager.Instance.ChangeToTalk(NpcManager.Instance.CheckRadiusNPC(PlayerPoint));
     }
     
     //// 키 알림 UI 토글 메서드 수정

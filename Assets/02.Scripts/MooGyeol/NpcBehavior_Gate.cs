@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UIElements;
 
 public class NpcBehavior_Gate : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class NpcBehavior_Gate : MonoBehaviour
         WALK,
         TALK,
         LOOK,
+        HIT,
+        RUN
     }
 
     public State state = State.IDLE;
@@ -75,6 +78,16 @@ public class NpcBehavior_Gate : MonoBehaviour
                     this.transform.LookAt(player.transform);
                     state = State.IDLE;
                     break;
+
+                case State.HIT:
+                    yield return new WaitForSeconds(2.0f);
+                    state = State.IDLE;
+                    break;
+
+                case State.RUN:
+                    yield return new WaitForSeconds(2.0f);
+                    state = State.IDLE;
+                    break;
             }
         }
     }
@@ -94,6 +107,12 @@ public class NpcBehavior_Gate : MonoBehaviour
                     break;
                 case State.TALK:
                     anim.SetBool("isTalk", true);
+                    break;
+                case State.HIT:
+                    // 피격 애니메이션
+                    break;
+                case State.RUN:
+                    // 도주 애니메이션
                     break;
             }
 
@@ -116,5 +135,12 @@ public class NpcBehavior_Gate : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void RunTo(Vector3 position)
+    {
+        agent.speed = 1.5f;
+        agent.SetDestination(position);
+ 
     }
 }

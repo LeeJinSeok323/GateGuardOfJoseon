@@ -5,11 +5,6 @@ using UnityEngine;
 
 public class UIInfoManager : MonoBehaviour
 {
-    private Transform GatePoint;
-    private float radius;
-    private static float radius2;
-    private Transform PlayerPoint;
-
     // 정적 변수
     public static string Name;
     public static string Age;
@@ -21,24 +16,28 @@ public class UIInfoManager : MonoBehaviour
     public static string Job;
     public static int Id;
 
-    private void Start()
-    {
-        DontDestroyOnLoad(this);
+    private Transform PlayerPoint;
 
-        GatePoint = GameObject.FindGameObjectWithTag("Point").transform;
-        radius = 2.0f;
-        radius2 = 2.0f;
-    }
+    private static UIInfoManager _instance;
 
-    private void Update()
+    private void Awake()
     {
-        PlayerPoint = GameObject.FindGameObjectWithTag("Player").transform;
+        if (_instance != null && _instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            _instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
     }
 
     //리셋 버튼을 누르면 근처 NPC 정보를 받아옴
     public void  OnResetNpcBtnDown()    
     {
-        int id = CheckRadiusNPC(PlayerPoint.position);
+        PlayerPoint = GameObject.FindGameObjectWithTag("Player").transform;
+        int id = NpcManager.Instance.CheckRadiusNPC(PlayerPoint.position);
         if (id > 100) return;
         NpcCreateParameter parm = NpcManager.Instance.GetParmNPC(id);
 
@@ -56,54 +55,9 @@ public class UIInfoManager : MonoBehaviour
         GptManager.Instance.NpcSetting();
     }
 
-    public int CheckRadiusNPC(Vector3 position)
-    {
-        Collider[] colliders = Physics.OverlapSphere(position, radius);
-        float closestDistance = Mathf.Infinity;
-        int id = 9999;
-
-        foreach (Collider collider in colliders)
-        {
-            if (collider.CompareTag("NPC"))
-            {
-                float distance = Vector3.Distance(position, collider.transform.position);
-
-                if (distance < closestDistance)
-                {
-                    closestDistance = distance;
-                    id = NpcManager.Instance.GetIdByObject(collider.gameObject);
-                }
-            }
-        }
-        return id;
-    }
-    public static GameObject CheckRadiusNPCObject(Vector3 position)
-    {
-        Collider[] colliders = Physics.OverlapSphere(position, radius2);
-        float closestDistance = Mathf.Infinity;
-        GameObject closestNPC = null;
-
-        foreach (Collider collider in colliders)
-        {
-            if (collider.CompareTag("NPC"))
-            {
-                float distance = Vector3.Distance(position, collider.transform.position);
-
-                if (distance < closestDistance)
-                {
-                    closestDistance = distance;
-                    closestNPC = collider.gameObject;
-                }
-            }
-        }
-
-        return closestNPC;
-        
-    }
-
     public void OnClickPassButton()
     {
-        int id = CheckRadiusNPC(GatePoint.position);
+        int id = NpcManager.Instance.CheckRadiusNPC(NpcManager.Instance.GatePoint.position);
         if(id != 9999)
         {
             NpcManager.Instance.PassGate(id);
@@ -114,7 +68,7 @@ public class UIInfoManager : MonoBehaviour
 
     public void OnClickDeninedButton()
     {
-        int id = CheckRadiusNPC(GatePoint.position);
+        int id = NpcManager.Instance.CheckRadiusNPC(NpcManager.Instance.GatePoint.position);
         if (id != 9999)
         {
             NpcManager.Instance.DeninedGate(id);
@@ -123,7 +77,5 @@ public class UIInfoManager : MonoBehaviour
         }
 
     }
-
-
 
 }

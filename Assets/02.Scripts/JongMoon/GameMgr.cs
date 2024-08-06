@@ -39,36 +39,17 @@ public class GameMgr : MonoBehaviour
 
     public int townHappinessPoint = 40; // 마을 행복도
     public int bossSatisfaction = 30; // 탐관오리 만족도
+    public int money = 0;
+    public bool isTarget = false;
+    public int stageNum = 1;
 
-    static void UpdatetownHappinessPointCode(int townHappinessPoint)
+    public int GetStageNum()
     {
-        if (townHappinessPoint <= 100 && townHappinessPoint >= 60)
-        {
-
-        }
-        else if (townHappinessPoint < 60 && townHappinessPoint >= 30)
-        {
-
-        }
-        else
-        {
-
-        }
+        return stageNum;
     }
 
-    static void UpdatebossSatisfactionCode(int bossSatisfaction)
+    public void AddStageNum()
     {
-        if (bossSatisfaction <= 100 && bossSatisfaction >= 60)
-        {
-
-        }
-        else if (bossSatisfaction < 60 && bossSatisfaction >= 30)
-        {
-   
-        }
-        else
-        {
- 
-        }
+        stageNum++;
     }
 }
