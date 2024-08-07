@@ -80,7 +80,7 @@ public class NpcBehavior_Gate : MonoBehaviour
                     break;
 
                 case State.HIT:
-                    yield return new WaitForSeconds(2.0f);
+                    yield return new WaitForSeconds(1.0f);
                     state = State.IDLE;
                     break;
 
@@ -101,6 +101,8 @@ public class NpcBehavior_Gate : MonoBehaviour
                 case State.IDLE:
                     anim.SetBool("isWalk", false);
                     anim.SetBool("isTalk", false);
+                    anim.SetBool("isHit", false);
+                    anim.SetBool("isRun", false);
                     break;
                 case State.WALK:
                     anim.SetBool("isWalk", true);
@@ -109,10 +111,10 @@ public class NpcBehavior_Gate : MonoBehaviour
                     anim.SetBool("isTalk", true);
                     break;
                 case State.HIT:
-                    // 피격 애니메이션
+                    anim.SetBool("isHit", true);
                     break;
                 case State.RUN:
-                    // 도주 애니메이션
+                    anim.SetBool("isRun", true);
                     break;
             }
 

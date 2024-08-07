@@ -750,7 +750,6 @@ GameObject:
   - component: {fileID: 6784770093544304870}
   - component: {fileID: 8927856896536987983}
   - component: {fileID: 1655442709308774589}
-  - component: {fileID: 4180937602566429427}
   m_Layer: 10
   m_Name: StayNpc_3
   m_TagString: NPC
@@ -836,13 +835,13 @@ MonoBehaviour:
   Name: 
   Age: 0
   Gender: 
-  Style: 
   Hometown: 
   Status: 
   Job: 
   PassPurpose: 
   Item: 
   NpcDaily: 
+  IsVillain: 0
 --- !u!114 &8927856896536987983
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1107,18 +1106,6 @@ MonoBehaviour:
   DebugRays: 0
   AnimationStyle: 0
   ConstantParentalAxisUpdate: 1
---- !u!114 &4180937602566429427
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3590159986794522658}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f728f92cba0e00f4fa4bc2eea88d8f79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3644116927166104024
 GameObject:
   m_ObjectHideFlags: 0

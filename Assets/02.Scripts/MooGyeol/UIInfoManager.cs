@@ -61,7 +61,7 @@ public class UIInfoManager : MonoBehaviour
         if(id != 9999)
         {
             NpcManager.Instance.PassGate(id);
-            NpcManager.Instance.Remove(id);
+            //NpcManager.Instance.Remove(id);
         }
 
     }
@@ -72,8 +72,7 @@ public class UIInfoManager : MonoBehaviour
         if (id != 9999)
         {
             NpcManager.Instance.DeninedGate(id);
-            NpcManager.Instance.Remove(id);
-            Debug.Log("È£Ãâ‰Î.");
+            //NpcManager.Instance.Remove(id);
         }
 
     }

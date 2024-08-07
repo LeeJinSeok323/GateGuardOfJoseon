@@ -9,13 +9,14 @@ public class ShowKeyPopUp : MonoBehaviour
     // 이벤트 선언
     public event NPCProximityHandler OnNPCProximity;
 
-    public float proximityDistance = 0.5f; // UI가 나타날 거리
+    public float proximityDistance; // UI가 나타날 거리
     private bool isActive = false;
     private Transform playerTransform;
 
     private void Start()
     {
         playerTransform = GameObject.FindWithTag("Player").transform;
+        proximityDistance = 2.0f;
     }
 
     private void Update()
@@ -27,8 +28,11 @@ public class ShowKeyPopUp : MonoBehaviour
     {
         if (playerTransform == null) return;
         float distance = Vector3.Distance(transform.position, playerTransform.position);
+        //Debug.Log(distance);
+
         if (!isActive && distance <= proximityDistance)  //가까우면 UI 띄우기
         {
+            
             // 이벤트 호출
             OnNPCProximity?.Invoke();
             isActive = true;

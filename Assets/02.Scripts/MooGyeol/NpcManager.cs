@@ -209,7 +209,14 @@ public class NpcManager : MonoBehaviour
     public void Remove(int id)
     {
         GameObject npc  = FindNpcGameObjectById(id);
-        Destroy(npc, 10.0f);
+        DeactivateGameObjectWithDelay(npc);
+    }
+
+    IEnumerator DeactivateGameObjectWithDelay(GameObject npc)
+    {
+        yield return new WaitForSeconds(3f); // 3초 대기
+        npc.gameObject.SetActive(false); // 게임 오브젝트 비활성화
+        Debug.Log("딜레이");
     }
 
     public void ChangeToWalk(int id, Vector3 position)
@@ -230,6 +237,7 @@ public class NpcManager : MonoBehaviour
 
     public void ChangeToTalk(int id)
     {
+        if (id == 9999) return;
         GameObject npc = FindNpcGameObjectById(id);
         NpcBehavior_Gate gate = npc.GetComponent<NpcBehavior_Gate>();
         if (gate != null)
@@ -242,43 +250,63 @@ public class NpcManager : MonoBehaviour
         }
     }
 
-    public void PassGate(int id)
-    {   
+    public void ChangeToHt(int id)
+    {
         GameObject npc = FindNpcGameObjectById(id);
         NpcBehavior_Gate gate = npc.GetComponent<NpcBehavior_Gate>();
         if (gate != null)
         {
-            gate.currentTarget = PassPoint;
-
             if (gate.state == NpcBehavior_Gate.State.IDLE)
             {
-                gate.state = NpcBehavior_Gate.State.WALK;
+                gate.state = NpcBehavior_Gate.State.HIT;
             }
+        }
+    }
 
-        }
-        else
+    public void ChangeToRun(int id)
+    {
+        GameObject npc = FindNpcGameObjectById(id);
+        NpcBehavior_Gate gate = npc.GetComponent<NpcBehavior_Gate>();
+        if (gate != null)
         {
-            return;
+            if (gate.state == NpcBehavior_Gate.State.IDLE)
+            {
+                gate.state = NpcBehavior_Gate.State.RUN;
+            }
         }
+    }
+
+    public void PassGate(int id)
+    {   
+        GameObject npc = FindNpcGameObjectById(id);
+        NpcBehavior_Gate gate = npc.GetComponent<NpcBehavior_Gate>();
+        if (gate == null) return;
+
+        gate.currentTarget = PassPoint;
+
+        if (gate.state == NpcBehavior_Gate.State.IDLE)
+        {
+            gate.state = NpcBehavior_Gate.State.WALK;
+        }
+
+        StartCoroutine(DeactivateGameObjectWithDelay(npc));
+        Debug.Log("비활성화");
     }
 
     public void DeninedGate(int id)
     {
         GameObject npc = FindNpcGameObjectById(id);
         NpcBehavior_Gate gate = npc.GetComponent<NpcBehavior_Gate>();
-        if (gate == null) {
-            return;
-        }
+        if (gate == null) return;
         
         gate.currentTarget = DeninedPoint;
 
-        if (gate.
-            state != NpcBehavior_Gate.State.IDLE)
+        if (gate.state == NpcBehavior_Gate.State.IDLE)
         {
-            return;
+            gate.state = NpcBehavior_Gate.State.WALK;
         }
 
-        gate.state = NpcBehavior_Gate.State.WALK;
+        StartCoroutine(DeactivateGameObjectWithDelay(npc));
     }
 
     public NpcCreateParameter GetParmNPC(int id)

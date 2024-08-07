@@ -113,7 +113,7 @@ public class SystemUIManager : MonoBehaviour
                 npcScript.OnNPCProximity += ToggleKeyGuideUI;
             }
         }
-        Debug.Log("할당");
+        
     }
 
     public void DisDelegate(ref List<GameObject> npcs)
@@ -126,7 +126,6 @@ public class SystemUIManager : MonoBehaviour
                 npcScript.OnNPCProximity -= ToggleKeyGuideUI;
             }
         }
-        Debug.Log("할당해제");
     }
 
 }

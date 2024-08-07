@@ -57,7 +57,7 @@ public class NpcBehavior_Stay : MonoBehaviour
                 case State.TALK:
                     yield return new WaitForSeconds(1.5f);
                     state = State.IDLE;
-                    Debug.Log("TALK 애니메이션 후 IDLE");
+                    
                     break;
 
                 case State.LOOK:
