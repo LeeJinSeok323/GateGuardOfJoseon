@@ -13,13 +13,19 @@ public class SystemUIManager : MonoBehaviour
     public GameObject ShowItem;
     public GameObject Buttons;
 
+    public GameObject GetMoneyObj;
+
     private bool isPaused = false;
     //private bool isKeynoti = false;
     private bool isGummun = false; // 수색 UI 상태
     private bool isJosa = false;
     private bool isItem = false;
-    Vector3 PlayerPoint;
-  
+    private bool isGetMoney = false;
+    Vector3 PPoint;
+
+    private bool IsPass;
+    private int npcid;
+
     private static SystemUIManager _instance;
 
     private void Awake()
@@ -77,8 +83,8 @@ public class SystemUIManager : MonoBehaviour
     {
         isJosa = !isJosa;
         GummunUI.SetActive(isJosa);
-        PlayerPoint = GameObject.FindGameObjectWithTag("Player").transform.position;
-        NpcManager.Instance.ChangeToTalk(NpcManager.Instance.CheckRadiusNPC(PlayerPoint));
+        PPoint = GameObject.FindGameObjectWithTag("Player").transform.position;
+        NpcManager.Instance.ChangeToTalk(NpcManager.Instance.CheckRadiusNPC(PPoint));
     }
     
     //// 키 알림 UI 토글 메서드 수정
@@ -100,6 +106,12 @@ public class SystemUIManager : MonoBehaviour
     {
         isItem = !isItem;
         ShowItem.SetActive(isItem);
+    }
+
+    public void GetmoneyButton()
+    {
+        isGetMoney = !isGetMoney;
+        GetMoneyObj.gameObject.SetActive(isGetMoney);
     }
 
     public void OnDelegate(ref List<GameObject> npcs)
@@ -126,6 +138,63 @@ public class SystemUIManager : MonoBehaviour
                 npcScript.OnNPCProximity -= ToggleKeyGuideUI;
             }
         }
+    }
+
+    public void OnClickPassButton()
+    {
+        IsPass = true;
+        npcid = NpcManager.Instance.CheckRadiusNPC(NpcManager.Instance.GatePoint.position);
+        if (GameMgr.Instance.stageNum > 3)
+        {
+            DecideGate(npcid, IsPass);
+        }
+        else
+        {
+            GetmoneyButton();
+        }
+    }
+
+    public void OnClickDeninedButton()
+    {
+        IsPass = false;
+        npcid = NpcManager.Instance.CheckRadiusNPC(NpcManager.Instance.GatePoint.position);
+        if (GameMgr.Instance.stageNum > 3)
+        {
+            DecideGate(npcid, IsPass);
+        }
+        else
+        {
+            GetmoneyButton();
+        }
+    }
+    public void OnGetMoney()
+    {
+        GetMoneyObj.SetActive(false);
+        NpcManager.Instance.ChangeToHt(npcid);
+        StartCoroutine(DelayDecide());
+
+        GameMgr.Instance.money += 100;
+        // 마을 행복도 감소
+    }
+
+    public void OnNonMoney()
+    {
+        GetMoneyObj.SetActive(false);
+        StartCoroutine(DelayDecide());
+        //마을 행복도 증간
+    }
+
+    IEnumerator DelayDecide()
+    {
+        yield return new WaitForSeconds(1.5f);
+        DecideGate(npcid, IsPass);
+    }
+
+    public void DecideGate(int id, bool isPass)
+    {
+        Debug.Log(isPass);
+        if (isPass) { NpcManager.Instance.PassGate(id); }
+        else { NpcManager.Instance.DeninedGate(id); }
     }
 
 }

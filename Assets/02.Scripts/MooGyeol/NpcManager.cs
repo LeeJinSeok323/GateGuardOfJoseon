@@ -214,9 +214,8 @@ public class NpcManager : MonoBehaviour
 
     IEnumerator DeactivateGameObjectWithDelay(GameObject npc)
     {
-        yield return new WaitForSeconds(3f); // 3초 대기
+        yield return new WaitForSeconds(10f); // 3초 대기
         npc.gameObject.SetActive(false); // 게임 오브젝트 비활성화
-        Debug.Log("딜레이");
     }
 
     public void ChangeToWalk(int id, Vector3 position)
@@ -290,7 +289,7 @@ public class NpcManager : MonoBehaviour
         }
 
         StartCoroutine(DeactivateGameObjectWithDelay(npc));
-        Debug.Log("비활성화");
+        //Debug.Log("비활성화");
     }
 
     public void DeninedGate(int id)

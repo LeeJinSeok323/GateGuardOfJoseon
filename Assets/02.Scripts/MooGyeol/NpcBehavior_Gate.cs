@@ -80,7 +80,7 @@ public class NpcBehavior_Gate : MonoBehaviour
                     break;
 
                 case State.HIT:
-                    yield return new WaitForSeconds(1.0f);
+                    yield return new WaitForSeconds(0.5f);
                     state = State.IDLE;
                     break;
 

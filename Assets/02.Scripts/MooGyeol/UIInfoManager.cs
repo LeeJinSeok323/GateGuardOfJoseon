@@ -16,9 +16,9 @@ public class UIInfoManager : MonoBehaviour
     public static string Job;
     public static int Id;
 
-    private Transform PlayerPoint;
-
     private static UIInfoManager _instance;
+
+    private Transform PlayerPoint;
 
     private void Awake()
     {
@@ -54,27 +54,4 @@ public class UIInfoManager : MonoBehaviour
 
         GptManager.Instance.NpcSetting();
     }
-
-    public void OnClickPassButton()
-    {
-        int id = NpcManager.Instance.CheckRadiusNPC(NpcManager.Instance.GatePoint.position);
-        if(id != 9999)
-        {
-            NpcManager.Instance.PassGate(id);
-            //NpcManager.Instance.Remove(id);
-        }
-
-    }
-
-    public void OnClickDeninedButton()
-    {
-        int id = NpcManager.Instance.CheckRadiusNPC(NpcManager.Instance.GatePoint.position);
-        if (id != 9999)
-        {
-            NpcManager.Instance.DeninedGate(id);
-            //NpcManager.Instance.Remove(id);
-        }
-
-    }
-
 }

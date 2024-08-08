@@ -61,7 +61,7 @@ namespace OpenAi.Unity.V1
 
             _model = _gateway.Api.Chat.Completions;
             Debug.Log(_model);
-            Debug.Log("로그찍음");
+            //Debug.Log("로그찍음");
         }
 
         public Coroutine Complete(string prompt, Action<string> onResponse, Action<UnityWebRequest> onError)
