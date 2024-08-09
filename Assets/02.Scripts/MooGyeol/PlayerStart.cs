@@ -13,11 +13,11 @@ public class PlayerStart : MonoBehaviour
         if(existingPlayer == null)
         {
             GameObject player = Instantiate(Player, this.transform.position, this.transform.rotation);
-            DontDestroyOnLoad(player);
+            //DontDestroyOnLoad(player);
         }
         else
         {
-            existingPlayer.transform.position = this.transform.position;
+           existingPlayer.transform.position = this.transform.position;
         }
         
     }

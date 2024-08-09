@@ -42,26 +42,39 @@ public class TextUIInfo : MonoBehaviour
 
     public void Update()
     {
-        if(UIInfoManager.Name != null)
+        // UIInfoManager가 CreateNpc로 만들어진 정보를 기반으로 만들어진거고
+        // NpcInfoGenerater가 테이블 정보 기반으로 만들어진거임
+        // 따라서 Create에서 Name, Age, Status, Home을 바꿔 말하도록 만들어서
+        // 빌런일때 UI에서 바꿔보이게 만들었음
+
+        if (UIInfoManager.Name != null)
         {
             id = UIInfoManager.Id;
 
             Birth.text = CheseYear().ToString();
-            Name.text = NpcInfoGenerater.Instance.nameTable[id];
+            Name.text = UIInfoManager.Name;
             HomeTown.text = UIInfoManager.Hometown;
             Status.text = UIInfoManager.Status;
 
             Name2.text = NpcInfoGenerater.Instance.nameTable[id];
 
             Name3.text = UIInfoManager.Name;
-            Birth2.text = CheseYear().ToString();
-            HomeTown2.text = UIInfoManager.Hometown;
+            Birth2.text = CheseYear2().ToString();
+            HomeTown2.text = NpcInfoGenerater.Instance.homeTable[id];
         }
     }
 
     private int CheseYear()
     {
         int year = int.Parse(UIInfoManager.Age.ToString());
+        year = 1860 - year;
+
+        return year;
+    }
+
+    private int CheseYear2()
+    {
+        int year = int.Parse(NpcInfoGenerater.Instance.ageTable[id].ToString());
         year = 1860 - year;
 
         return year;

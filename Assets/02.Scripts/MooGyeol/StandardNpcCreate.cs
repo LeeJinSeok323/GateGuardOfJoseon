@@ -53,8 +53,8 @@ public class StandardNpcCreate : MonoBehaviour
     public void Start()
     {   
         //NPC 파라미터 생성
-        NpcManager.Instance.SetParameters(ref _stayNpcParams, NpcType.Stay, 20);
-        NpcManager.Instance.SetParameters(ref _patrolNpcParams, NpcType.Patrol, 8);
+        NpcManager.Instance.SetParameters(ref _stayNpcParams, NpcType.Stay, 10);
+        NpcManager.Instance.SetParameters(ref _patrolNpcParams, NpcType.Patrol, 6);
 
        //StayNPC 스폰
        for (int i=0; i < _stayNpcParams.Length; i++)

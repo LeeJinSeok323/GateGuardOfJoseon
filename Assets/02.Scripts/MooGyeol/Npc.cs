@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Npc : MonoBehaviour
 {
+    public bool IsVillain;
+
     #region 테이블에서 받은 값
     public NpcCreateParameter.NpcType npcType;
     public int ID;
@@ -18,8 +20,6 @@ public class Npc : MonoBehaviour
     public string PassPurpose;
     public string Item;
     public string NpcDaily;
-    public bool IsVillain;
-
     #endregion
 
 }

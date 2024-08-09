@@ -25,6 +25,7 @@ public class SystemUIManager : MonoBehaviour
 
     private bool IsPass;
     private int npcid;
+    public int AbleGetMoneyStage = 3; //돈 뺏기 허락할 스테이지
 
     private static SystemUIManager _instance;
 
@@ -108,7 +109,7 @@ public class SystemUIManager : MonoBehaviour
         ShowItem.SetActive(isItem);
     }
 
-    public void GetmoneyButton()
+    public void GetmoneyUI()
     {
         isGetMoney = !isGetMoney;
         GetMoneyObj.gameObject.SetActive(isGetMoney);
@@ -125,7 +126,6 @@ public class SystemUIManager : MonoBehaviour
                 npcScript.OnNPCProximity += ToggleKeyGuideUI;
             }
         }
-        
     }
 
     public void DisDelegate(ref List<GameObject> npcs)
@@ -140,17 +140,24 @@ public class SystemUIManager : MonoBehaviour
         }
     }
 
+    public void DecideGate(int id, bool isPass) //참 거짓 여부에따라 P / nP 여부 결정
+    {
+        if (isPass) { NpcManager.Instance.PassGate(id); }
+        else { NpcManager.Instance.DeninedGate(id); }
+    }
+
     public void OnClickPassButton()
     {
         IsPass = true;
         npcid = NpcManager.Instance.CheckRadiusNPC(NpcManager.Instance.GatePoint.position);
-        if (GameMgr.Instance.stageNum > 3)
+
+        if (GameMgr.Instance.stageNum < AbleGetMoneyStage)
         {
             DecideGate(npcid, IsPass);
         }
         else
         {
-            GetmoneyButton();
+            GetmoneyUI(); //수금 UI 띄움
         }
     }
 
@@ -158,30 +165,30 @@ public class SystemUIManager : MonoBehaviour
     {
         IsPass = false;
         npcid = NpcManager.Instance.CheckRadiusNPC(NpcManager.Instance.GatePoint.position);
-        if (GameMgr.Instance.stageNum > 3)
+        if (GameMgr.Instance.stageNum < AbleGetMoneyStage)
         {
             DecideGate(npcid, IsPass);
         }
         else
         {
-            GetmoneyButton();
+            GetmoneyUI(); //수금 UI 띄움
         }
     }
-    public void OnGetMoney()
+    public void OnGetMoneyButton()
     {
         GetMoneyObj.SetActive(false);
         NpcManager.Instance.ChangeToHt(npcid);
         StartCoroutine(DelayDecide());
 
         GameMgr.Instance.money += 100;
-        // 마을 행복도 감소
+        // TODO 마을 행복도 감소
     }
 
-    public void OnNonMoney()
+    public void OnNonMoneyButton()
     {
         GetMoneyObj.SetActive(false);
         StartCoroutine(DelayDecide());
-        //마을 행복도 증간
+        //TODO 마을 행복도 증가
     }
 
     IEnumerator DelayDecide()
@@ -190,11 +197,6 @@ public class SystemUIManager : MonoBehaviour
         DecideGate(npcid, IsPass);
     }
 
-    public void DecideGate(int id, bool isPass)
-    {
-        Debug.Log(isPass);
-        if (isPass) { NpcManager.Instance.PassGate(id); }
-        else { NpcManager.Instance.DeninedGate(id); }
-    }
+   
 
 }

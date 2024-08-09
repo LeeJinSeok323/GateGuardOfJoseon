@@ -15,6 +15,7 @@ public class UIInfoManager : MonoBehaviour
     public static string Status;
     public static string Job;
     public static int Id;
+    public static bool Villran;
 
     private static UIInfoManager _instance;
 
@@ -51,6 +52,7 @@ public class UIInfoManager : MonoBehaviour
         Status = parm.Status;
         Job = parm.Job;
         Id = parm.Number;
+        Villran = parm.IsVillain;
 
         GptManager.Instance.NpcSetting();
     }

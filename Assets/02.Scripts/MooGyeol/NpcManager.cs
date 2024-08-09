@@ -22,9 +22,18 @@ public class NpcManager : MonoBehaviour
     public GameObject GateNpc5;
 
     private List<GameObject> npcs = new List<GameObject>();
-    
+
+    public int AbleRunNpc = 3; // 도주 Npc 허락할 stage
+    private enum VilranType
+    {
+        Name, //이름
+        Age, //나이
+        Home //지역
+    }
+
     public Vector3 PassPoint;
     public Vector3 DeninedPoint;
+    public Vector3 RunPoint;
 
     public Transform GatePoint;
 
@@ -168,7 +177,7 @@ public class NpcManager : MonoBehaviour
             npcComponent.PassPurpose = parm.PassPurpose;
             npcComponent.Item = parm.Item;
             npcComponent.NpcDaily = parm.NpcDaily;
-
+            npcComponent.IsVillain = parm.IsVillain;
         }
         else
         {
@@ -215,7 +224,11 @@ public class NpcManager : MonoBehaviour
     IEnumerator DeactivateGameObjectWithDelay(GameObject npc)
     {
         yield return new WaitForSeconds(10f); // 3초 대기
-        npc.gameObject.SetActive(false); // 게임 오브젝트 비활성화
+        if(npc != null)
+        {
+            npc.gameObject.SetActive(false); // 게임 오브젝트 비활성화
+        }
+        
     }
 
     public void ChangeToWalk(int id, Vector3 position)
@@ -281,30 +294,37 @@ public class NpcManager : MonoBehaviour
         NpcBehavior_Gate gate = npc.GetComponent<NpcBehavior_Gate>();
         if (gate == null) return;
 
-        gate.currentTarget = PassPoint;
-
         if (gate.state == NpcBehavior_Gate.State.IDLE)
         {
+            gate.currentTarget = PassPoint;
             gate.state = NpcBehavior_Gate.State.WALK;
+            StartCoroutine(DeactivateGameObjectWithDelay(npc));
         }
-
-        StartCoroutine(DeactivateGameObjectWithDelay(npc));
-        //Debug.Log("비활성화");
     }
 
     public void DeninedGate(int id)
     {
         GameObject npc = FindNpcGameObjectById(id);
         NpcBehavior_Gate gate = npc.GetComponent<NpcBehavior_Gate>();
-        if (gate == null) return;
-        
-        gate.currentTarget = DeninedPoint;
+        Npc n = npc.GetComponent<Npc>();
+        bool villain = n.IsVillain;
+        int stage = GameMgr.Instance.stageNum;
 
-        if (gate.state == NpcBehavior_Gate.State.IDLE)
+        Debug.Log(villain);
+
+        if (gate == null) return;
+        if (gate.state != NpcBehavior_Gate.State.IDLE) return;
+        
+        if(villain && stage >= AbleRunNpc) //일정 확율로 거절당했을 때 뛰어들어감
         {
-            gate.state = NpcBehavior_Gate.State.WALK;
+            gate.currentTarget = RunPoint;
+            gate.state = NpcBehavior_Gate.State.RUN;
+            StartCoroutine(DeactivateGameObjectWithDelay(npc));
+            return;
         }
 
+        gate.currentTarget = DeninedPoint;
+        gate.state = NpcBehavior_Gate.State.WALK;
         StartCoroutine(DeactivateGameObjectWithDelay(npc));
     }
 
@@ -373,28 +393,48 @@ public class NpcManager : MonoBehaviour
                n.npcDailyTable[NpcCnt],
                vilran
                  );
-                //    Debug.Log($"빌런x {NpcCnt}의 이름은{n.nameTable[NpcCnt]}, {NpcInfoGenerater.Instance.nameTable[NpcCnt]}");
-
             }
             else
             {
+                int vilranType = Random.Range(0, 3);
+
+                string name = n.nameTable[NpcCnt];
+                string age = n.ageTable[NpcCnt];
+                string home = n.homeTable[NpcCnt];
+
+                switch ((VilranType)vilranType)
+                {
+                    case VilranType.Name:
+                        name = n.nameTable[NpcCnt +10];
+                        //Debug.Log(1);
+                        break;
+                    case VilranType.Age:
+                        age = n.ageTable[NpcCnt +10];
+                        //Debug.Log(2);
+                        break;
+                    case VilranType.Home:
+                        home = n.homeTable[NpcCnt +10];
+                        //Debug.Log(3);
+                        break;
+                }
+
+                // NPC 생성
                 npcArray[i] = new NpcCreateParameter(
-                type,
-                NpcCnt,
-                n.nameTable[NpcCnt + 20],
-                n.ageTable[NpcCnt + 20],
-                n.genderTable[NpcCnt],
-                //n.styleTable[i],
-                n.statusTable[NpcCnt],
-                n.homeTable[NpcCnt + 20],
-                n.jobTable[NpcCnt + 20],
-                n.passPurposeTable[NpcCnt],
-                n.itemTable[NpcCnt],
-                n.npcDailyTable[NpcCnt],
-                vilran
-                  );
-                //    Debug.Log($"빌런o {NpcCnt}의 이름은{n.nameTable[NpcCnt+20]},{NpcInfoGenerater.Instance.nameTable[NpcCnt]}");
+                    type,
+                    NpcCnt,
+                    name,
+                    age,
+                    n.genderTable[NpcCnt],
+                    n.statusTable[NpcCnt],
+                    home,
+                    n.jobTable[NpcCnt],
+                    n.passPurposeTable[NpcCnt],
+                    n.itemTable[NpcCnt],
+                    n.npcDailyTable[NpcCnt],
+                    vilran
+                );
             }
+
             NpcCnt++;
         }
 
@@ -420,14 +460,14 @@ public class NpcManager : MonoBehaviour
                 if (distance < closestDistance)
                 {
                     closestDistance = distance;
-                    id = NpcManager.Instance.GetIdByObject(collider.gameObject);
+                    id = GetIdByObject(collider.gameObject);
                 }
             }
         }
         return id;
     }
 
-    public static GameObject CheckRadiusNPCObject(Vector3 position)
+    public GameObject CheckRadiusNPCObject(Vector3 position)
     {
         Collider[] colliders = Physics.OverlapSphere(position, 2.0f);
         float closestDistance = Mathf.Infinity;

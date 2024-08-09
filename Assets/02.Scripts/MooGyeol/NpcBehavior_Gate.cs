@@ -85,8 +85,7 @@ public class NpcBehavior_Gate : MonoBehaviour
                     break;
 
                 case State.RUN:
-                    yield return new WaitForSeconds(2.0f);
-                    state = State.IDLE;
+                    RunTo(currentTarget);
                     break;
             }
         }
@@ -141,7 +140,7 @@ public class NpcBehavior_Gate : MonoBehaviour
 
     public void RunTo(Vector3 position)
     {
-        agent.speed = 1.5f;
+        agent.speed = 4.0f;
         agent.SetDestination(position);
  
     }

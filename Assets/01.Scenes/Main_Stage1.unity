@@ -170,7 +170,6 @@ MonoBehaviour:
   townHappinessPoint: 40
   bossSatisfaction: 30
   money: 0
-  isTarget: 0
   stageNum: 1
 --- !u!4 &29897230 stripped
 Transform:
@@ -624,7 +623,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6417752856616529648}
         m_TargetAssemblyTypeName: SystemUIManager, Assembly-CSharp
-        m_MethodName: OnNonMoney
+        m_MethodName: OnNonMoneyButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3916,7 +3915,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6417752856616529648}
         m_TargetAssemblyTypeName: SystemUIManager, Assembly-CSharp
-        m_MethodName: OnGetMoney
+        m_MethodName: OnGetMoneyButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7601,7 +7600,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &3170094086706082134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8677,6 +8676,7 @@ MonoBehaviour:
   - {fileID: 2633487310223916233}
   - {fileID: 2098203391308538632}
   - {fileID: 6711716796913360025}
+  - {fileID: 3843746918438476814}
   - {fileID: 3174907803398309131}
   - {fileID: 992004351582832091}
   - {fileID: 7041678536931330656}
@@ -8741,8 +8741,10 @@ MonoBehaviour:
     type: 3}
   GateNpc5: {fileID: 7487340320229678319, guid: 60bed42b85190f247b993f69ee74842a,
     type: 3}
+  AbleRunNpc: 3
   PassPoint: {x: -34, y: 0, z: -49}
   DeninedPoint: {x: -30, y: 0, z: -2}
+  RunPoint: {x: -22.1, y: 0, z: -163.84}
   GatePoint: {fileID: 679610738}
 --- !u!222 &4182051122176691613
 CanvasRenderer:
@@ -10517,6 +10519,7 @@ MonoBehaviour:
   ShowItem: {fileID: 574312516635720927}
   Buttons: {fileID: 5423411819390747594}
   GetMoneyObj: {fileID: 584699182}
+  AbleGetMoneyStage: 3
 --- !u!114 &6428759792837952118
 MonoBehaviour:
   m_ObjectHideFlags: 0

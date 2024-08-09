@@ -25,7 +25,6 @@ public class GameMgr : MonoBehaviour
 
     private void Awake()
     {
-        // 만약 인스턴스가 이미 존재하고 현재 인스턴스와 다르다면, 중복된 인스턴스를 파괴
         if (_instance != null && _instance != this)
         {
             Destroy(this.gameObject);
@@ -37,10 +36,12 @@ public class GameMgr : MonoBehaviour
         }
     }
 
+    // *중요) stageNum은 시작할때 해당 스테이지 생성후 +1 하도록 만들었음
+    // 따라서 스테이지로 if문으로 분기 만들 때 +1 해서 생각해야 해
+
     public int townHappinessPoint = 40; // 마을 행복도
     public int bossSatisfaction = 30; // 탐관오리 만족도
     public int money = 0;
-    public bool isTarget = false;
     public int stageNum = 1;
 
     public int GetStageNum()
