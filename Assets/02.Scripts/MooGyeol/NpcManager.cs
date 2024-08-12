@@ -467,7 +467,7 @@ public class NpcManager : MonoBehaviour
         return id;
     }
 
-    public GameObject CheckRadiusNPCObject(Vector3 position)
+    public Npc CheckRadiusNPCObject(Vector3 position)
     {
         Collider[] colliders = Physics.OverlapSphere(position, 2.0f);
         float closestDistance = Mathf.Infinity;
@@ -487,7 +487,7 @@ public class NpcManager : MonoBehaviour
             }
         }
 
-        return closestNPC;
+        return closestNPC.GetComponent<Npc>();
 
     }
 }

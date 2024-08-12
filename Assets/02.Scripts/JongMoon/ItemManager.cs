@@ -7,19 +7,31 @@ public class ItemManager : MonoBehaviour
     public GameObject Item1;
     public GameObject Item2;
     public GameObject Item3;
-    public Npc npc; // NPC 스크립트 참조
+    private Npc npc; // NPC 스크립트 참조
+    private Transform Player;
+
+    private static ItemManager _instance;
 
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        if (_instance != null && _instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            _instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
     }
 
-    void Start()
+    public void OnItemBoutton()
     {
-        if (npc != null)
-        {
-            SetItems(npc.Item);
-        }
+        Player = GameObject.FindGameObjectWithTag("Player").transform;
+        npc = NpcManager.Instance.CheckRadiusNPCObject(Player.position);
+
+        if (npc == null) return;
+        SetItems(npc.Item);
     }
 
     void SetItems(string itemData)
