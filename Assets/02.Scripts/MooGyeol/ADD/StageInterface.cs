@@ -34,8 +34,7 @@ public class StageContext
 
 public class ShareFunction
 {
-    
-    public void CreateGateNpc(int num)
+    public void CreateGateNpc(int num) //기본적인 NPC생성
     {
         NpcCreateParameter[] _GateNpcParams = null;
 
@@ -44,6 +43,19 @@ public class ShareFunction
         {
             GameObject Gatenpc = NpcManager.Instance.CreateNPC(_GateNpcParams[i]);
         }
+    }
+    public void CreateAlcolNpc() //술을 가진 NPC 생성
+    {
+        NpcCreateParameter Alcoholnpc = null;
+        NpcManager.Instance.SetAlcoholParameters(ref Alcoholnpc, NpcType.Gate);
+        GameObject Gatenpc = NpcManager.Instance.CreateNPC(Alcoholnpc);
+    }
+    
+    public void CreateDangerNpc() //아편, 도검 소지 NPC 생성
+    {
+        NpcCreateParameter DangerNpc = null;
+        NpcManager.Instance.SetDangerParameters(ref DangerNpc, NpcType.Gate);
+        GameObject Gatenpc = NpcManager.Instance.CreateNPC(DangerNpc);
     }
 }
 
@@ -56,12 +68,20 @@ public class Stage1Strategy : MonoBehaviour, IStageStrategy
     public void LoadStage()
     {
         Debug.Log("Stage 1 Loaded");
-        GameMgr.Instance.AddStageNum();
-        _shareFunction.CreateGateNpc(5);
+
+        //Npc 추가 함수들
+        _shareFunction.CreateDangerNpc();
+        //_shareFunction.CreateAlcolNpc();
+        _shareFunction.CreateDangerNpc();
+        _shareFunction.CreateDangerNpc();
+        //_shareFunction.CreateGateNpc(3);
 
         UI = GameObject.FindWithTag("UIManager").GetComponent<SystemUIManager>();
         npcs = NpcManager.Instance.GetNpc();
-        UI.OnDelegate(ref npcs);
+        UI.OnDelegate(ref npcs); // npc에게 델리게이트 추가
+
+
+        GameMgr.Instance.AddStageNum(); //스테이지 Num 증가
     }
 
     public void UnloadStage()
@@ -79,12 +99,15 @@ public class Stage2Strategy : MonoBehaviour, IStageStrategy
     public void LoadStage()
     {
         Debug.Log("Stage 2 Loaded");
-        GameMgr.Instance.AddStageNum();
-        _shareFunction.CreateGateNpc(3);
+
+        _shareFunction.CreateAlcolNpc();
+        _shareFunction.CreateGateNpc(2);
 
         UI = GameObject.FindWithTag("UIManager").GetComponent<SystemUIManager>();
         npcs = NpcManager.Instance.GetNpc();
         UI.OnDelegate(ref npcs);
+
+        GameMgr.Instance.AddStageNum();
     }
 
     public void UnloadStage()

@@ -367,77 +367,143 @@ public class NpcManager : MonoBehaviour
     public void SetParameters(ref NpcCreateParameter[] npcArray, NpcType type, int npcNumber)
     {
         NpcInfoGenerater n = NpcInfoGenerater.Instance;
-        int NpcCnt = 0;
+        int npcCnt = 0;
 
         npcArray = new NpcCreateParameter[npcNumber];
 
         for (int i = 0; i < npcNumber; i++)
         {
+            bool isVilran = Random.Range(0, 2) == 1;
+            string name = n.nameTable[npcCnt];
+            string age = n.ageTable[npcCnt];
+            string gender = n.genderTable[npcCnt];
+            string status = n.statusTable[npcCnt];
+            string home = n.homeTable[npcCnt];
+            string job = n.jobTable[npcCnt];
+            string passPurpose = n.passPurposeTable[npcCnt];
+            string item = n.itemTable[npcCnt];
+            string dailyRoutine = n.npcDailyTable[npcCnt];
 
-            bool vilran = Random.Range(0, 2) == 1;
-
-            if (!vilran)
+            if (isVilran)
             {
-                npcArray[i] = new NpcCreateParameter(
-               type,
-               NpcCnt,
-               n.nameTable[NpcCnt],
-               n.ageTable[NpcCnt],
-               n.genderTable[NpcCnt],
-               //n.styleTable[i],
-               n.statusTable[NpcCnt],
-               n.homeTable[NpcCnt],
-               n.jobTable[NpcCnt],
-               n.passPurposeTable[NpcCnt],
-               n.itemTable[NpcCnt],
-               n.npcDailyTable[NpcCnt],
-               vilran
-                 );
-            }
-            else
-            {
-                int vilranType = Random.Range(0, 3);
-
-                string name = n.nameTable[NpcCnt];
-                string age = n.ageTable[NpcCnt];
-                string home = n.homeTable[NpcCnt];
-
-                switch ((VilranType)vilranType)
-                {
-                    case VilranType.Name:
-                        name = n.nameTable[NpcCnt +10];
-                        //Debug.Log(1);
-                        break;
-                    case VilranType.Age:
-                        age = n.ageTable[NpcCnt +10];
-                        //Debug.Log(2);
-                        break;
-                    case VilranType.Home:
-                        home = n.homeTable[NpcCnt +10];
-                        //Debug.Log(3);
-                        break;
-                }
-
-                // NPC 생성
-                npcArray[i] = new NpcCreateParameter(
-                    type,
-                    NpcCnt,
-                    name,
-                    age,
-                    n.genderTable[NpcCnt],
-                    n.statusTable[NpcCnt],
-                    home,
-                    n.jobTable[NpcCnt],
-                    n.passPurposeTable[NpcCnt],
-                    n.itemTable[NpcCnt],
-                    n.npcDailyTable[NpcCnt],
-                    vilran
-                );
+                ApplyVilranModifications(ref name, ref age, ref home, ref item, n, npcCnt);
             }
 
-            NpcCnt++;
+            npcArray[i] = new NpcCreateParameter(
+                type,
+                npcCnt,
+                name,
+                age,
+                gender,
+                status,
+                home,
+                job,
+                passPurpose,
+                item,
+                dailyRoutine,
+                isVilran
+            );
+
+            npcCnt++;
+        }
+    }
+
+    private void ApplyVilranModifications(ref string name, ref string age, ref string home, ref string item,NpcInfoGenerater n, int npcCnt)
+    {
+        int vilranType = Random.Range(0, 3);
+
+        switch ((VilranType)vilranType)
+        {
+            case VilranType.Name:
+                name = n.nameTable[npcCnt + 10];
+                break;
+            case VilranType.Age:
+                age = n.ageTable[npcCnt + 10];
+                break;
+            case VilranType.Home:
+                home = n.homeTable[npcCnt + 10];
+                break;
+        }
+    }
+
+    public void SetAlcoholParameters(ref NpcCreateParameter Alcoholnpc, NpcType type)
+    {
+        NpcInfoGenerater n = NpcInfoGenerater.Instance;
+        int npcCnt = Random.Range(30, 70);
+
+        bool isVilran = true;
+        string name = n.nameTable[npcCnt];
+        string age = n.ageTable[npcCnt];
+        string gender = n.genderTable[npcCnt];
+        string status = n.statusTable[npcCnt];
+        string home = n.homeTable[npcCnt];
+        string job = n.jobTable[npcCnt];
+        string passPurpose = n.passPurposeTable[npcCnt];
+        string item = n.itemTable[npcCnt] + ", 술";
+        string dailyRoutine = n.npcDailyTable[npcCnt];
+
+
+        Alcoholnpc = new NpcCreateParameter(
+            type,
+            npcCnt,
+            name,
+            age,
+            gender,
+            status,
+            home,
+            job,
+            passPurpose,
+            item,
+            dailyRoutine,
+            isVilran
+            );
+    }
+
+    public void SetDangerParameters(ref NpcCreateParameter DangerNpc, NpcType type)
+    {
+        NpcInfoGenerater n = NpcInfoGenerater.Instance;
+        int npcCnt = Random.Range(30, 70);
+
+        int vilran = Random.Range(0, 3);
+
+        bool isVilran = true;
+        string name = n.nameTable[npcCnt];
+        string age = n.ageTable[npcCnt];
+        string gender = n.genderTable[npcCnt];
+        string status = n.statusTable[npcCnt];
+        string home = n.homeTable[npcCnt];
+        string job = n.jobTable[npcCnt];
+        string passPurpose = n.passPurposeTable[npcCnt];
+        string item = n.itemTable[npcCnt];
+        string dailyRoutine = n.npcDailyTable[npcCnt];
+
+        switch (vilran)
+        {
+            case 0:
+                item += ", 아편";
+                break;
+            case 1:
+                item += ", 도검";
+                break;
+            case 2:
+                item += ", 아편, 도검";
+                break;
         }
 
+        DangerNpc = new NpcCreateParameter(
+            type,
+            npcCnt,
+            name,
+            age,
+            gender,
+            status,
+            home,
+            job,
+            passPurpose,
+            item,
+            dailyRoutine,
+            isVilran
+            );
     }
 
     public List<GameObject> GetNpc()

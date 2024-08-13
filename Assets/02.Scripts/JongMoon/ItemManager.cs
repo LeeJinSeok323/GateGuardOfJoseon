@@ -36,6 +36,8 @@ public class ItemManager : MonoBehaviour
 
     void SetItems(string itemData)
     {
+        Debug.Log(itemData);
+
         // 아이템 문자열을 쉼표로 분리하여 개별 아이템 이름을 얻음
         string[] items = itemData.Split(',');
 
@@ -55,6 +57,16 @@ public class ItemManager : MonoBehaviour
             {
                 itemObjects[i].SetActive(false);
             }
+        }
+
+        if (items.Length == 5) //5 //3
+        {
+            SetItemDetails(itemObjects[0], items[3].Trim());
+            SetItemDetails(itemObjects[2], items[4].Trim());
+        }
+        else if(items.Length == 4)
+        {
+            SetItemDetails(itemObjects[1], items[3].Trim());
         }
     }
 
