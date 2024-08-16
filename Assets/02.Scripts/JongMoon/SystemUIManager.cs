@@ -25,7 +25,6 @@ public class SystemUIManager : MonoBehaviour
 
     private bool IsPass;
     private int npcid;
-    public int AbleGetMoneyStage = 3; //돈 뺏기 허락할 스테이지
 
     private static SystemUIManager _instance;
 
@@ -151,7 +150,7 @@ public class SystemUIManager : MonoBehaviour
         IsPass = true;
         npcid = NpcManager.Instance.CheckRadiusNPC(NpcManager.Instance.GatePoint.position);
 
-        if (GameMgr.Instance.stageNum < AbleGetMoneyStage)
+        if (!GameMgr.Instance.AbleGetMoney)
         {
             DecideGate(npcid, IsPass);
         }
@@ -165,7 +164,7 @@ public class SystemUIManager : MonoBehaviour
     {
         IsPass = false;
         npcid = NpcManager.Instance.CheckRadiusNPC(NpcManager.Instance.GatePoint.position);
-        if (GameMgr.Instance.stageNum < AbleGetMoneyStage)
+        if (!GameMgr.Instance.AbleGetMoney)
         {
             DecideGate(npcid, IsPass);
         }

@@ -66,7 +66,7 @@ public class ItemManager : MonoBehaviour
         }
         else if(items.Length == 4)
         {
-            SetItemDetails(itemObjects[1], items[3].Trim());
+            SetItemDetails(itemObjects[2], items[3].Trim());
         }
     }
 

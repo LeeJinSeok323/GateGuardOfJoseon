@@ -23,7 +23,6 @@ public class NpcManager : MonoBehaviour
 
     private List<GameObject> npcs = new List<GameObject>();
 
-    public int AbleRunNpc = 3; // 도주 Npc 허락할 stage
     private enum VilranType
     {
         Name, //이름
@@ -308,14 +307,12 @@ public class NpcManager : MonoBehaviour
         NpcBehavior_Gate gate = npc.GetComponent<NpcBehavior_Gate>();
         Npc n = npc.GetComponent<Npc>();
         bool villain = n.IsVillain;
-        int stage = GameMgr.Instance.stageNum;
-
-        Debug.Log(villain);
+        bool isRun = Random.Range(0, 4) >= 1;
 
         if (gate == null) return;
         if (gate.state != NpcBehavior_Gate.State.IDLE) return;
         
-        if(villain && stage >= AbleRunNpc) //일정 확율로 거절당했을 때 뛰어들어감
+        if(villain && GameMgr.Instance.AbleRunNpc && isRun) //75% 확율로 거절당했을 때 뛰어들어감
         {
             gate.currentTarget = RunPoint;
             gate.state = NpcBehavior_Gate.State.RUN;
@@ -367,7 +364,7 @@ public class NpcManager : MonoBehaviour
     public void SetParameters(ref NpcCreateParameter[] npcArray, NpcType type, int npcNumber)
     {
         NpcInfoGenerater n = NpcInfoGenerater.Instance;
-        int npcCnt = 0;
+        int npcCnt = Random.Range(20, 50);
 
         npcArray = new NpcCreateParameter[npcNumber];
 
@@ -408,7 +405,79 @@ public class NpcManager : MonoBehaviour
         }
     }
 
-    private void ApplyVilranModifications(ref string name, ref string age, ref string home, ref string item,NpcInfoGenerater n, int npcCnt)
+    public void CreateBoolGateNpc(ref NpcCreateParameter npc, NpcType type, bool vilran)
+    {
+        // 선택한 참, 거짓 Npc 생성
+        NpcInfoGenerater n = NpcInfoGenerater.Instance;
+        int npcCnt = Random.Range(20, 60);
+
+        bool isVilran = vilran;
+        string name = n.nameTable[npcCnt];
+        string age = n.ageTable[npcCnt];
+        string gender = n.genderTable[npcCnt];
+        string status = n.statusTable[npcCnt];
+        string home = n.homeTable[npcCnt];
+        string job = n.jobTable[npcCnt];
+        string passPurpose = n.passPurposeTable[npcCnt];
+        string item = n.itemTable[npcCnt];
+        string dailyRoutine = n.npcDailyTable[npcCnt];
+
+        if (isVilran)
+        {
+            ApplyVilranModifications(ref name, ref age, ref home, ref item, n, npcCnt);
+        }
+
+        npc = new NpcCreateParameter(
+            type,
+            npcCnt,
+            name,
+            age,
+            gender,
+            status,
+            home,
+            job,
+            passPurpose,
+            item,
+            dailyRoutine,
+            isVilran
+        );
+    }
+
+    public void SetPlagueParameters(ref NpcCreateParameter npc, NpcType type, string vilage)
+    {
+        NpcInfoGenerater n = NpcInfoGenerater.Instance;
+        int npcCnt = Random.Range(30, 60);
+        n.homeTable[npcCnt] = vilage;
+
+        bool isVilran = true;
+        string name = n.nameTable[npcCnt];
+        string age = n.ageTable[npcCnt];
+        string gender = n.genderTable[npcCnt];
+        string status = n.statusTable[npcCnt];
+        string home = vilage;
+        string job = n.jobTable[npcCnt];
+        string passPurpose = n.passPurposeTable[npcCnt];
+        string item = n.itemTable[npcCnt];
+        string dailyRoutine = n.npcDailyTable[npcCnt];
+
+        npc = new NpcCreateParameter(
+            type,
+            npcCnt,
+            name,
+            age,
+            gender,
+            status,
+            home,
+            job,
+            passPurpose,
+            item,
+            dailyRoutine,
+            isVilran
+            );
+    }
+
+
+    private void ApplyVilranModifications(ref string name, ref string age, ref string home, ref string item, NpcInfoGenerater n, int npcCnt)
     {
         int vilranType = Random.Range(0, 3);
 

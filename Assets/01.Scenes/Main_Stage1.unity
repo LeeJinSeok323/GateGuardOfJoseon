@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.1733878, g: 0.21673879, b: 0.29880896, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -170,7 +170,11 @@ MonoBehaviour:
   townHappinessPoint: 40
   bossSatisfaction: 30
   money: 0
-  stageNum: 1
+  stageNum: 7
+  PlageVilage: 
+  AbleRunNpc: 0
+  AbleGetMoney: 0
+  AblePlague: 0
 --- !u!4 &29897230 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7290069235543110715, guid: 26681b13242f1f04ab2e06fb45339880,
@@ -818,7 +822,7 @@ Light:
     m_Strength: 1
     m_Bias: 0.05
     m_NormalBias: 0.4
-    m_NearPlane: 0.2
+    m_NearPlane: 0.1
     m_CullingMatrixOverride:
       e00: 1
       e01: 0
@@ -864,13 +868,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 410087039}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalRotation: {x: 0.4131759, y: 0.5868241, z: -0.49240384, w: 0.49240392}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1867199687}
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 80, y: 100, z: 0}
 --- !u!114 &410087042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1651,7 +1655,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1867199687}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &924494799
 GameObject:
@@ -3310,8 +3314,6 @@ Transform:
   - {fileID: 1562595729}
   - {fileID: 356089564}
   - {fileID: 1050340390}
-  - {fileID: 410087041}
-  - {fileID: 832575519}
   m_Father: {fileID: 1889972981}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1889972980
@@ -8559,7 +8561,6 @@ MonoBehaviour:
     type: 3}
   GateNpc5: {fileID: 7487340320229678319, guid: 60bed42b85190f247b993f69ee74842a,
     type: 3}
-  AbleRunNpc: 3
   PassPoint: {x: -34, y: 0, z: -49}
   DeninedPoint: {x: -30, y: 0, z: -2}
   RunPoint: {x: -22.1, y: 0, z: -163.84}
@@ -10348,7 +10349,6 @@ MonoBehaviour:
   ShowItem: {fileID: 574312516635720927}
   Buttons: {fileID: 5423411819390747594}
   GetMoneyObj: {fileID: 584699182}
-  AbleGetMoneyStage: 3
 --- !u!114 &6428759792837952118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12765,6 +12765,8 @@ GameObject:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 410087041}
+  - {fileID: 832575519}
   - {fileID: 1889972981}
   - {fileID: 152510246410521110}
   - {fileID: 1728995114}

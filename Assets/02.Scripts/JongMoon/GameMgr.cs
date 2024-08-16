@@ -36,13 +36,27 @@ public class GameMgr : MonoBehaviour
         }
     }
 
-    // *중요) stageNum은 시작할때 해당 스테이지 생성후 +1 하도록 만들었음
-    // 따라서 스테이지로 if문으로 분기 만들 때 +1 해서 생각해야 해
+    // *중요) stageNum은 시작할때 해당 스테이지 생성후 바로 +1 하도록 만들었음
 
     public int townHappinessPoint = 40; // 마을 행복도
     public int bossSatisfaction = 30; // 탐관오리 만족도
     public int money = 0;
     public int stageNum = 1;
+    public string PlageVilage = "";
+
+    // 스테이지 설정
+    public bool AbleRunNpc = false; // 도주 Npc 허락할 Stage
+    public bool AbleGetMoney = false; // 수금 해금 Stage
+    public bool AblePlague = false; //역병 해금 Stage
+
+    public void SetPlagueVilage()
+    {
+        int n = Random.Range(0, 8);
+        string[] s = {"한양", "경기도", "충청도", "전라도", "경상도", "황해도", "평안도", "강원도", "함경도" };
+        PlageVilage = s[n];
+        Debug.Log(PlageVilage);
+    }
+
 
     public int GetStageNum()
     {
