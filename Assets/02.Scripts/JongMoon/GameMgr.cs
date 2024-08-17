@@ -43,11 +43,15 @@ public class GameMgr : MonoBehaviour
     public int money = 0;
     public int stageNum = 1;
     public string PlageVilage = "";
+    public int NpcID = 0;
 
     // 스테이지 설정
+    public bool AbleCheckItem = false;
     public bool AbleRunNpc = false; // 도주 Npc 허락할 Stage
     public bool AbleGetMoney = false; // 수금 해금 Stage
     public bool AblePlague = false; //역병 해금 Stage
+    public bool AbleChepo = true; //체포 해금
+    public bool AbleNextDay = true; // 정산 해금
 
     public void SetPlagueVilage()
     {
@@ -66,5 +70,14 @@ public class GameMgr : MonoBehaviour
     public void AddStageNum()
     {
         stageNum++;
+    }
+
+    public void AddNpcID() 
+    {
+        NpcID++;
+    }
+    public void ResetNpcID()
+    {
+        NpcID = 0;
     }
 }

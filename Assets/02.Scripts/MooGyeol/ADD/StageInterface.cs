@@ -63,7 +63,6 @@ public class ShareFunction
     {
         NpcCreateParameter Alcoholnpc = null;
         NpcManager.Instance.SetAlcoholParameters(ref Alcoholnpc, NpcType.Gate);
-        Alcoholnpc.IsVillain = isvilran;
         GameObject Gatenpc = NpcManager.Instance.CreateNPC(Alcoholnpc);
     }
     public void CreatePlagueGateNpc(string village) // 해당 마을이 역병 Npc 생성
@@ -106,6 +105,7 @@ public class Stage1Strategy : MonoBehaviour, IStageStrategy
     public void UnloadStage()
     {
         UI.DisDelegate(ref npcs);
+        GameMgr.Instance.ResetNpcID();
     }
 }
 
@@ -132,6 +132,7 @@ public class Stage2Strategy : MonoBehaviour, IStageStrategy
     public void UnloadStage()
     {
         UI.DisDelegate(ref npcs);
+        GameMgr.Instance.ResetNpcID();
     }
 }
 
@@ -143,6 +144,9 @@ public class Stage3Strategy : MonoBehaviour, IStageStrategy
 
     public void LoadStage()
     {
+        //게임 설정
+        GameMgr.Instance.AbleCheckItem = true;
+
         //Npc 추가 작업
         _shareFunction.CreateAlcolNpc(true); // 알콜 Npc
         _shareFunction.CreateGateNpc(3); // 기본GateNpc
@@ -160,6 +164,7 @@ public class Stage3Strategy : MonoBehaviour, IStageStrategy
     public void UnloadStage()
     {
         UI.DisDelegate(ref npcs);
+        GameMgr.Instance.ResetNpcID();
     }
 }
 
@@ -193,6 +198,7 @@ public class Stage4Strategy : MonoBehaviour, IStageStrategy
     public void UnloadStage()
     {
         UI.DisDelegate(ref npcs);
+        GameMgr.Instance.ResetNpcID();
     }
 }
 
@@ -229,6 +235,7 @@ public class Stage5Strategy : MonoBehaviour, IStageStrategy
     public void UnloadStage()
     {
         UI.DisDelegate(ref npcs);
+        GameMgr.Instance.ResetNpcID();
     }
 }
 
@@ -258,6 +265,7 @@ public class Stage6Strategy : MonoBehaviour, IStageStrategy
     public void UnloadStage()
     {
         UI.DisDelegate(ref npcs);
+        GameMgr.Instance.ResetNpcID();
     }
 }
 
@@ -290,5 +298,6 @@ public class Stage7Strategy : MonoBehaviour, IStageStrategy
     public void UnloadStage()
     {
         UI.DisDelegate(ref npcs);
+        GameMgr.Instance.ResetNpcID();
     }
 }

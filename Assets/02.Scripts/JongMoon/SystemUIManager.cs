@@ -14,6 +14,10 @@ public class SystemUIManager : MonoBehaviour
     public GameObject Buttons;
 
     public GameObject GetMoneyObj;
+    public GameObject ItemButton;
+
+    public GameObject NextDayUI;
+    public GameObject ChepoUI;
 
     private bool isPaused = false;
     //private bool isKeynoti = false;
@@ -53,22 +57,30 @@ public class SystemUIManager : MonoBehaviour
         {
             keyGuides.Add(child.gameObject);
         }
+
+        if(!GameMgr.Instance.AbleCheckItem)
+        {
+            ItemButton.gameObject.SetActive(false);
+        }
+
+        NextDayUI.gameObject.SetActive(false);
+        ChepoUI.gameObject.SetActive(false);
+
     }
 
     void Update()
     {
-        if (!isJosa && Input.GetKeyDown(KeyCode.Escape))
+        if (!isJosa && !isItem && Input.GetKeyDown(KeyCode.Escape))
         {
             TogglePause();
         }
-       
         if (!isPaused && isJosa && Input.GetKeyDown(KeyCode.Escape))
         {
             ToggleJosa();
         }
-        if (Input.GetKeyDown(KeyCode.E))
+        if (!isPaused && isItem && Input.GetKeyDown(KeyCode.Escape))
         {
-            ToggleJosa();
+            ToggleItem();
         }
     }
 
@@ -101,6 +113,7 @@ public class SystemUIManager : MonoBehaviour
         isGummun = !isGummun;
         keyGuideUI.SetActive(isGummun);
         Buttons.SetActive(isGummun);
+        if (GameMgr.Instance.AbleCheckItem) ItemButton.gameObject.SetActive(isGummun);
     }
     public void ToggleItem()
     {
@@ -148,7 +161,8 @@ public class SystemUIManager : MonoBehaviour
     public void OnClickPassButton()
     {
         IsPass = true;
-        npcid = NpcManager.Instance.CheckRadiusNPC(NpcManager.Instance.GatePoint.position);
+        PPoint = GameObject.FindGameObjectWithTag("Player").transform.position;
+        npcid = NpcManager.Instance.CheckRadiusNPC(PPoint);
 
         if (!GameMgr.Instance.AbleGetMoney)
         {
@@ -163,7 +177,8 @@ public class SystemUIManager : MonoBehaviour
     public void OnClickDeninedButton()
     {
         IsPass = false;
-        npcid = NpcManager.Instance.CheckRadiusNPC(NpcManager.Instance.GatePoint.position);
+        PPoint = GameObject.FindGameObjectWithTag("Player").transform.position;
+        npcid = NpcManager.Instance.CheckRadiusNPC(PPoint);
         if (!GameMgr.Instance.AbleGetMoney)
         {
             DecideGate(npcid, IsPass);

@@ -9,8 +9,12 @@ public class NpcQueueMananger : MonoBehaviour
 {
     public List<Transform> Positions;
     public Transform GatePostion;
+    private bool isProcessingNPC = false;
 
     public Queue<Npc> npcQueue = new Queue<Npc>();
+
+    private float lastDequeueTime = 0f;
+    public float dequeueCooldown = 10.0f;
 
     private void Start()
     {
@@ -20,7 +24,7 @@ public class NpcQueueMananger : MonoBehaviour
     IEnumerator DelayedStart()
     {
         // 1초 대기
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(2.0f);
 
         GameObject[] NPCList = GameObject.FindGameObjectsWithTag("NPC");
 
@@ -35,41 +39,57 @@ public class NpcQueueMananger : MonoBehaviour
                 // 현재 줄에 있는 NPC의 위치로 이동
                 NpcManager.Instance.ChangeToWalk(npc.ID, Positions[npcQueue.Count() - 1].position);
             }
-
         }
-
-        // 지연 후 실행할 코드
-        //Debug.Log("Start 함수 이후 1초 뒤에 실행");
     }
-
 
     void Update()
     {
-       
         if (Input.GetKeyDown(KeyCode.B))
         {
-            // 스페이스 키를 누를 때마다 NPC 큐에 NPC 삭제
             DequeueNPC();
         }
-        
     }
-
 
     public void DequeueNPC()
     {
+
+        if (Time.time - lastDequeueTime < dequeueCooldown) return; // 쿨타임 이전이면 return;
+        if (isProcessingNPC) return; // 연속 두번눌림 방지
+        isProcessingNPC = true;
+
+        if (NpcManager.Instance.CheckGate(GatePostion.position))
+        {
+            isProcessingNPC = false;
+            return;
+        }
+
         if (npcQueue.Count > 0)
         {
             // 큐에서 NPC 제거
             Npc leavingNPC = npcQueue.Dequeue();
             NpcManager.Instance.ChangeToWalk(leavingNPC.ID, GatePostion.position);
+            lastDequeueTime = Time.time;
 
             // 앞으로 당겨진 위치로 이동
             for (int i = 0; i < npcQueue.Count; i++)
             {
                 NpcManager.Instance.ChangeToWalk(npcQueue.ElementAt(i).ID, Positions[i].position);
             }
+
+            // 딜레이 후 플래그 초기화
+            StartCoroutine(ResetProcessingFlagAfterDelay());
+        }
+        else
+        {
+            // 큐가 비어있으면 플래그 초기화
+            isProcessingNPC = false;
         }
     }
 
+    private IEnumerator ResetProcessingFlagAfterDelay()
+    {
+        yield return new WaitForSeconds(2.0f);
+        isProcessingNPC = false;
+    }
 }
 

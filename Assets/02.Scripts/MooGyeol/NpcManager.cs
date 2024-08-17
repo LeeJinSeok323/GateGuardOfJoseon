@@ -25,9 +25,9 @@ public class NpcManager : MonoBehaviour
 
     private enum VilranType
     {
-        Name, //ÀÌ¸§
-        Age, //³ªÀÌ
-        Home //Áö¿ª
+        Name, //ï¿½Ì¸ï¿½
+        Age, //ï¿½ï¿½ï¿½ï¿½
+        Home //ï¿½ï¿½ï¿½ï¿½
     }
 
     public Vector3 PassPoint;
@@ -57,7 +57,7 @@ public class NpcManager : MonoBehaviour
 
     private void Awake()
     {
-        // ¸¸¾à ÀÎ½ºÅÏ½º°¡ ÀÌ¹Ì Á¸ÀçÇÏ°í ÇöÀç ÀÎ½ºÅÏ½º¿Í ´Ù¸£´Ù¸é, Áßº¹µÈ ÀÎ½ºÅÏ½º¸¦ ÆÄ±«
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½Î½ï¿½ï¿½Ï½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Î½ï¿½ï¿½Ï½ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½Ù¸ï¿½, ï¿½ßºï¿½ï¿½ï¿½ ï¿½Î½ï¿½ï¿½Ï½ï¿½ï¿½ï¿½ ï¿½Ä±ï¿½
         if (_instance != null && _instance != this)
         {
             Destroy(this.gameObject);
@@ -76,7 +76,7 @@ public class NpcManager : MonoBehaviour
 
     public GameObject CreateNPC(NpcCreateParameter parm)
     {
-        //·ÎµåµÈ Å×ÀÌºí¿¡¼­ Type¿Í NpcNumber ÁöÁ¤
+        //ï¿½Îµï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ï¿½ï¿½ Typeï¿½ï¿½ NpcNumber ï¿½ï¿½ï¿½ï¿½
         GameObject npc = null;
         
         //Debug.Log($"NpcManager pram.Status = {parm.Status}");
@@ -85,15 +85,15 @@ public class NpcManager : MonoBehaviour
             case NpcType.Stay:
                 switch (parm.Status)
                 {   
-                    case "Ãµ¹Î":
+                    case "ì²œë¯¼":
                         npc = GameObject.Instantiate(StayNpc1);
                     break;
 
-                    case "¾çÀÎ":
+                    case "ìƒë¯¼":
                         npc = GameObject.Instantiate(StayNpc2);
                     break;
 
-                    case "»ó¹Î":
+                    case "ì¤‘ì¸":
                         npc = GameObject.Instantiate(StayNpc3);
                     break;
                     default:
@@ -104,11 +104,11 @@ public class NpcManager : MonoBehaviour
             case NpcType.Patrol:
                 switch (parm.Status)
                 {
-                    case "Ãµ¹Î":
+                    case "ì²œë¯¼":
                         npc = GameObject.Instantiate(PatrolNpc1);
                     break;
 
-                    case "¾çÀÎ":
+                    case "ìƒë¯¼":
                         npc = GameObject.Instantiate(PatrolNpc2);
                     break;
                     default:
@@ -119,23 +119,23 @@ public class NpcManager : MonoBehaviour
             case NpcType.Gate:
                 switch (parm.Status)
                 {
-                    case "Ãµ¹Î":
+                    case "ì²œë¯¼":
                         npc = GameObject.Instantiate(GateNpc1);
                     break;
 
-                    case "¾çÀÎ":
+                    case "ì–‘ë¯¼":
                         npc = GameObject.Instantiate(GateNpc2);
                     break;
 
-                    case "»ó¹Î":
+                    case "ìƒë¯¼":
                         npc = GameObject.Instantiate(GateNpc3);
                     break;
 
-                    case "ÁßÀÎ":
+                    case "ì¤‘ì¸":
                         npc = GameObject.Instantiate(GateNpc4);
                     break;
 
-                    case "¾ç¹İ":
+                    case "ì–‘ë°˜":
                         npc = GameObject.Instantiate(GateNpc5);
                     break;
                     default:
@@ -180,7 +180,7 @@ public class NpcManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("GameObject¿¡¼­ Npc ÄÄÆ÷³ÍÆ®¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù: " + npc.name);
+            Debug.LogWarning("GameObjectï¿½ï¿½ï¿½ï¿½ Npc ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½: " + npc.name);
         }
     }
 
@@ -222,10 +222,10 @@ public class NpcManager : MonoBehaviour
 
     IEnumerator DeactivateGameObjectWithDelay(GameObject npc)
     {
-        yield return new WaitForSeconds(10f); // 3ÃÊ ´ë±â
+        yield return new WaitForSeconds(10f); // 3ï¿½ï¿½ ï¿½ï¿½ï¿½
         if(npc != null)
         {
-            npc.gameObject.SetActive(false); // °ÔÀÓ ¿ÀºêÁ§Æ® ºñÈ°¼ºÈ­
+            npc.gameObject.SetActive(false); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½È°ï¿½ï¿½È­
         }
         
     }
@@ -312,7 +312,7 @@ public class NpcManager : MonoBehaviour
         if (gate == null) return;
         if (gate.state != NpcBehavior_Gate.State.IDLE) return;
         
-        if(villain && GameMgr.Instance.AbleRunNpc && isRun) //75% È®À²·Î °ÅÀı´çÇßÀ» ¶§ ¶Ù¾îµé¾î°¨
+        if(villain && GameMgr.Instance.AbleRunNpc && isRun) //75% È®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ù¾ï¿½ï¿½î°¨
         {
             gate.currentTarget = RunPoint;
             gate.state = NpcBehavior_Gate.State.RUN;
@@ -350,7 +350,7 @@ public class NpcManager : MonoBehaviour
 
     public void ClearNPCs()
     {
-        // ¸®½ºÆ®¿¡ ÀÖ´Â NPCµéÀ» Á¤¸®ÇÕ´Ï´Ù.
+        // ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ö´ï¿½ NPCï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
         foreach (GameObject npc in npcs)
         {
             if (npc != null)
@@ -364,7 +364,7 @@ public class NpcManager : MonoBehaviour
     public void SetParameters(ref NpcCreateParameter[] npcArray, NpcType type, int npcNumber)
     {
         NpcInfoGenerater n = NpcInfoGenerater.Instance;
-        int npcCnt = Random.Range(20, 50);
+        int npcCnt = GameMgr.Instance.NpcID;
 
         npcArray = new NpcCreateParameter[npcNumber];
 
@@ -403,13 +403,15 @@ public class NpcManager : MonoBehaviour
 
             npcCnt++;
         }
+
+        GameMgr.Instance.NpcID = npcCnt;
     }
 
     public void CreateBoolGateNpc(ref NpcCreateParameter npc, NpcType type, bool vilran)
     {
-        // ¼±ÅÃÇÑ Âü, °ÅÁş Npc »ı¼º
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ Npc ï¿½ï¿½ï¿½ï¿½
         NpcInfoGenerater n = NpcInfoGenerater.Instance;
-        int npcCnt = Random.Range(20, 60);
+        int npcCnt = GameMgr.Instance.NpcID;
 
         bool isVilran = vilran;
         string name = n.nameTable[npcCnt];
@@ -441,12 +443,14 @@ public class NpcManager : MonoBehaviour
             dailyRoutine,
             isVilran
         );
+
+        GameMgr.Instance.AddNpcID();
     }
 
     public void SetPlagueParameters(ref NpcCreateParameter npc, NpcType type, string vilage)
     {
         NpcInfoGenerater n = NpcInfoGenerater.Instance;
-        int npcCnt = Random.Range(30, 60);
+        int npcCnt = GameMgr.Instance.NpcID;
         n.homeTable[npcCnt] = vilage;
 
         bool isVilran = true;
@@ -474,6 +478,8 @@ public class NpcManager : MonoBehaviour
             dailyRoutine,
             isVilran
             );
+
+        GameMgr.Instance.AddNpcID();
     }
 
 
@@ -498,7 +504,7 @@ public class NpcManager : MonoBehaviour
     public void SetAlcoholParameters(ref NpcCreateParameter Alcoholnpc, NpcType type)
     {
         NpcInfoGenerater n = NpcInfoGenerater.Instance;
-        int npcCnt = Random.Range(30, 70);
+        int npcCnt = GameMgr.Instance.NpcID;
 
         bool isVilran = true;
         string name = n.nameTable[npcCnt];
@@ -508,7 +514,7 @@ public class NpcManager : MonoBehaviour
         string home = n.homeTable[npcCnt];
         string job = n.jobTable[npcCnt];
         string passPurpose = n.passPurposeTable[npcCnt];
-        string item = n.itemTable[npcCnt] + ", ¼ú";
+        string item = n.itemTable[npcCnt] + ", ìˆ ";
         string dailyRoutine = n.npcDailyTable[npcCnt];
 
 
@@ -526,12 +532,14 @@ public class NpcManager : MonoBehaviour
             dailyRoutine,
             isVilran
             );
+
+        GameMgr.Instance.AddNpcID();
     }
 
     public void SetDangerParameters(ref NpcCreateParameter DangerNpc, NpcType type)
     {
         NpcInfoGenerater n = NpcInfoGenerater.Instance;
-        int npcCnt = Random.Range(30, 70);
+        int npcCnt = GameMgr.Instance.NpcID;
 
         int vilran = Random.Range(0, 3);
 
@@ -549,13 +557,13 @@ public class NpcManager : MonoBehaviour
         switch (vilran)
         {
             case 0:
-                item += ", ¾ÆÆí";
+                item += ", ë§ˆì•½";
                 break;
             case 1:
-                item += ", µµ°Ë";
+                item += ", ë„ê²€";
                 break;
             case 2:
-                item += ", ¾ÆÆí, µµ°Ë";
+                item += ", ë§ˆì•½, ë„ê²€";
                 break;
         }
 
@@ -573,6 +581,8 @@ public class NpcManager : MonoBehaviour
             dailyRoutine,
             isVilran
             );
+
+        GameMgr.Instance.AddNpcID();
     }
 
     public List<GameObject> GetNpc()
@@ -624,5 +634,23 @@ public class NpcManager : MonoBehaviour
 
         return closestNPC.GetComponent<Npc>();
 
+    }
+
+    public bool CheckGate(Vector3 position)
+    {
+        Collider[] colliders = Physics.OverlapSphere(position, 8.0f);
+        if (colliders.Length > 0)
+        {
+            for (int i = 0; i < colliders.Length; i++)
+            {
+                Npc npcComponent = colliders[i].GetComponent<Npc>();
+                if (npcComponent != null)
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 }
