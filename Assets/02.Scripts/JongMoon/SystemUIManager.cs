@@ -16,6 +16,7 @@ public class SystemUIManager : MonoBehaviour
     public GameObject GetMoneyObj;
     public GameObject ItemButton;
 
+    public GameObject NextNpc;
     public GameObject NextDayUI;
     public GameObject ChepoUI;
 
@@ -63,6 +64,7 @@ public class SystemUIManager : MonoBehaviour
             ItemButton.gameObject.SetActive(false);
         }
 
+        NextNpc.gameObject.SetActive(false);
         NextDayUI.gameObject.SetActive(false);
         ChepoUI.gameObject.SetActive(false);
 
@@ -82,6 +84,21 @@ public class SystemUIManager : MonoBehaviour
         {
             ToggleItem();
         }
+
+        if(GameMgr.Instance.AbleNextDay == true)
+        {
+            NextDayUI.gameObject.SetActive(true);
+        }
+
+        if(GameMgr.Instance.isNextNpc != true)
+        {
+            NextNpc.gameObject.SetActive(true);
+        }
+        else
+        {
+            NextNpc.gameObject.SetActive(true);
+        }
+            
     }
 
     public void TogglePause()
@@ -142,8 +159,10 @@ public class SystemUIManager : MonoBehaviour
 
     public void DisDelegate(ref List<GameObject> npcs)
     {
+        if (npcs == null) return;
         foreach (GameObject npc in npcs)
         {
+            if (npc == null) continue;
             ShowKeyPopUp npcScript = npc.GetComponent<ShowKeyPopUp>();
             if (npcScript != null)
             {

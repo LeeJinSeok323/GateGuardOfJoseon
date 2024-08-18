@@ -1,9 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Playables;
-using UnityEngine.SceneManagement;
 
 public class StageManager : MonoBehaviour
 {
@@ -47,12 +42,18 @@ public class StageManager : MonoBehaviour
         _stageContext.LoadStage();
     }
 
+    private void OnDestroy()
+    {
+        OnChangeScene();
+    }
+
+
     public void OnChangeScene()
     {
         _stageContext.UnloadStage();
+        if(Player != null) Destroy(Player);
         NpcManager.Instance.ClearNPCs();
-        Destroy(Player);
-        SceneManager.LoadScene("Calculate_Scene");
+        
     }
 
 }

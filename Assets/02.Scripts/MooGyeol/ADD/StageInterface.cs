@@ -1,8 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Xml.Serialization;
 using UnityEngine;
-using UnityEngine.Playables;
 using static NpcCreateParameter;
 
 public interface IStageStrategy
@@ -89,9 +86,14 @@ public class Stage1Strategy : MonoBehaviour, IStageStrategy
 
     public void LoadStage()
     {
+        // 초기화
+        GameMgr.Instance.InitUI();
+        GameMgr.Instance.InitLight();
+
         //Npc 추가 작업
         _shareFunction.CreateBoolGateNpc(false); // 일반 Npc
         _shareFunction.CreateBoolGateNpc(true); // 빌런 Npc
+        _shareFunction.CreateGateNpc(3);
 
         // UI 델리게이트 작업
         UI = GameObject.FindWithTag("UIManager").GetComponent<SystemUIManager>();
@@ -117,6 +119,10 @@ public class Stage2Strategy : MonoBehaviour, IStageStrategy
 
     public void LoadStage()
     {
+        // 초기화
+        GameMgr.Instance.InitUI();
+        GameMgr.Instance.InitLight();
+
         //Npc 추가 작업
         _shareFunction.CreateGateNpc(5); //기본 GateNpc 5명
 
@@ -144,6 +150,10 @@ public class Stage3Strategy : MonoBehaviour, IStageStrategy
 
     public void LoadStage()
     {
+        // 초기화
+        GameMgr.Instance.InitUI();
+        GameMgr.Instance.InitLight();
+
         //게임 설정
         GameMgr.Instance.AbleCheckItem = true;
 
@@ -176,6 +186,10 @@ public class Stage4Strategy : MonoBehaviour, IStageStrategy
 
     public void LoadStage()
     {
+        // 초기화
+        GameMgr.Instance.InitUI();
+        GameMgr.Instance.InitLight();
+
         //게임 설정
         GameMgr.Instance.AbleRunNpc = true;
 
@@ -210,6 +224,10 @@ public class Stage5Strategy : MonoBehaviour, IStageStrategy
 
     public void LoadStage()
     {
+        // 초기화
+        GameMgr.Instance.InitUI();
+        GameMgr.Instance.InitLight();
+
         //기능 해금 설정
         GameMgr.Instance.AbleGetMoney = true;
         GameMgr.Instance.AblePlague = true;
@@ -247,6 +265,10 @@ public class Stage6Strategy : MonoBehaviour, IStageStrategy
 
     public void LoadStage()
     {
+        // 초기화
+        GameMgr.Instance.InitUI();
+        GameMgr.Instance.InitLight();
+
         //Npc 추가 작업
         _shareFunction.CreateDangerNpc();
         _shareFunction.CreateAlcolNpc(false);
@@ -277,6 +299,10 @@ public class Stage7Strategy : MonoBehaviour, IStageStrategy
 
     public void LoadStage()
     {
+        // 초기화
+        GameMgr.Instance.InitUI();
+        GameMgr.Instance.InitLight();
+
         // 역병지역 변경
         GameMgr.Instance.SetPlagueVilage();
 

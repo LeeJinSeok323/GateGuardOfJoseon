@@ -1,7 +1,5 @@
-using RoslynCSharp.Example;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameMgr : MonoBehaviour
 {
@@ -36,14 +34,16 @@ public class GameMgr : MonoBehaviour
         }
     }
 
-    // *중요) stageNum은 시작할때 해당 스테이지 생성후 바로 +1 하도록 만들었음
-
+    /// <summary>
+    /// 변수들
+    /// </summary>
     public int townHappinessPoint = 40; // 마을 행복도
     public int bossSatisfaction = 30; // 탐관오리 만족도
     public int money = 0;
     public int stageNum = 1;
     public string PlageVilage = "";
     public int NpcID = 0;
+    public bool isNextNpc = false;
 
     // 스테이지 설정
     public bool AbleCheckItem = false;
@@ -53,6 +53,10 @@ public class GameMgr : MonoBehaviour
     public bool AbleChepo = true; //체포 해금
     public bool AbleNextDay = true; // 정산 해금
 
+    //할당
+    private Light mainLight;
+    public GameObject UI;
+
     public void SetPlagueVilage()
     {
         int n = Random.Range(0, 8);
@@ -60,7 +64,6 @@ public class GameMgr : MonoBehaviour
         PlageVilage = s[n];
         Debug.Log(PlageVilage);
     }
-
 
     public int GetStageNum()
     {
@@ -79,5 +82,51 @@ public class GameMgr : MonoBehaviour
     public void ResetNpcID()
     {
         NpcID = 0;
+    }
+
+    public void ChangeSence()
+    {
+        SceneManager.LoadScene("Calculate_Scene");
+    }
+
+    public void InitUI()
+    {
+        UI.SetActive(true);
+    }
+
+    private float Angle = 80;
+    private float MaxAngle = 80;
+
+    private void Update()
+    {
+        if(AbleNextDay && Input.GetKeyDown(KeyCode.P))
+        {
+            SceneManager.LoadScene("Calculate_Scene");
+        }
+    }
+
+    void FixedUpdate()
+    {
+        if (mainLight == null) { return; }
+
+        if (Angle > MaxAngle) Angle = MaxAngle;
+        Angle += Time.deltaTime *2.0f;
+        mainLight.transform.rotation = Quaternion.Euler(Angle, 80, 0);
+
+        if (Angle > 170) AbleNextDay = true;
+    }
+
+    public void InitLight()
+    {
+        AbleNextDay = false;
+        mainLight = GameObject.Find("Directional Light").GetComponent<Light>(); 
+        Angle = 80;
+        MaxAngle = 80;
+    }
+
+    public void AddMaxLightAngle()
+    {
+        MaxAngle += 20;
+        if (MaxAngle > 180) MaxAngle = 180;
     }
 }

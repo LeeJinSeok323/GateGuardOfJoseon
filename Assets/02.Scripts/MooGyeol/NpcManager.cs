@@ -557,13 +557,13 @@ public class NpcManager : MonoBehaviour
         switch (vilran)
         {
             case 0:
-                item += ", 마약";
+                item += ", 아편";
                 break;
             case 1:
                 item += ", 도검";
                 break;
             case 2:
-                item += ", 마약, 도검";
+                item += ", 아편, 도검";
                 break;
         }
 
@@ -650,7 +650,6 @@ public class NpcManager : MonoBehaviour
                 }
             }
         }
-
         return false;
     }
 }

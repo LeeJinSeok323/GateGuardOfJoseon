@@ -42,7 +42,7 @@ public class NpcQueueMananger : MonoBehaviour
         }
     }
 
-    void Update()
+    private void FixedUpdate()
     {
         if (Input.GetKeyDown(KeyCode.B))
         {
@@ -52,7 +52,6 @@ public class NpcQueueMananger : MonoBehaviour
 
     public void DequeueNPC()
     {
-
         if (Time.time - lastDequeueTime < dequeueCooldown) return; // 쿨타임 이전이면 return;
         if (isProcessingNPC) return; // 연속 두번눌림 방지
         isProcessingNPC = true;
@@ -60,29 +59,26 @@ public class NpcQueueMananger : MonoBehaviour
         if (NpcManager.Instance.CheckGate(GatePostion.position))
         {
             isProcessingNPC = false;
+            GameMgr.Instance.isNextNpc = false;
             return;
         }
 
+
         if (npcQueue.Count > 0)
         {
-            // 큐에서 NPC 제거
+            // 큐에서 NPC 제거 후 GatePoint 보내기
             Npc leavingNPC = npcQueue.Dequeue();
             NpcManager.Instance.ChangeToWalk(leavingNPC.ID, GatePostion.position);
+            GameMgr.Instance.AddMaxLightAngle(); //시간이 흐르게 만듬
             lastDequeueTime = Time.time;
+
+            StartCoroutine(ResetProcessingFlagAfterDelay());
 
             // 앞으로 당겨진 위치로 이동
             for (int i = 0; i < npcQueue.Count; i++)
             {
                 NpcManager.Instance.ChangeToWalk(npcQueue.ElementAt(i).ID, Positions[i].position);
             }
-
-            // 딜레이 후 플래그 초기화
-            StartCoroutine(ResetProcessingFlagAfterDelay());
-        }
-        else
-        {
-            // 큐가 비어있으면 플래그 초기화
-            isProcessingNPC = false;
         }
     }
 
