@@ -194,8 +194,9 @@ public class Stage4Strategy : MonoBehaviour, IStageStrategy
         GameMgr.Instance.AbleRunNpc = true;
 
         //Npc 추가 작업
+
+        _shareFunction.CreateBoolGateNpc(true);
         _shareFunction.CreateGateNpc(1); // 기본GateNpc 
-        _shareFunction.CreateBoolGateNpc(false); 
         _shareFunction.CreateAlcolNpc(true); // 알콜 Npc
         _shareFunction.CreateGateNpc(2);  
 

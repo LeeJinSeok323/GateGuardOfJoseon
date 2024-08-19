@@ -638,7 +638,7 @@ public class NpcManager : MonoBehaviour
 
     public bool CheckGate(Vector3 position)
     {
-        Collider[] colliders = Physics.OverlapSphere(position, 8.0f);
+        Collider[] colliders = Physics.OverlapSphere(position, 6.0f);
         if (colliders.Length > 0)
         {
             for (int i = 0; i < colliders.Length; i++)

@@ -170,16 +170,16 @@ MonoBehaviour:
   townHappinessPoint: 40
   bossSatisfaction: 30
   money: 0
-  stageNum: 1
+  stageNum: 4
   PlageVilage: 
-  NpcID: 0
-  isNextNpc: 0
+  catchCnt: 0
   AbleCheckItem: 0
   AbleRunNpc: 0
   AbleGetMoney: 0
   AblePlague: 0
   AbleChepo: 1
   AbleNextDay: 1
+  NpcID: 0
   UI: {fileID: 6571837185187058380}
 --- !u!4 &29897230 stripped
 Transform:
@@ -6420,7 +6420,6 @@ MonoBehaviour:
   - {fileID: 1102270684}
   - {fileID: 1530086138}
   GatePostion: {fileID: 679610738}
-  dequeueCooldown: 2
 --- !u!114 &2064044715643934527
 MonoBehaviour:
   m_ObjectHideFlags: 0

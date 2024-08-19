@@ -42,8 +42,7 @@ public class GameMgr : MonoBehaviour
     public int money = 0;
     public int stageNum = 1;
     public string PlageVilage = "";
-    public int NpcID = 0;
-    public bool isNextNpc = false;
+    public int catchCnt = 0;
 
     // 스테이지 설정
     public bool AbleCheckItem = false;
@@ -54,6 +53,7 @@ public class GameMgr : MonoBehaviour
     public bool AbleNextDay = true; // 정산 해금
 
     //할당
+    public int NpcID = 0;
     private Light mainLight;
     public GameObject UI;
 
@@ -113,7 +113,7 @@ public class GameMgr : MonoBehaviour
         Angle += Time.deltaTime *2.0f;
         mainLight.transform.rotation = Quaternion.Euler(Angle, 80, 0);
 
-        if (Angle > 170) AbleNextDay = true;
+        if (Angle > 185) AbleNextDay = true;
     }
 
     public void InitLight()
@@ -127,6 +127,10 @@ public class GameMgr : MonoBehaviour
     public void AddMaxLightAngle()
     {
         MaxAngle += 20;
-        if (MaxAngle > 180) MaxAngle = 180;
+        if (MaxAngle > 185) MaxAngle = 185;
+    }
+    public void AddMaxLight()
+    {
+        MaxAngle++;
     }
 }

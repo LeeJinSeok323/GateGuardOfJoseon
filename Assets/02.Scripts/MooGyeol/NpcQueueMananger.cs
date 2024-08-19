@@ -13,9 +13,6 @@ public class NpcQueueMananger : MonoBehaviour
 
     public Queue<Npc> npcQueue = new Queue<Npc>();
 
-    private float lastDequeueTime = 0f;
-    public float dequeueCooldown = 10.0f;
-
     private void Start()
     {
         StartCoroutine(DelayedStart());
@@ -52,17 +49,14 @@ public class NpcQueueMananger : MonoBehaviour
 
     public void DequeueNPC()
     {
-        if (Time.time - lastDequeueTime < dequeueCooldown) return; // 쿨타임 이전이면 return;
         if (isProcessingNPC) return; // 연속 두번눌림 방지
         isProcessingNPC = true;
 
         if (NpcManager.Instance.CheckGate(GatePostion.position))
         {
             isProcessingNPC = false;
-            GameMgr.Instance.isNextNpc = false;
             return;
         }
-
 
         if (npcQueue.Count > 0)
         {
@@ -70,22 +64,23 @@ public class NpcQueueMananger : MonoBehaviour
             Npc leavingNPC = npcQueue.Dequeue();
             NpcManager.Instance.ChangeToWalk(leavingNPC.ID, GatePostion.position);
             GameMgr.Instance.AddMaxLightAngle(); //시간이 흐르게 만듬
-            lastDequeueTime = Time.time;
-
-            StartCoroutine(ResetProcessingFlagAfterDelay());
 
             // 앞으로 당겨진 위치로 이동
             for (int i = 0; i < npcQueue.Count; i++)
             {
                 NpcManager.Instance.ChangeToWalk(npcQueue.ElementAt(i).ID, Positions[i].position);
             }
+
+            StartCoroutine(ResetProcessingFlagAfterDelay());
         }
+
     }
 
     private IEnumerator ResetProcessingFlagAfterDelay()
     {
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(5.0f);
         isProcessingNPC = false;
     }
+
 }
 

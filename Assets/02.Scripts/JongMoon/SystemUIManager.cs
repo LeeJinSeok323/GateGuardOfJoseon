@@ -64,7 +64,7 @@ public class SystemUIManager : MonoBehaviour
             ItemButton.gameObject.SetActive(false);
         }
 
-        NextNpc.gameObject.SetActive(false);
+        NextNpc.gameObject.SetActive(true);
         NextDayUI.gameObject.SetActive(false);
         ChepoUI.gameObject.SetActive(false);
 
@@ -85,18 +85,13 @@ public class SystemUIManager : MonoBehaviour
             ToggleItem();
         }
 
-        if(GameMgr.Instance.AbleNextDay == true)
+        if(GameMgr.Instance.AbleNextDay == true && !isJosa)
         {
             NextDayUI.gameObject.SetActive(true);
         }
-
-        if(GameMgr.Instance.isNextNpc != true)
+        if(GameMgr.Instance.AbleChepo)
         {
-            NextNpc.gameObject.SetActive(true);
-        }
-        else
-        {
-            NextNpc.gameObject.SetActive(true);
+            ChepoUI.gameObject.SetActive(true);
         }
             
     }
@@ -175,6 +170,7 @@ public class SystemUIManager : MonoBehaviour
     {
         if (isPass) { NpcManager.Instance.PassGate(id); }
         else { NpcManager.Instance.DeninedGate(id); }
+        GameMgr.Instance.AddMaxLight();
     }
 
     public void OnClickPassButton()
