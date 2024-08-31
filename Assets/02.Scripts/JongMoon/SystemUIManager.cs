@@ -89,6 +89,11 @@ public class SystemUIManager : MonoBehaviour
         {
             NextDayUI.gameObject.SetActive(true);
         }
+        else
+        {
+            NextDayUI.gameObject.SetActive(false);
+        }
+
         if(GameMgr.Instance.AbleChepo)
         {
             ChepoUI.gameObject.SetActive(true);
@@ -187,6 +192,9 @@ public class SystemUIManager : MonoBehaviour
         {
             GetmoneyUI(); //수금 UI 띄움
         }
+
+        //검사가 틀렸을때 misscnt++
+        NpcManager.Instance.CheckGate(false, npcid);
     }
 
     public void OnClickDeninedButton()
@@ -202,6 +210,9 @@ public class SystemUIManager : MonoBehaviour
         {
             GetmoneyUI(); //수금 UI 띄움
         }
+
+        //검사가 틀렸을때 misscnt++
+        NpcManager.Instance.CheckGate(true, npcid);
     }
     public void OnGetMoneyButton()
     {
@@ -210,14 +221,17 @@ public class SystemUIManager : MonoBehaviour
         StartCoroutine(DelayDecide());
 
         GameMgr.Instance.money += 100;
-        // TODO 마을 행복도 감소
+        // 행복도 감소
+        GameMgr.Instance.townHappinessPoint -= 20;
     }
 
     public void OnNonMoneyButton()
     {
         GetMoneyObj.SetActive(false);
         StartCoroutine(DelayDecide());
-        //TODO 마을 행복도 증가
+
+        // 행복도 증가
+        GameMgr.Instance.townHappinessPoint += 10;
     }
 
     IEnumerator DelayDecide()

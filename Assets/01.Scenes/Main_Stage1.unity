@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 645dd4af72b864846af02c05e3571462, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1733878, g: 0.21673879, b: 0.29880896, a: 1}
+  m_IndirectSpecularColor: {r: 0.5286527, g: 0.83345836, b: 0.9963217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -181,6 +181,8 @@ MonoBehaviour:
   AbleNextDay: 1
   NpcID: 0
   UI: {fileID: 6571837185187058380}
+  daySkybox: {fileID: 2100000, guid: 645dd4af72b864846af02c05e3571462, type: 2}
+  sunsetSkybox: {fileID: 2100000, guid: 0a5fc37f3e4d78749a494a4efb15ef0f, type: 2}
 --- !u!4 &29897230 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7290069235543110715, guid: 26681b13242f1f04ab2e06fb45339880,

@@ -87,6 +87,7 @@ public class Stage1Strategy : MonoBehaviour, IStageStrategy
     public void LoadStage()
     {
         // 초기화
+        GameMgr.Instance.InitValue();
         GameMgr.Instance.InitUI();
         GameMgr.Instance.InitLight();
 
@@ -120,6 +121,7 @@ public class Stage2Strategy : MonoBehaviour, IStageStrategy
     public void LoadStage()
     {
         // 초기화
+        GameMgr.Instance.InitValue();
         GameMgr.Instance.InitUI();
         GameMgr.Instance.InitLight();
 
@@ -151,6 +153,7 @@ public class Stage3Strategy : MonoBehaviour, IStageStrategy
     public void LoadStage()
     {
         // 초기화
+        GameMgr.Instance.InitValue();
         GameMgr.Instance.InitUI();
         GameMgr.Instance.InitLight();
 
@@ -187,6 +190,7 @@ public class Stage4Strategy : MonoBehaviour, IStageStrategy
     public void LoadStage()
     {
         // 초기화
+        GameMgr.Instance.InitValue();
         GameMgr.Instance.InitUI();
         GameMgr.Instance.InitLight();
 
@@ -226,6 +230,7 @@ public class Stage5Strategy : MonoBehaviour, IStageStrategy
     public void LoadStage()
     {
         // 초기화
+        GameMgr.Instance.InitValue();
         GameMgr.Instance.InitUI();
         GameMgr.Instance.InitLight();
 
@@ -267,6 +272,7 @@ public class Stage6Strategy : MonoBehaviour, IStageStrategy
     public void LoadStage()
     {
         // 초기화
+        GameMgr.Instance.InitValue();
         GameMgr.Instance.InitUI();
         GameMgr.Instance.InitLight();
 
@@ -301,6 +307,7 @@ public class Stage7Strategy : MonoBehaviour, IStageStrategy
     public void LoadStage()
     {
         // 초기화
+        GameMgr.Instance.InitValue();
         GameMgr.Instance.InitUI();
         GameMgr.Instance.InitLight();
 

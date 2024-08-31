@@ -301,6 +301,18 @@ public class NpcManager : MonoBehaviour
         }
     }
 
+    public void CheckGate(bool correctValue, int id)
+    {
+        GameObject npc = FindNpcGameObjectById(id);
+        if (npc == null) return;
+        Npc n = npc.GetComponent<Npc>();
+        
+        if (correctValue != n.IsVillain)
+        {
+            GameMgr.Instance.missCnt++;
+        }
+    }
+
     public void DeninedGate(int id)
     {
         GameObject npc = FindNpcGameObjectById(id);
@@ -312,7 +324,7 @@ public class NpcManager : MonoBehaviour
         if (gate == null) return;
         if (gate.state != NpcBehavior_Gate.State.IDLE) return;
         
-        if(villain && GameMgr.Instance.AbleRunNpc && isRun) //75% Ȯ���� ���������� �� �پ��
+        if(villain && GameMgr.Instance.AbleRunNpc && isRun) // 거절시 75% 확률도 도망감
         {
             gate.currentTarget = RunPoint;
             gate.state = NpcBehavior_Gate.State.RUN;
